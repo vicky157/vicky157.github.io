@@ -7,7 +7,7 @@ body {
 
 #header {
 	height: 100vh;
-	background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://www.pexels.com/photo/blue-box-type-sedan-845405/);
+	background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://images.pexels.com/photos/845405/pexels-photo-845405.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
 	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;	
