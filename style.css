@@ -245,7 +245,7 @@ $speed: 0.6s
 .social-icon
   @include prefixer(background-clip, padding-box, webkit moz spec)
   @include box-sizing(border-box)
-  @include border-radius(3px)
+  @include border-radius(9px)
 
   @include transition-property(background-color)
   @include transition-duration(0.5s)
@@ -254,8 +254,8 @@ $speed: 0.6s
   background-color: #c4c4c4
   text-align: center
   display: inline-block
-  width: 40px
-  height: 38px
+  width: 60px
+  height: 50px
   padding: 9px 0px
   color: white
   margin: 2px
@@ -280,7 +280,7 @@ $speed: 0.6s
 /* TOOLTIP                      */
 /* ============================ */
 
-$tooltip-height: 22px
-$tooltip-arrow-size: 5px
+$tooltip-height: 30px
+$tooltip-arrow-size: 9px
 $tooltip-color: #323232
 $tooltip-color-text: #ecf0f1
