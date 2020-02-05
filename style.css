@@ -193,3 +193,94 @@ body {
 	height: 20px;
 	z-index: 1
 }
+// Importing bourbon to make things easy: http://bourbon.io/
+@import "bourbon"
+
+// Useful mixins
+@mixin border-radius($radius: 4px)
+  @include prefixer(border-radius, $radius, webkit moz spec)
+
+@mixin box-sizing($box-model)
+  @include prefixer(box-sizing, $box-model, webkit moz spec)
+    
+//useful for animation
+@include keyframes(fadeInRight)
+  0%
+    opacity: 0
+    @include transform(translateX(1.334em) translateZ(0))
+  100%
+    opacity: 1
+
+@mixin fadeInRight($dur: 1s, $delay: 0s, $fill: forwards)
+  @include prefixer(animation, fadeInRight $dur $delay $fill, webkit spec)
+
+    
+/* General styles */
+
+body
+  background-color: white
+  font-family: 'Lato', Arial, sans-serif
+  text-align: center
+  padding-top: 30px
+  
+h1
+  font-size: 2em
+  color: #666
+  
+h2, a
+  font-size: 1em
+  color: #77cc6d
+  
+.social
+  margin: 60px auto
+  
+/* ============================ */
+/* SOCIAL ICONS                 */
+/* ============================ */
+
+$color-base: #00B285
+$num-buttons: 7
+$speed: 0.6s
+
+.social-icon
+  @include prefixer(background-clip, padding-box, webkit moz spec)
+  @include box-sizing(border-box)
+  @include border-radius(3px)
+
+  @include transition-property(background-color)
+  @include transition-duration(0.5s)
+  @include transition-timing-function(ease)
+
+  background-color: #c4c4c4
+  text-align: center
+  display: inline-block
+  width: 40px
+  height: 38px
+  padding: 9px 0px
+  color: white
+  margin: 2px
+  
+  /* Color each button differently */
+  @for $i from 1 through $num-buttons
+    &:nth-child(#{$i})
+      /* Animation */
+      @include fadeInRight($speed, ($i/4) * 1s )
+      opacity: 0
+      /* Color */
+      &:hover,
+      &:active,
+      &:focus
+        opacity: 1
+        background-color: adjust-hue( $color-base, $i * 7%)
+  
+  img
+    width: 20px
+    
+/* ============================ */
+/* TOOLTIP                      */
+/* ============================ */
+
+$tooltip-height: 22px
+$tooltip-arrow-size: 5px
+$tooltip-color: #323232
+$tooltip-color-text: #ecf0f1
