@@ -1,0 +1,696 @@
+/* ---=== Global Styles & Variables ===--- */
+:root {
+    --font-primary: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    --font-secondary: 'Montserrat', 'Helvetica Neue', sans-serif;
+    
+    /* Light Mode - Light Grey, Royal Blue, and Blue (#0000FF) Glassy Theme */
+    --color-bg-light: #f0f2f5; /* Light Grey Background */
+    --color-text-light: #2c3e50; /* Dark Slate Grey for text for readability */
+    --color-text-secondary-light: #5a6f82; /* Muted Greyish Blue for secondary text */
+    
+    --color-royal-blue: #4169E1; /* Royal Blue */
+    --color-royal-blue-darker: #3557B8; /* Darker Royal Blue for hovers on Royal Blue elements */
+    --color-link-icon-specific-blue: #0000FF; /* Pure Blue for links and icons */
+
+    --glass-bg-light: rgba(235, 240, 245, 0.65); /* Light, slightly cool, semi-transparent for cards */
+    --glass-bg-navbar-light: rgba(225, 235, 240, 0.75); /* Slightly more opaque for navbar */
+    --glass-border-color-light: rgba(65, 105, 225, 0.35); /* Royal Blue tinted border */
+    --glass-shadow-light: rgba(65, 105, 225, 0.18); /* Royal Blue tinted shadow */
+
+    /* Dark Mode - Adapted Glassy Theme */
+    --color-bg-dark: #1a1d24; /* Dark Charcoal/Off-Black */
+    --color-text-dark: #e8eaed; /* Light Grey/Almost White for text */
+    --color-text-secondary-dark: #a0a7b3; /* Lighter Grey */
+
+    --color-royal-blue-dark-mode: #587FE7; /* Slightly brighter Royal Blue for dark mode */
+    --color-royal-blue-darker-dark-mode: #7A9AFF; /* Lighter for hovers in dark mode */
+    /* Using a slightly less saturated blue for links in dark mode for better readability than pure #0000FF */
+    --color-link-icon-specific-blue-dark-mode: #6699FF; 
+
+    --glass-bg-dark: rgba(40, 45, 58, 0.7); 
+    --glass-bg-navbar-dark: rgba(45, 50, 65, 0.8);
+    --glass-border-color-dark: rgba(88, 127, 231, 0.4); /* Royal Blue (dark mode version) tinted border */
+    --glass-shadow-dark: rgba(88, 127, 231, 0.15);
+
+
+    --border-radius-main: 16px; 
+    --border-radius-small: 10px;
+    --transition-speed: 0.3s;
+    --backdrop-blur-amount: 9px; /* Slightly increased blur */
+
+    --box-shadow-light: 0 8px 32px 0 var(--glass-shadow-light);
+    --box-shadow-dark: 0 8px 32px 0 var(--glass-shadow-dark);
+}
+
+/* Apply current theme colors */
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    background-color: var(--current-bg);
+    color: var(--current-text);
+    line-height: 1.7;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    overflow-x: hidden;
+    padding-top: 20px; 
+}
+
+/* ---=== Theme Setup ===--- */
+.light-mode {
+    --current-bg: var(--color-bg-light);
+    --current-text: var(--color-text-light);
+    --current-text-secondary: var(--color-text-secondary-light);
+    
+    --current-theme-accent: var(--color-royal-blue);
+    --current-theme-accent-hover: var(--color-royal-blue-darker);
+    --current-link-color: var(--color-link-icon-specific-blue); /* Specific blue for links */
+    --current-icon-color: var(--color-link-icon-specific-blue); /* Specific blue for icons */
+
+    --current-glass-bg: var(--glass-bg-light);
+    --current-glass-bg-navbar: var(--glass-bg-navbar-light);
+    --current-glass-border: var(--glass-border-color-light);
+    --current-box-shadow: var(--box-shadow-light);
+}
+
+.dark-mode {
+    --current-bg: var(--color-bg-dark);
+    --current-text: var(--color-text-dark);
+    --current-text-secondary: var(--color-text-secondary-dark);
+
+    --current-theme-accent: var(--color-royal-blue-dark-mode);
+    --current-theme-accent-hover: var(--color-royal-blue-darker-dark-mode);
+    --current-link-color: var(--color-link-icon-specific-blue-dark-mode); /* Adjusted blue for dark mode links */
+    --current-icon-color: var(--color-link-icon-specific-blue-dark-mode); /* Adjusted blue for dark mode icons */
+
+    --current-glass-bg: var(--glass-bg-dark);
+    --current-glass-bg-navbar: var(--glass-bg-navbar-dark);
+    --current-glass-border: var(--glass-border-color-dark);
+    --current-box-shadow: var(--box-shadow-dark);
+}
+
+/* ---=== Smooth Scrolling ===--- */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ---=== Basic Elements ===--- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-secondary);
+    color: var(--current-theme-accent); /* Headings use Royal Blue */
+    margin-top: 1.5em;
+    margin-bottom: 0.7em;
+    font-weight: 700;
+}
+h1 { font-size: 2.5em; text-align: center; }
+h2 { 
+    font-size: 2em; 
+    padding-bottom: 0.3em;
+    border-bottom: 2px solid var(--current-theme-accent); /* Royal Blue border */
+    margin-bottom: 1em;
+}
+h3 { font-size: 1.6em; color: var(--current-theme-accent); } /* Royal Blue */
+h4 { font-size: 1.3em; }
+
+p {
+    margin-bottom: 1.2em;
+    color: var(--current-text);
+}
+
+a {
+    color: var(--current-link-color); /* Specific Blue for links */
+    text-decoration: none;
+    transition: color var(--transition-speed) ease, opacity 0.2s ease-out;
+}
+
+a:hover, a:focus {
+    color: var(--current-link-color); /* Keep link color on hover */
+    opacity: 0.8; /* Slightly dim on hover for feedback */
+    text-decoration: underline;
+}
+
+/* Color for icons specifically */
+i.fas, i.fab, i.far, i.fal { /* Font Awesome classes */
+    color: var(--current-icon-color) !important; /* Specific Blue for icons, with !important if needed */
+}
+.btn i.fas, .btn i.fab { /* Icons inside buttons might need different color */
+    color: white !important; /* If button bg is Royal Blue, icon should be white */
+}
+.dark-mode .btn i.fas, .dark-mode .btn i.fab {
+     color: var(--color-bg-dark) !important; /* If button text is dark on light button in dark mode */
+}
+.btn-icon i.fas, .btn-icon i.fab {
+    color: var(--current-icon-color) !important; /* Icons in icon-buttons are standalone */
+}
+.btn-icon:hover i.fas, .btn-icon:hover i.fab {
+    color: var(--current-bg) !important; /* Contrasting icon color on btn-icon hover */
+}
+
+
+ul, ol {
+    margin-bottom: 1em;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-small);
+}
+
+/* ---=== Header & Island Navigation ===--- */
+header {
+    position: sticky; 
+    top: 0;
+    z-index: 1000;
+    padding: 20px 0; 
+    height: auto; 
+}
+
+nav {
+    max-width: 900px; 
+    margin: 0 auto; 
+    padding: 0.8em 1.5em; 
+    
+    background: var(--current-glass-bg-navbar);
+    backdrop-filter: blur(var(--backdrop-blur-amount));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur-amount)); 
+    border: 1px solid var(--current-glass-border);
+    border-radius: var(--border-radius-main); 
+    box-shadow: var(--current-box-shadow);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background var(--transition-speed) ease, border var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+
+nav .logo a {
+    font-family: var(--font-secondary);
+    font-size: 1.6em;
+    font-weight: bold;
+    color: var(--current-theme-accent); /* Logo uses Royal Blue */
+    text-decoration: none;
+    transition: transform 0.3s ease, color var(--transition-speed) ease;
+}
+nav .logo a:hover {
+    transform: scale(1.03);
+    color: var(--current-theme-accent-hover);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: var(--current-text); /* Nav links are standard text color, not link blue */
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.4em 0.7em;
+    border-radius: var(--border-radius-small);
+    transition: color var(--transition-speed) ease, background-color var(--transition-speed) ease, transform 0.2s ease;
+    position: relative;
+}
+.dark-mode nav ul li a {
+    color: var(--current-text-dark);
+}
+
+nav ul li a::after { 
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -3px;
+    left: 50%;
+    background-color: var(--current-theme-accent); /* Underline is Royal Blue */
+    transition: width 0.3s ease, left 0.3s ease, background-color var(--transition-speed) ease;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    width: 100%;
+    left: 0;
+}
+
+nav ul li a:hover, /* Hover for nav text links */
+nav ul li a.active {
+    color: var(--current-theme-accent); /* Nav links become Royal Blue on hover/active */
+}
+
+
+#theme-toggle, #mobile-menu-toggle {
+    background: none;
+    border: none;
+    color: var(--current-text); 
+    font-size: 1.4em;
+    cursor: pointer;
+    padding: 0.3em 0.5em;
+    border-radius: 50%;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.2s ease;
+}
+/* Ensure toggle icon itself is not blue unless intended */
+#theme-toggle i, #mobile-menu-toggle i {
+    color: var(--current-text) !important; /* Or a neutral grey */
+}
+.dark-mode #theme-toggle i, .dark-mode #mobile-menu-toggle i {
+    color: var(--current-text-dark) !important;
+}
+
+
+#theme-toggle:hover, #mobile-menu-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05); 
+    transform: scale(1.1);
+}
+.dark-mode #theme-toggle:hover, .dark-mode #mobile-menu-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#mobile-menu-toggle {
+    display: none;
+}
+#mobile-menu {
+    display: none;
+    background: var(--current-glass-bg-navbar);
+    backdrop-filter: blur(var(--backdrop-blur-amount));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur-amount));
+    border: 1px solid var(--current-glass-border);
+    border-radius: 0 0 var(--border-radius-main) var(--border-radius-main); 
+    box-shadow: var(--current-box-shadow);
+    margin: 5px auto 0; 
+    max-width: 860px; 
+    padding: 1em;
+    position: absolute; 
+    left: 0; right: 0; 
+    top: 100%; 
+}
+#mobile-menu.active { 
+    display: block;
+}
+
+#mobile-menu ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+#mobile-menu ul li { margin-bottom: 0.8em; }
+#mobile-menu ul li a { /* Mobile nav links use standard text color */
+    color: var(--current-text);
+    text-decoration: none;
+    font-size: 1.1em;
+    display: block;
+    padding: 0.5em;
+    border-radius: var(--border-radius-small);
+}
+.dark-mode #mobile-menu ul li a { color: var(--current-text-dark); }
+#mobile-menu ul li a:hover {
+    background-color: rgba(0,0,0,0.03);
+    color: var(--current-theme-accent); /* Becomes Royal Blue on hover */
+}
+.dark-mode #mobile-menu ul li a:hover { background-color: rgba(255,255,255,0.08); }
+
+
+/* ---=== Main Content & Glassy Cards ===--- */
+main {
+    max-width: 900px; 
+    margin: 2em auto;
+    padding: 0 20px;
+}
+
+.card-style, .content-section { 
+    background: var(--current-glass-bg);
+    backdrop-filter: blur(var(--backdrop-blur-amount));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur-amount));
+    border: 1px solid var(--current-glass-border);
+    padding: 25px 30px;
+    margin-bottom: 2.5em;
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--current-box-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background var(--transition-speed) ease, border var(--transition-speed) ease;
+}
+
+.card-style:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 12px 40px 0 var(--current-box-shadow); 
+}
+
+/* ---=== Home Page Specific ===--- */
+.hero-section { 
+    text-align: center;
+    padding: 2.5em 1.5em;
+    color: var(--current-text); 
+}
+.dark-mode .hero-section {
+    color: var(--current-text-dark);
+}
+.hero-section h1 { /* Name in hero */
+    color: var(--current-theme-accent); 
+    font-size: 3em;
+    margin-bottom: 0.2em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+.hero-section .subtitle, .hero-section .location { /* Ensure good contrast for subtitle */
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
+    color: var(--current-text); /* Main text color for readability on light glass */
+}
+.hero-section .location {
+    font-size: 1em;
+    margin-bottom: 1.5em;
+}
+.dark-mode .hero-section .subtitle, .dark-mode .hero-section .location {
+    color: var(--current-text-dark);
+}
+
+.hero-section .profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1em;
+    border: 3px solid var(--current-glass-border); 
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+.social-links {
+    margin-top: 1.5em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+/* Buttons use Royal Blue background */
+.social-links .btn, .btn { 
+    background-color: var(--current-theme-accent);
+    color: white; 
+    padding: 0.7em 1.4em;
+    border-radius: var(--border-radius-small);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.dark-mode .social-links .btn, .dark-mode .btn {
+     background-color: var(--current-theme-accent); 
+     color: var(--current-text-dark); /* Ensure text is light on dark mode buttons */
+}
+
+.social-links .btn:hover, .btn:hover {
+    background-color: var(--current-theme-accent-hover);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    color: white;
+    text-decoration: none;
+}
+.dark-mode .social-links .btn:hover, .dark-mode .btn:hover {
+    color: var(--current-text-dark);
+}
+
+/* Icon Button (PDF/Code) uses outline style with specific icon color */
+.btn-icon {
+    padding: 0.6em 1.1em;
+    background-color: transparent;
+    color: var(--current-link-color); /* Text of btn-icon is specific blue */
+    border: 1px solid var(--current-link-color); /* Border is specific blue */
+    border-radius: var(--border-radius-small);
+    transition: background-color var(--transition-speed), color var(--transition-speed), transform 0.2s ease, border-color var(--transition-speed) ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+.btn-icon i { margin-right: 4px; /* Icon inside will get its blue color from the global icon rule */ }
+
+.btn-icon:hover {
+    background-color: var(--current-link-color); /* Hover BG is specific blue */
+    color: var(--current-bg); /* Text contrasts with BG */
+    border-color: var(--current-link-color);
+    transform: translateY(-2px) scale(1.03);
+    text-decoration: none;
+}
+.btn-icon:hover i {
+    color: var(--current-bg) !important; /* Icon color on hover */
+}
+
+
+.news-list li {
+    border-left: 3px solid var(--current-theme-accent); /* Royal Blue */
+    padding-left: 15px;
+    margin-bottom: 1em;
+}
+.news-list .date {
+    font-weight: bold;
+    color: var(--current-text-secondary);
+    display: block;
+    font-size: 0.9em;
+}
+
+/* ---=== Publications Page ===--- */
+.publication-item {
+    margin-bottom: 2em;
+    padding-bottom: 1.5em;
+    border-bottom: 1px dashed var(--current-glass-border); 
+}
+.publication-item:last-child { border-bottom: none; }
+.publication-title { font-size: 1.4em; margin-bottom: 0.3em; color: var(--current-theme-accent);}
+.publication-authors { font-style: italic; color: var(--current-text-secondary); margin-bottom: 0.3em; }
+.publication-authors strong { color: var(--current-text); font-weight: bold; }
+.publication-venue { margin-bottom: 0.5em; }
+/* publication-links use .btn-icon, which is styled above */
+
+.interest-list li { margin-bottom: 0.8em; }
+
+/* ---=== Education & Experience Page ===--- */
+.entry {
+    margin-bottom: 2em;
+    position: relative;
+    padding-left: 25px;
+}
+.entry::before { 
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 8px; 
+    width: 12px;
+    height: 12px;
+    background: var(--current-theme-accent); /* Royal Blue */
+    border-radius: 50%;
+    border: 2px solid var(--current-bg); 
+}
+.entry h3 { margin-top: 0; margin-bottom: 0.2em; font-size: 1.3em; color: var(--current-theme-accent);}
+.entry .institution { font-weight: bold; color: var(--current-text-secondary); margin-bottom: 0.2em; }
+.entry .dates { font-size: 0.9em; color: var(--current-theme-accent); margin-bottom: 0.5em; } /* Royal Blue for dates */
+.entry ul { padding-left: 15px; list-style-type: disc; }
+.entry ul li { font-size: 0.95em; }
+.project-entry .tech-stack { font-style: italic; color: var(--current-text-secondary); margin-bottom: 0.5em; }
+.project-entry .project-date { float: right; font-size: 0.9em; color: var(--current-theme-accent); } /* Royal Blue */
+
+/* ---=== Blog Page ===--- */
+.blog-post-summary {
+    cursor: pointer; 
+}
+.blog-post-summary h3 { 
+    margin-top: 0;
+    color: var(--current-theme-accent); /* Royal Blue */
+    transition: color 0.3s ease;
+}
+.blog-post-summary:hover h3 { color: var(--current-theme-accent-hover); }
+.blog-meta { font-size: 0.9em; color: var(--current-text-secondary); margin-bottom: 0.5em; }
+.blog-keywords { font-size: 0.85em; margin-top: 10px; }
+.blog-keywords .keyword {
+    display: inline-block;
+    background-color: var(--current-theme-accent); /* Royal Blue */
+    color: white;
+    padding: 3px 8px;
+    border-radius: var(--border-radius-small);
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+.dark-mode .blog-keywords .keyword {
+    color: var(--current-text-dark); /* Ensure contrast */
+}
+
+#full-blog-post-view article h2,
+#full-blog-post-view article h3,
+#full-blog-post-view article h4 {
+    color: var(--current-theme-accent); /* Royal Blue */
+}
+#full-blog-post-view article code {
+    background-color: rgba(0,0,0,0.05); 
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--current-text);
+}
+.dark-mode #full-blog-post-view article code {
+    background-color: rgba(255,255,255,0.1);
+    color: var(--current-text-dark);
+}
+#full-blog-post-view article pre {
+    background-color: rgba(0,0,0,0.07); 
+    padding: 1em;
+    border-radius: var(--border-radius-small);
+    overflow-x: auto;
+    border: 1px solid var(--current-glass-border);
+}
+.dark-mode #full-blog-post-view article pre {
+    background-color: rgba(255,255,255,0.08);
+}
+#full-blog-post-view article pre code { background-color: transparent; padding: 0; }
+
+#full-blog-post-view article blockquote {
+    border-left: 3px solid var(--current-theme-accent); /* Royal Blue */
+    padding-left: 1em;
+    margin-left: 0;
+    font-style: italic;
+    color: var(--current-text-secondary);
+}
+.loading-blogs { text-align: center; font-size: 1.2em; padding: 2em; color: var(--current-text-secondary); }
+#back-to-list { margin-bottom: 1.5em; /* Uses .btn style, bg Royal Blue */ }
+
+
+/* ---=== Contact Page ===--- */
+.contact-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 20px;
+}
+.contact-item { 
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px; 
+    background: var(--current-glass-bg); 
+    backdrop-filter: blur(var(--backdrop-blur-amount));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur-amount));
+    border: 1px solid var(--current-glass-border);
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--current-box-shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-item:hover { transform: translateY(-4px); box-shadow: 0 6px 20px 0 var(--current-box-shadow); }
+/* Icons in contact items will pick up global icon color */
+.contact-item p { margin: 0; }
+/* Links in contact items will pick up global link color */
+
+.skill-list li { margin-bottom: 0.5em; }
+.skill-list strong { color: var(--current-theme-accent); } /* Royal Blue */
+
+/* ---=== Footer ===--- */
+footer {
+    text-align: center;
+    padding: 1.5em 1em;
+    background: var(--current-glass-bg); 
+    backdrop-filter: blur(var(--backdrop-blur-amount));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur-amount));
+    border-top: 1px solid var(--current-glass-border);
+    color: var(--current-text-secondary);
+    margin: 3em auto 1.5em; 
+    max-width: 800px; 
+    border-radius: var(--border-radius-main); 
+    box-shadow: var(--current-box-shadow);
+    font-size: 0.9em;
+}
+.footer-social-links { margin-top: 0.5em; }
+.footer-social-links a { /* Links in footer */
+    color: var(--current-text-secondary); /* Keep them subtle grey */
+    margin: 0 8px;
+    font-size: 1.4em;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+.footer-social-links a i { /* Ensure icons here also follow link color */
+    color: var(--current-text-secondary) !important;
+}
+.footer-social-links a:hover {
+    color: var(--current-link-color); /* Hover to Link Blue */
+    transform: scale(1.15);
+}
+.footer-social-links a:hover i {
+    color: var(--current-link-color) !important; /* Hover to Link Blue */
+}
+
+
+/* ---=== Animations & Effects ===--- */
+.btn:active, .btn-icon:active, #theme-toggle:active {
+    transform: translateY(1px) scale(0.97);
+    filter: brightness(0.95);
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ---=== Responsive Design ===--- */
+@media (max-width: 920px) { 
+    nav {
+        padding: 0.7em 1em;
+        max-width: calc(100% - 40px); 
+    }
+    nav .logo a { font-size: 1.4em; }
+    nav ul li { margin-left: 15px; }
+    nav ul li a { font-size: 0.95em; }
+}
+
+@media (max-width: 768px) {
+    body { padding-top: 10px; } 
+    header { padding: 10px 0; }
+    nav {
+        flex-wrap: wrap; 
+        justify-content: space-between; 
+    }
+    nav ul {
+        display: none; 
+    }
+    #mobile-menu-toggle {
+        display: block; 
+    }
+    #mobile-menu {
+        max-width: calc(100% - 60px); 
+        top: calc(100% + 5px); 
+        left: 50%;
+        transform: translateX(-50%);
+        position: fixed; 
+    }
+
+
+    .hero-section h1 { font-size: 2.2em; }
+    .hero-section .subtitle { font-size: 1.1em; }
+    .social-links { flex-direction: column; align-items: center; }
+    .social-links .btn { width: 75%; max-width: 280px; }
+
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.6em; }
+    h3 { font-size: 1.3em; }
+
+    .entry .project-date { float: none; display: block; margin-top: 5px; }
+    .contact-details { grid-template-columns: 1fr; }
+    footer { max-width: calc(100% - 40px); }
+}
+
+@media (max-width: 480px) {
+    body { font-size: 14px; }
+    nav { padding: 0.6em 0.8em; }
+    nav .logo a { font-size: 1.3em; }
+    #theme-toggle, #mobile-menu-toggle { font-size: 1.2em; }
+    
+    .hero-section { padding: 2em 1em; }
+    .hero-section h1 { font-size: 1.8em; }
+    .card-style, .content-section { padding: 20px 15px; }
+    .contact-item { padding: 15px; }
+}

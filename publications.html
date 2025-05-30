@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Publications - Vikash Singh</title>
+</head>
+<body class="light-mode">
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">Vikash Singh</a>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="publications.html" class="active">Publications</a></li>
+                <li><a href="education_experience.html">Education & Experience</a></li>
+                <li><a href="blogs.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-sun"></i><i class="fas fa-moon" style="display:none;"></i>
+            </button>
+             <button id="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+         <div id="mobile-menu">
+            <ul>
+                 <li><a href="index.html">Home</a></li>
+                <li><a href="publications.html" class="active">Publications</a></li>
+                <li><a href="education_experience.html">Education & Experience</a></li>
+                <li><a href="blogs.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section id="publications-list" class="content-section card-style">
+            <h2>Publications</h2>
+            <div class="publication-item" id="pub1">
+                <h3 class="publication-title">Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks</h3>
+                <p class="publication-authors">Ganguly, D., <strong>Singh, V.</strong>, Sankar, S., Zhang, B., Zhang, X., Iyengar, S., Han, X., Sharma, A., Kalyanaraman, S., Chaudhary, V.</p>
+                <p class="publication-venue"><em>arXiv preprint</em>, May 2025.</p>
+                <div class="publication-links">
+                    <a href="https://arxiv.org/abs/2505.20047" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
+                </div>
+            </div>
+            </section>
+
+        <section id="research-interests" class="content-section card-style">
+            <h2>Research Interests</h2>
+            <ul class="interest-list">
+                <li><strong>Formal Reasoning and Verification:</strong> Developing rigorous formal logic methodologies, leveraging SMT‐LIB encodings and solver frameworks to verify, interpret, and enhance the correctness of LLM-generated reasoning.</li>
+                <li><strong>Fine-Tuning LLMs and Vision Models:</strong> Leveraging techniques such as LoRA to optimize large language and vision models for specific tasks while maintaining computational efficiency.</li>
+                <li><strong>Redundancy Mitigation in LLMs:</strong> Investigating approaches to reduce redundancy in large language models, enhancing performance and efficiency.</li>
+                <li><strong>Model Optimization:</strong> Developing strategies for optimizing machine learning models, including pruning and hyperparameter tuning, to improve both accuracy and resource utilization.</li>
+                <li><strong>Explainable AI:</strong> Advancing interpretability in AI models, focusing on enhancing transparency and providing actionable insights for users.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Vikash Singh. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog - Vikash Singh</title>
+</head>
+<body class="light-mode">
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">Vikash Singh</a>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="education_experience.html">Education & Experience</a></li>
+                <li><a href="blogs.html" class="active">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-sun"></i><i class="fas fa-moon" style="display:none;"></i>
+            </button>
+             <button id="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+         <div id="mobile-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="education_experience.html">Education & Experience</a></li>
+                <li><a href="blogs.html" class="active">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section id="blog-intro" class="content-section card-style">
+            <h2>My Thoughts & Updates</h2>
+            <p>Welcome to my blog! Here I share insights on my research, projects, and occasional musings on technology and AI.</p>
+        </section>
+
+        <section id="blog-posts-container" class="content-section">
+            <div class="loading-blogs">Loading posts...</div>
+        </section>
+
+        <section id="full-blog-post-view" class="content-section card-style" style="display:none;">
+            <button id="back-to-list" class="btn"><i class="fas fa-arrow-left"></i> Back to Blog List</button>
+            <article id="blog-content-area">
+                </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Vikash Singh. All rights reserved.</p>
+    </footer>
+
+    <script src="js/lib/marked.min.js"></script> <script src="js/blogs.js"></script>        <script src="js/main.js"></script>         </body>
+</html>
