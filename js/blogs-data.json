@@ -9,16 +9,5 @@
       "summary": "This is a short summary of my very first article where I discuss exciting new beginnings!"
     },
     "content": "## Welcome to My First Post!\n\nThis is the main content of your blog post. You can use Markdown syntax here.\n\n* Lists are easy\n* So is **bold** and *italic* text.\n\nYou can write about your research, projects, or any updates you'd like to share.\n\nFor example, you could link to your [CV](assets/resume/Vikash_Singh_CV.pdf) or your [GitHub](https://github.com/vicky157)."
-  },
-  {
-    "id": "research-update-may-2025",
-    "filename": "research-update-may-2025.md",
-    "frontmatter": {
-      "title": "Exploring Large Language Models",
-      "date": "2025-05-29",
-      "keywords": "LLM, AI, research, CWRU",
-      "summary": "A brief overview of my current focus on Large Language Models during my PhD studies."
-    },
-    "content": "## Diving Deep into LLMs\n\nMy current research at Case Western Reserve University is heavily focused on **Large Language Models (LLMs)**. This fascinating area of AI is evolving rapidly, and I'm particularly interested in:\n\n* **Biases in LLMs:** How do they arise and how can we mitigate them?\n* **Evaluation Metrics:** How can we effectively measure the true capabilities and limitations of LLMs?\n* **Reasoning Abilities:** Can LLMs perform complex reasoning, and how can we improve this?\n\nI'm also working on projects related to model pruning and efficient fine-tuning techniques like LoRA. The goal is to make these powerful models more accessible and reliable.\n\nMore technical details to follow in future posts!"
   }
 ]
