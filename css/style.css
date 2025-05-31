@@ -12,31 +12,30 @@
     --color-royal-blue-darker: #3557B8; /* Darker Royal Blue for hovers on Royal Blue elements */
     --color-link-icon-specific-blue: #0000FF; /* Pure Blue for links and icons */
 
-    --glass-bg-light: rgba(235, 240, 245, 0.65); /* Light, slightly cool, semi-transparent for cards */
-    --glass-bg-navbar-light: rgba(225, 235, 240, 0.75); /* Slightly more opaque for navbar */
-    --glass-border-color-light: rgba(65, 105, 225, 0.35); /* Royal Blue tinted border */
-    --glass-shadow-light: rgba(65, 105, 225, 0.18); /* Royal Blue tinted shadow */
+    --glass-bg-light: rgba(235, 240, 245, 0.65); 
+    --glass-bg-navbar-light: rgba(225, 235, 240, 0.75); 
+    --glass-border-color-light: rgba(65, 105, 225, 0.35); 
+    --glass-shadow-light: rgba(65, 105, 225, 0.18); 
 
     /* Dark Mode - Adapted Glassy Theme */
-    --color-bg-dark: #1a1d24; /* Dark Charcoal/Off-Black */
-    --color-text-dark: #e8eaed; /* Light Grey/Almost White for text */
-    --color-text-secondary-dark: #a0a7b3; /* Lighter Grey */
+    --color-bg-dark: #1a1d24; 
+    --color-text-dark: #e8eaed; 
+    --color-text-secondary-dark: #a0a7b3; 
 
-    --color-royal-blue-dark-mode: #587FE7; /* Slightly brighter Royal Blue for dark mode */
-    --color-royal-blue-darker-dark-mode: #7A9AFF; /* Lighter for hovers in dark mode */
-    /* Using a slightly less saturated blue for links in dark mode for better readability than pure #0000FF */
+    --color-royal-blue-dark-mode: #587FE7; 
+    --color-royal-blue-darker-dark-mode: #7A9AFF; 
     --color-link-icon-specific-blue-dark-mode: #6699FF; 
 
     --glass-bg-dark: rgba(40, 45, 58, 0.7); 
     --glass-bg-navbar-dark: rgba(45, 50, 65, 0.8);
-    --glass-border-color-dark: rgba(88, 127, 231, 0.4); /* Royal Blue (dark mode version) tinted border */
+    --glass-border-color-dark: rgba(88, 127, 231, 0.4); 
     --glass-shadow-dark: rgba(88, 127, 231, 0.15);
 
 
     --border-radius-main: 16px; 
     --border-radius-small: 10px;
     --transition-speed: 0.3s;
-    --backdrop-blur-amount: 9px; /* Slightly increased blur */
+    --backdrop-blur-amount: 9px; 
 
     --box-shadow-light: 0 8px 32px 0 var(--glass-shadow-light);
     --box-shadow-dark: 0 8px 32px 0 var(--glass-shadow-dark);
@@ -63,8 +62,8 @@ body {
     
     --current-theme-accent: var(--color-royal-blue);
     --current-theme-accent-hover: var(--color-royal-blue-darker);
-    --current-link-color: var(--color-link-icon-specific-blue); /* Specific blue for links */
-    --current-icon-color: var(--color-link-icon-specific-blue); /* Specific blue for icons */
+    --current-link-color: var(--color-link-icon-specific-blue); 
+    --current-icon-color: var(--color-link-icon-specific-blue); 
 
     --current-glass-bg: var(--glass-bg-light);
     --current-glass-bg-navbar: var(--glass-bg-navbar-light);
@@ -79,8 +78,8 @@ body {
 
     --current-theme-accent: var(--color-royal-blue-dark-mode);
     --current-theme-accent-hover: var(--color-royal-blue-darker-dark-mode);
-    --current-link-color: var(--color-link-icon-specific-blue-dark-mode); /* Adjusted blue for dark mode links */
-    --current-icon-color: var(--color-link-icon-specific-blue-dark-mode); /* Adjusted blue for dark mode icons */
+    --current-link-color: var(--color-link-icon-specific-blue-dark-mode); 
+    --current-icon-color: var(--color-link-icon-specific-blue-dark-mode); 
 
     --current-glass-bg: var(--glass-bg-dark);
     --current-glass-bg-navbar: var(--glass-bg-navbar-dark);
@@ -96,7 +95,7 @@ html {
 /* ---=== Basic Elements ===--- */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-secondary);
-    color: var(--current-theme-accent); /* Headings use Royal Blue */
+    color: var(--current-theme-accent); 
     margin-top: 1.5em;
     margin-bottom: 0.7em;
     font-weight: 700;
@@ -105,10 +104,10 @@ h1 { font-size: 2.5em; text-align: center; }
 h2 { 
     font-size: 2em; 
     padding-bottom: 0.3em;
-    border-bottom: 2px solid var(--current-theme-accent); /* Royal Blue border */
+    border-bottom: 2px solid var(--current-theme-accent); 
     margin-bottom: 1em;
 }
-h3 { font-size: 1.6em; color: var(--current-theme-accent); } /* Royal Blue */
+h3 { font-size: 1.6em; color: var(--current-theme-accent); } 
 h4 { font-size: 1.3em; }
 
 p {
@@ -117,32 +116,31 @@ p {
 }
 
 a {
-    color: var(--current-link-color); /* Specific Blue for links */
+    color: var(--current-link-color); 
     text-decoration: none;
     transition: color var(--transition-speed) ease, opacity 0.2s ease-out;
 }
 
 a:hover, a:focus {
-    color: var(--current-link-color); /* Keep link color on hover */
-    opacity: 0.8; /* Slightly dim on hover for feedback */
+    color: var(--current-link-color); 
+    opacity: 0.8; 
     text-decoration: underline;
 }
 
-/* Color for icons specifically */
-i.fas, i.fab, i.far, i.fal { /* Font Awesome classes */
-    color: var(--current-icon-color) !important; /* Specific Blue for icons, with !important if needed */
+i.fas, i.fab, i.far, i.fal { 
+    color: var(--current-icon-color) !important; 
 }
-.btn i.fas, .btn i.fab { /* Icons inside buttons might need different color */
-    color: white !important; /* If button bg is Royal Blue, icon should be white */
+.btn i.fas, .btn i.fab { 
+    color: white !important; 
 }
 .dark-mode .btn i.fas, .dark-mode .btn i.fab {
-     color: var(--color-bg-dark) !important; /* If button text is dark on light button in dark mode */
+     color: var(--current-text-dark) !important; /* Adjusted for dark mode button text color */
 }
 .btn-icon i.fas, .btn-icon i.fab {
-    color: var(--current-icon-color) !important; /* Icons in icon-buttons are standalone */
+    color: var(--current-icon-color) !important; 
 }
 .btn-icon:hover i.fas, .btn-icon:hover i.fab {
-    color: var(--current-bg) !important; /* Contrasting icon color on btn-icon hover */
+    color: var(--current-bg) !important; 
 }
 
 
@@ -174,6 +172,7 @@ nav {
     max-width: 900px; 
     margin: 0 auto; 
     padding: 0.8em 1.5em; 
+    position: relative; /* Context for mobile menu */
     
     background: var(--current-glass-bg-navbar);
     backdrop-filter: blur(var(--backdrop-blur-amount));
@@ -193,7 +192,7 @@ nav .logo a {
     font-family: var(--font-secondary);
     font-size: 1.6em;
     font-weight: bold;
-    color: var(--current-theme-accent); /* Logo uses Royal Blue */
+    color: var(--current-theme-accent); 
     text-decoration: none;
     transition: transform 0.3s ease, color var(--transition-speed) ease;
 }
@@ -214,7 +213,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: var(--current-text); /* Nav links are standard text color, not link blue */
+    color: var(--current-text); 
     text-decoration: none;
     font-weight: 500;
     padding: 0.4em 0.7em;
@@ -233,7 +232,7 @@ nav ul li a::after {
     height: 2px;
     bottom: -3px;
     left: 50%;
-    background-color: var(--current-theme-accent); /* Underline is Royal Blue */
+    background-color: var(--current-theme-accent); 
     transition: width 0.3s ease, left 0.3s ease, background-color var(--transition-speed) ease;
 }
 
@@ -243,9 +242,9 @@ nav ul li a.active::after {
     left: 0;
 }
 
-nav ul li a:hover, /* Hover for nav text links */
+nav ul li a:hover, 
 nav ul li a.active {
-    color: var(--current-theme-accent); /* Nav links become Royal Blue on hover/active */
+    color: var(--current-theme-accent); 
 }
 
 
@@ -259,9 +258,8 @@ nav ul li a.active {
     border-radius: 50%;
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.2s ease;
 }
-/* Ensure toggle icon itself is not blue unless intended */
 #theme-toggle i, #mobile-menu-toggle i {
-    color: var(--current-text) !important; /* Or a neutral grey */
+    color: var(--current-text) !important; 
 }
 .dark-mode #theme-toggle i, .dark-mode #mobile-menu-toggle i {
     color: var(--current-text-dark) !important;
@@ -277,43 +275,59 @@ nav ul li a.active {
 }
 
 #mobile-menu-toggle {
-    display: none;
+    display: none; /* Hidden on desktop, shown in media query */
 }
+
+/* MOBILE MENU STYLES */
 #mobile-menu {
-    display: none;
+    position: absolute; /* Relative to nav */
+    width: 100%; /* Full width of nav */
+    left: 0;
+    top: calc(100% + 8px); /* Below the nav */
+    z-index: 999; /* Below nav's z-index if nav itself is very high, but above main content */
+
     background: var(--current-glass-bg-navbar);
     backdrop-filter: blur(var(--backdrop-blur-amount));
     -webkit-backdrop-filter: blur(var(--backdrop-blur-amount));
     border: 1px solid var(--current-glass-border);
-    border-radius: 0 0 var(--border-radius-main) var(--border-radius-main); 
     box-shadow: var(--current-box-shadow);
-    margin: 5px auto 0; 
-    max-width: 860px; 
-    padding: 1em;
-    position: absolute; 
-    left: 0; right: 0; 
-    top: 100%; 
+    border-radius: 0 0 var(--border-radius-main) var(--border-radius-main); /* Rounded bottom corners */
+    
+    max-height: 0; /* For slide animation */
+    opacity: 0; /* For fade animation */
+    overflow: hidden;
+    padding-top: 0; /* Animated */
+    padding-bottom: 0; /* Animated */
+    transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out, 
+                padding-top 0.35s ease-in-out, padding-bottom 0.35s ease-in-out;
 }
+
 #mobile-menu.active { 
-    display: block;
+    max-height: 400px; /* Adjust based on number of items */
+    opacity: 1;
+    padding: 1em; /* Padding when open */
 }
 
 #mobile-menu ul { list-style: none; padding: 0; margin: 0; text-align: center; }
-#mobile-menu ul li { margin-bottom: 0.8em; }
-#mobile-menu ul li a { /* Mobile nav links use standard text color */
+#mobile-menu ul li { margin-bottom: 0; } /* Remove bottom margin for tighter list */
+#mobile-menu ul li a { 
     color: var(--current-text);
     text-decoration: none;
     font-size: 1.1em;
     display: block;
-    padding: 0.5em;
+    padding: 0.8em 0.5em; /* Slightly more padding */
     border-radius: var(--border-radius-small);
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 .dark-mode #mobile-menu ul li a { color: var(--current-text-dark); }
-#mobile-menu ul li a:hover {
-    background-color: rgba(0,0,0,0.03);
-    color: var(--current-theme-accent); /* Becomes Royal Blue on hover */
+
+#mobile-menu ul li a:hover, #mobile-menu ul li a.active {
+    background-color: rgba(0,0,0,0.04); /* Subtle hover */
+    color: var(--current-theme-accent); 
 }
-.dark-mode #mobile-menu ul li a:hover { background-color: rgba(255,255,255,0.08); }
+.dark-mode #mobile-menu ul li a:hover, .dark-mode #mobile-menu ul li a.active {
+    background-color: rgba(255,255,255,0.08); 
+}
 
 
 /* ---=== Main Content & Glassy Cards ===--- */
@@ -349,16 +363,16 @@ main {
 .dark-mode .hero-section {
     color: var(--current-text-dark);
 }
-.hero-section h1 { /* Name in hero */
+.hero-section h1 { 
     color: var(--current-theme-accent); 
     font-size: 3em;
     margin-bottom: 0.2em;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
 }
-.hero-section .subtitle, .hero-section .location { /* Ensure good contrast for subtitle */
+.hero-section .subtitle, .hero-section .location { 
     font-size: 1.3em;
     margin-bottom: 0.5em;
-    color: var(--current-text); /* Main text color for readability on light glass */
+    color: var(--current-text); 
 }
 .hero-section .location {
     font-size: 1em;
@@ -384,7 +398,6 @@ main {
     justify-content: center;
     gap: 12px;
 }
-/* Buttons use Royal Blue background */
 .social-links .btn, .btn { 
     background-color: var(--current-theme-accent);
     color: white; 
@@ -401,7 +414,7 @@ main {
 }
 .dark-mode .social-links .btn, .dark-mode .btn {
      background-color: var(--current-theme-accent); 
-     color: var(--current-text-dark); /* Ensure text is light on dark mode buttons */
+     color: var(--current-text-dark); 
 }
 
 .social-links .btn:hover, .btn:hover {
@@ -415,34 +428,34 @@ main {
     color: var(--current-text-dark);
 }
 
-/* Icon Button (PDF/Code) uses outline style with specific icon color */
 .btn-icon {
     padding: 0.6em 1.1em;
     background-color: transparent;
-    color: var(--current-link-color); /* Text of btn-icon is specific blue */
-    border: 1px solid var(--current-link-color); /* Border is specific blue */
+    color: var(--current-link-color); 
+    border: 1px solid var(--current-link-color); 
     border-radius: var(--border-radius-small);
     transition: background-color var(--transition-speed), color var(--transition-speed), transform 0.2s ease, border-color var(--transition-speed) ease;
     display: inline-flex;
     align-items: center;
     gap: 7px;
 }
-.btn-icon i { margin-right: 4px; /* Icon inside will get its blue color from the global icon rule */ }
+/* Icon color for btn-icon is handled by global icon rule */
 
 .btn-icon:hover {
-    background-color: var(--current-link-color); /* Hover BG is specific blue */
-    color: var(--current-bg); /* Text contrasts with BG */
+    background-color: var(--current-link-color); 
+    color: var(--current-bg); 
     border-color: var(--current-link-color);
     transform: translateY(-2px) scale(1.03);
     text-decoration: none;
 }
+/* Ensure icon color changes on hover for btn-icon */
 .btn-icon:hover i {
-    color: var(--current-bg) !important; /* Icon color on hover */
+    color: var(--current-bg) !important; 
 }
 
 
 .news-list li {
-    border-left: 3px solid var(--current-theme-accent); /* Royal Blue */
+    border-left: 3px solid var(--current-theme-accent); 
     padding-left: 15px;
     margin-bottom: 1em;
 }
@@ -452,6 +465,42 @@ main {
     display: block;
     font-size: 0.9em;
 }
+
+/* ---=== New Publication Update Section on Homepage ===--- */
+#publication-update .publication-item-home {
+    padding: 10px 0; /* Add some padding if needed */
+}
+#publication-update .publication-title-home {
+    font-size: 1.3em; /* Slightly smaller than main publication titles */
+    color: var(--current-theme-accent);
+    margin-bottom: 0.4em;
+}
+#publication-update .publication-authors-home {
+    font-style: italic;
+    color: var(--current-text-secondary);
+    margin-bottom: 0.4em;
+    font-size: 0.95em;
+}
+#publication-update .publication-authors-home strong {
+    color: var(--current-text);
+    font-weight: bold;
+}
+#publication-update .publication-venue-home {
+    margin-bottom: 0.8em;
+    font-size: 0.9em;
+}
+#publication-update .publication-links-home {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between buttons */
+    align-items: center;
+}
+#publication-update .publication-links-home .btn,
+#publication-update .publication-links-home .btn-icon {
+    font-size: 0.9em; /* Slightly smaller buttons for homepage section */
+    padding: 0.5em 1em;
+}
+
 
 /* ---=== Publications Page ===--- */
 .publication-item {
@@ -464,7 +513,6 @@ main {
 .publication-authors { font-style: italic; color: var(--current-text-secondary); margin-bottom: 0.3em; }
 .publication-authors strong { color: var(--current-text); font-weight: bold; }
 .publication-venue { margin-bottom: 0.5em; }
-/* publication-links use .btn-icon, which is styled above */
 
 .interest-list li { margin-bottom: 0.8em; }
 
@@ -481,17 +529,17 @@ main {
     top: 8px; 
     width: 12px;
     height: 12px;
-    background: var(--current-theme-accent); /* Royal Blue */
+    background: var(--current-theme-accent); 
     border-radius: 50%;
     border: 2px solid var(--current-bg); 
 }
 .entry h3 { margin-top: 0; margin-bottom: 0.2em; font-size: 1.3em; color: var(--current-theme-accent);}
 .entry .institution { font-weight: bold; color: var(--current-text-secondary); margin-bottom: 0.2em; }
-.entry .dates { font-size: 0.9em; color: var(--current-theme-accent); margin-bottom: 0.5em; } /* Royal Blue for dates */
+.entry .dates { font-size: 0.9em; color: var(--current-theme-accent); margin-bottom: 0.5em; } 
 .entry ul { padding-left: 15px; list-style-type: disc; }
 .entry ul li { font-size: 0.95em; }
 .project-entry .tech-stack { font-style: italic; color: var(--current-text-secondary); margin-bottom: 0.5em; }
-.project-entry .project-date { float: right; font-size: 0.9em; color: var(--current-theme-accent); } /* Royal Blue */
+.project-entry .project-date { float: right; font-size: 0.9em; color: var(--current-theme-accent); } 
 
 /* ---=== Blog Page ===--- */
 .blog-post-summary {
@@ -499,7 +547,7 @@ main {
 }
 .blog-post-summary h3 { 
     margin-top: 0;
-    color: var(--current-theme-accent); /* Royal Blue */
+    color: var(--current-theme-accent); 
     transition: color 0.3s ease;
 }
 .blog-post-summary:hover h3 { color: var(--current-theme-accent-hover); }
@@ -507,7 +555,7 @@ main {
 .blog-keywords { font-size: 0.85em; margin-top: 10px; }
 .blog-keywords .keyword {
     display: inline-block;
-    background-color: var(--current-theme-accent); /* Royal Blue */
+    background-color: var(--current-theme-accent); 
     color: white;
     padding: 3px 8px;
     border-radius: var(--border-radius-small);
@@ -516,13 +564,13 @@ main {
     font-size: 0.9em;
 }
 .dark-mode .blog-keywords .keyword {
-    color: var(--current-text-dark); /* Ensure contrast */
+    color: var(--current-text-dark); 
 }
 
 #full-blog-post-view article h2,
 #full-blog-post-view article h3,
 #full-blog-post-view article h4 {
-    color: var(--current-theme-accent); /* Royal Blue */
+    color: var(--current-theme-accent); 
 }
 #full-blog-post-view article code {
     background-color: rgba(0,0,0,0.05); 
@@ -548,14 +596,14 @@ main {
 #full-blog-post-view article pre code { background-color: transparent; padding: 0; }
 
 #full-blog-post-view article blockquote {
-    border-left: 3px solid var(--current-theme-accent); /* Royal Blue */
+    border-left: 3px solid var(--current-theme-accent); 
     padding-left: 1em;
     margin-left: 0;
     font-style: italic;
     color: var(--current-text-secondary);
 }
 .loading-blogs { text-align: center; font-size: 1.2em; padding: 2em; color: var(--current-text-secondary); }
-#back-to-list { margin-bottom: 1.5em; /* Uses .btn style, bg Royal Blue */ }
+#back-to-list { margin-bottom: 1.5em; }
 
 
 /* ---=== Contact Page ===--- */
@@ -583,7 +631,7 @@ main {
 /* Links in contact items will pick up global link color */
 
 .skill-list li { margin-bottom: 0.5em; }
-.skill-list strong { color: var(--current-theme-accent); } /* Royal Blue */
+.skill-list strong { color: var(--current-theme-accent); } 
 
 /* ---=== Footer ===--- */
 footer {
@@ -601,21 +649,21 @@ footer {
     font-size: 0.9em;
 }
 .footer-social-links { margin-top: 0.5em; }
-.footer-social-links a { /* Links in footer */
-    color: var(--current-text-secondary); /* Keep them subtle grey */
+.footer-social-links a { 
+    color: var(--current-text-secondary); 
     margin: 0 8px;
     font-size: 1.4em;
     transition: color 0.3s ease, transform 0.2s ease;
 }
-.footer-social-links a i { /* Ensure icons here also follow link color */
+.footer-social-links a i { 
     color: var(--current-text-secondary) !important;
 }
 .footer-social-links a:hover {
-    color: var(--current-link-color); /* Hover to Link Blue */
+    color: var(--current-link-color); 
     transform: scale(1.15);
 }
 .footer-social-links a:hover i {
-    color: var(--current-link-color) !important; /* Hover to Link Blue */
+    color: var(--current-link-color) !important; 
 }
 
 
@@ -658,16 +706,9 @@ footer {
         display: none; 
     }
     #mobile-menu-toggle {
-        display: block; 
+        display: block; /* Show hamburger */
     }
-    #mobile-menu {
-        max-width: calc(100% - 60px); 
-        top: calc(100% + 5px); 
-        left: 50%;
-        transform: translateX(-50%);
-        position: fixed; 
-    }
-
+    /* Mobile menu is already styled to drop down correctly */
 
     .hero-section h1 { font-size: 2.2em; }
     .hero-section .subtitle { font-size: 1.1em; }
