@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // **IMPORTANT**: Manually list your blog markdown filenames here
     // Add new blog post filenames to this array.
     const blogFiles = [
-        'my-first-post.md',        // <-- Add your actual filename
-        'research-update-may-2025.md' // <-- Add another actual filename
-        // e.g., 'my-thoughts-on-llms.md'
+        'my-first-post.md'
     ];
 
     if (!blogPostsContainer) return; // Only run on pages with the blog container
