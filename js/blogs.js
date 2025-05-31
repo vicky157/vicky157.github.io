@@ -3,15 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const fullBlogPostView = document.getElementById('full-blog-post-view');
     const blogContentArea = document.getElementById('blog-content-area');
     const backToListButton = document.getElementById('back-to-list');
-    const blogIntroSection = document.getElementById('blog-intro'); // Assuming you have an intro section
+    const blogIntroSection = document.getElementById('blog-intro');
 
     // **IMPORTANT**: Manually list your blog markdown filenames here
     // Add new blog post filenames to this array.
-// In js/blogs.js
     const blogFiles = [
-        'my-first-post.md',    // Example
-        'another-update.md', // Example
-        'your-new-post.md' // Add your actual filenames here
+        'my-first-post.md',        // <-- Add your actual filename
+        'research-update-may-2025.md' // <-- Add another actual filename
+        // e.g., 'my-thoughts-on-llms.md'
     ];
 
     if (!blogPostsContainer) return; // Only run on pages with the blog container
