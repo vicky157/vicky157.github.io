@@ -72,7 +72,7 @@
                 Driven by an insatiable curiosity for AI's cutting edge, I'm a PhD student at Case Western Reserve University on a mission to make Large Language Models (LLMs) more understandable, reliable, and fair. My research tackles the core challenges of LLM interpretability, focusing on their biases, evaluation, and reasoning processes. A key part of my work involves developing novel techniques to quantify uncertainty in LLM-generated formal artifacts, as explored in my research on "Grammars of Formal Uncertainty," aiming to establish when we can confidently trust these powerful models in automated reasoning tasks.
                 I thrive on a challenge and am always ready to dive into complex problems. With a proactive and hard-working approach, I'm a rapid learner, adept at quickly grasping new concepts and translating them into practical implementations, often within a matter of days. If there's something I don't know, my first instinct is to learn it. This enthusiasm extends to my explorations in explainable AI (XAI), including counterfactual methods, and my ongoing efforts in LLM pruning and bias mitigation.
                 Building on a robust background in Machine Learning and AI from my MS at CWRU and B.Tech, I'm committed to advancing the field through innovative research and contributing solutions that push the boundaries of what's possible with AI.
-        </p>
+            </p>
         </section>
 
         <section id="publication-update" class="card-style">
@@ -84,7 +84,21 @@
                 <div class="publication-links-home">
                     <a href="https://arxiv.org/abs/2505.20047" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
                     <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
+                    <a href="#" onclick="toggleBibtex(event)" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
                     <a href="publications.html" class="btn">More Publications <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div id="bibtex-entry-ganguly2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-border-color);">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>
+@misc{ganguly2025grammarsformaluncertaintytrust,
+      title={Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks}, 
+      author={Debargha Ganguly and Vikash Singh and Sreehari Sankar and Biyao Zhang and Xuecen Zhang and Srinivasan Iyengar and Xiaotian Han and Amit Sharma and Shivkumar Kalyanaraman and Vipin Chaudhary},
+      year={2025},
+      eprint={2505.20047},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2505.20047}, 
+}
+                    </code></pre>
                 </div>
             </div>
         </section>
@@ -128,6 +142,17 @@
         </div>
     </footer>
 
+    <script>
+        function toggleBibtex(event) {
+            event.preventDefault(); // Prevent page jump
+            const bibtexEntry = document.getElementById('bibtex-entry-ganguly2025');
+            if (bibtexEntry.style.display === 'none') {
+                bibtexEntry.style.display = 'block';
+            } else {
+                bibtexEntry.style.display = 'none';
+            }
+        }
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
