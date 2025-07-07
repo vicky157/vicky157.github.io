@@ -724,7 +724,7 @@ footer {
     footer { max-width: calc(100% - 40px); }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 481px) {
     body { font-size: 14px; }
     nav { padding: 0.6em 0.8em; }
     nav .logo a { font-size: 1.3em; }
