@@ -64,6 +64,18 @@
                 <div class="publication-links">
                     <a href="https://arxiv.org/abs/2505.20047" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
                     <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
+                    <a href="#" onclick="toggleBibtex(event)" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
+                </div>
+                <div id="bibtex-entry-ganguly2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-border-color);">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>@misc{ganguly2025grammarsformaluncertaintytrust,
+  title={Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks},
+  author={Debargha Ganguly and Vikash Singh and Sreehari Sankar and Biyao Zhang and Xuecen Zhang and Srinivasan Iyengar and Xiaotian Han and Amit Sharma and Shivkumar Kalyanaraman and Vipin Chaudhary},
+  year={2025},
+  eprint={2505.20047},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2505.20047},
+}</code></pre>
                 </div>
             </div>
             </section>
@@ -85,6 +97,17 @@
         <p>&copy; <span id="current-year"></span> Vikash Singh. All rights reserved.</p>
     </footer>
 
+    <script>
+        function toggleBibtex(event) {
+            event.preventDefault(); // Prevent page jump
+            const bibtexEntry = document.getElementById('bibtex-entry-ganguly2025');
+            if (bibtexEntry.style.display === 'none') {
+                bibtexEntry.style.display = 'block';
+            } else {
+                bibtexEntry.style.display = 'none';
+            }
+        }
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
