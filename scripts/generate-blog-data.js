@@ -1,3 +1,10 @@
+/**
+ * Blog Data Generator Script
+ * Processes Markdown files in _blogs directory and generates JSON data for the website
+ * 
+ * Usage: node scripts/generate-blog-data.js
+ */
+
 // scripts/generate-blog-data.js
 const fs = require('fs');
 const path = require('path');
@@ -43,7 +50,7 @@ function imagePathToBase64(markdownFilePath, relativeImagePath) {
             const imageBuffer = fs.readFileSync(imageAbsPath);
             const base64Image = imageBuffer.toString('base64');
             const mimeType = mime.lookup(imageAbsPath) || 'application/octet-stream'; // Default MIME type
-            return `data:<span class="math-inline">\{mimeType\};base64,</span>{base64Image}`;
+            return `data:${mimeType};base64,${base64Image}`;
         } else {
             console.warn(`Image not found: ${imageAbsPath} (referenced in ${path.basename(markdownFilePath)})`);
             return null; // Or return original path to keep it as a broken link
@@ -57,13 +64,37 @@ function imagePathToBase64(markdownFilePath, relativeImagePath) {
 function processMarkdownContent(markdownContent, markdownFilePath) {
     let processedContent = markdownContent;
 
+    // First, clean the content by removing citation references
+    // Remove [cite: X] patterns (where X can be numbers, comma-separated numbers, etc.)
+    processedContent = processedContent.replace(/\s*\[cite:\s*[^\]]+\]/gi, '');
+    
+    // Fix malformed markdown code blocks (4+ backticks to 3 backticks)
+    processedContent = processedContent.replace(/````+/g, '```');
+    
+    // Clean up any double spaces that might result from citation removal
+    processedContent = processedContent.replace(/[ \t]{2,}/g, ' ');
+    
+    // Preserve line breaks and paragraph structure  
+    processedContent = processedContent.replace(/\r\n/g, '\n'); // Normalize line endings
+    processedContent = processedContent.replace(/\r/g, '\n'); // Handle old Mac line endings
+    
+    // Fix malformed HTML escaping patterns that appear in the content
+    processedContent = processedContent.replace(/\\</g, '<');
+    processedContent = processedContent.replace(/\\>/g, '>');
+    processedContent = processedContent.replace(/\\"/g, '"');
+    processedContent = processedContent.replace(/\\'/g, "'");
+    processedContent = processedContent.replace(/\\\\/g, '\\');
+    
+    // Fix malformed tags like \</code\>\</pre\>
+    processedContent = processedContent.replace(/\\<\//g, '</');
+    
     // Regex for Markdown images: ![alt text](image-path)
     // It won't process http(s):// or existing data: URIs
     const mdImageRegex = /!\[(.*?)\]\((?!https?:\/\/|data:)(.*?)\)/g;
     processedContent = processedContent.replace(mdImageRegex, (match, altText, imagePath) => {
         const base64Src = imagePathToBase64(markdownFilePath, imagePath);
         if (base64Src) {
-            return `![<span class="math-inline">\{altText\}\]\(</span>{base64Src})`;
+            return `![${altText}](${base64Src})`;
         }
         return match; // Keep original if conversion failed
     });
@@ -74,7 +105,7 @@ function processMarkdownContent(markdownContent, markdownFilePath) {
     processedContent = processedContent.replace(htmlImageRegex, (match, beforeSrc, quote, imagePath, afterSrc) => {
         const base64Src = imagePathToBase64(markdownFilePath, imagePath);
         if (base64Src) {
-            return `<img${beforeSrc}src=<span class="math-inline">\{quote\}</span>{base64Src}<span class="math-inline">\{quote\}</span>{afterSrc}>`;
+            return `<img${beforeSrc}src=${quote}${base64Src}${quote}${afterSrc}>`;
         }
         return match; // Keep original if conversion failed
     });

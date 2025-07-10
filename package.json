@@ -1,5 +1,34 @@
 {
-  "dependencies": {
+  "name": "vikash-singh-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website for Vikash Singh, AI & LLM Researcher",
+  "scripts": {
+    "build:blog": "node scripts/generate-blog-data.js",
+    "serve": "python3 -m http.server 8000",
+    "serve:php": "php -S localhost:8000",
+    "validate:html": "echo 'HTML validation can be done using online tools or w3c-html-validator'",
+    "optimize:images": "echo 'Image optimization can be done using imagemin or similar tools'"
+  },
+  "keywords": [
+    "portfolio",
+    "resume",
+    "academic",
+    "research",
+    "ai",
+    "machine-learning",
+    "github-pages"
+  ],
+  "author": "Vikash Singh <vikashjohn2505@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vicky157/vicky157.github.io.git"
+  },
+  "homepage": "https://vicky157.github.io",
+  "devDependencies": {
     "mime-types": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

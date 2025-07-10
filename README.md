@@ -1,63 +1,188 @@
 # Personal Portfolio Website
 
-This is a simple, modern portfolio website designed to be deployed on GitHub Pages.
+A modern, responsive portfolio website for AI & LLM researcher Vikash Singh, designed for deployment on GitHub Pages.
 
-## Setup
+## ✨ Features
 
-1.  **Clone/Download:** Get these files onto your local machine.
-2.  **Resume:**
-    * Compile your LaTeX CV into a PDF file.
-    * Save it as `Vikash_Singh_CV.pdf` inside the `assets/resume/` directory.
-3.  **Markdown Parser:**
-    * Download `marked.min.js` from [https://cdn.jsdelivr.net/npm/marked/marked.min.js](https://cdn.jsdelivr.net/npm/marked/marked.min.js).
-    * Place it inside the `js/lib/` directory.
-4.  **Customize Content:**
-    * Edit the HTML files (`index.html`, `publications.html`, etc.) to update content directly, especially sections that are not auto-populated from your CV in this static setup. The initial content is based on the LaTeX CV you provided.
-    * **Home Page News/Updates:** Manually edit the "News & Updates" section in `index.html`.
-    * **Profile Picture (Optional):** Add a `profile.jpg` (or any other name, then update in `index.html`) to the `assets/images/` folder if you want a picture on the home page.
-5.  **Blog Posts:**
-    * Create new blog posts as Markdown files (`.md`) inside the `_blogs/` directory.
-    * Each Markdown file **must** start with YAML frontmatter for title, date, and keywords. Example:
-        ```markdown
-        ---
-        title: "My Awesome New Discovery"
-        date: "2025-05-30"
-        keywords: "research, AI, LLMs"
-        summary: "A brief summary of this groundbreaking post..."
-        ---
+- **Responsive Design** - Works perfectly on desktop, tablet, and mobile
+- **Dark/Light Mode Toggle** - User preference is saved locally
+- **Smooth Animations** - CSS transitions and scroll-based fade-in effects
+- **Blog System** - Dynamic blog with Markdown support and client-side processing
+- **Modern UI** - Glass morphism design with gradient accents
+- **SEO Optimized** - Proper meta tags and semantic HTML
+- **Accessibility** - ARIA labels and keyboard navigation support
 
-        The rest of your blog content in **Markdown** format goes here.
-        You can use headings, lists, bold, italics, etc.
-        ```
-    * **Important:** After adding a new `.md` file to the `_blogs` directory, you **must** update the `blogFiles` array in `js/blogs.js` to include the new filename. For example, if you add `my-cool-paper.md`, add it to the array:
-        ```javascript
-        // In js/blogs.js
-        const blogFiles = [
-            'my-first-post.md',
-            'another-update.md',
-            'my-cool-paper.md' // Add your new file here
-        ];
-        ```
+## 🚀 Quick Start
 
-## Deployment on GitHub Pages
+### Prerequisites
 
-1.  Create a new repository on GitHub (e.g., `yourusername.github.io` for a user page, or `my-portfolio` for a project page).
-2.  Push all these files (including `assets`, `css`, `js`, `_blogs` directories) to the repository.
-3.  If it's a repository named `yourusername.github.io`, the site will be live at `https://yourusername.github.io`.
-4.  If it's another name (e.g., `my-portfolio`), go to your repository's "Settings" -> "Pages".
-    * Under "Build and deployment", select "Deploy from a branch".
-    * Choose the branch (usually `main` or `master`).
-    * Select the `/ (root)` folder.
-    * Click "Save". Your site will be available at `https://yourusername.github.io/my-portfolio/`. You might need to adjust asset paths if using a project page (e.g., `/my-portfolio/css/style.css` instead of `/css/style.css`). For simplicity, this setup assumes deployment to a root or that paths are handled correctly by GitHub Pages.
+- Node.js (v14 or higher)
+- Git
 
-## Features
+### Local Development
 
-* Responsive Design
-* Dark/Light Mode Toggle
-* Smooth Scrolling
-* CSS Animations on hover/interaction
-* Gradient color accents
-* Blog system using Markdown files processed client-side.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/vicky157/vicky157.github.io.git
+   cd vicky157.github.io
+   ```
 
-## Icon Credits
-This site uses Font Awesome icons. Ensure you have an internet connection for them to load from the CDN.
+2. **Run the build script**
+   ```bash
+   ./build.sh
+   ```
+
+3. **Start local server**
+   ```bash
+   npm run serve
+   ```
+
+4. **Visit** `http://localhost:8000`
+
+## 📝 Content Management
+
+### Resume/CV
+
+1. Compile your LaTeX CV into a PDF
+2. Save as `CV_Vikash_PhD.pdf` in the `assets/resume/` directory
+
+### Blog Posts
+
+Create new blog posts as Markdown files in the `_blogs/` directory:
+
+```markdown
+---
+title: "Your Amazing Post Title"
+date: "2025-07-08"
+keywords: "research, AI, machine learning"
+summary: "A brief summary of your post..."
+---
+
+Your **Markdown** content goes here!
+
+## Use headings, lists, and formatting
+
+- Bullet points work
+- Images are automatically converted to base64
+- Math expressions supported with MathJax
+```
+
+**Important:** After adding new blog posts, run:
+```bash
+npm run build:blog
+```
+
+### Customizing Content
+
+- **Home Page**: Edit `index.html` directly
+- **Publications**: Update `publications.html`
+- **Experience**: Modify `education_experience.html`
+- **Contact Info**: Update `contact.html`
+
+## 🛠️ Development
+
+### Available Scripts
+
+```bash
+npm run build:blog          # Generate blog data from Markdown files
+npm run serve              # Serve with Python (port 8000)
+npm run serve:php          # Serve with PHP (port 8000)
+```
+
+### Project Structure
+
+```
+├── assets/
+│   ├── blog_image/        # Blog post images
+│   ├── icons/            # Favicons and icons
+│   └── resume/           # CV/Resume files
+├── css/
+│   └── style.css         # Main stylesheet
+├── js/
+│   ├── lib/              # Third-party libraries
+│   ├── blogs.js          # Blog functionality
+│   ├── main.js           # Core JavaScript
+│   └── blogs-data.json   # Generated blog data
+├── scripts/
+│   └── generate-blog-data.js  # Blog build script
+├── _blogs/               # Markdown blog posts
+├── *.html               # Website pages
+└── package.json         # Dependencies and scripts
+```
+
+### Code Quality
+
+The codebase follows modern best practices:
+
+- **Modular JavaScript** - Functions are organized and well-documented
+- **CSS Custom Properties** - Easy theming and maintenance
+- **Semantic HTML** - Accessible and SEO-friendly markup
+- **Error Handling** - Graceful fallbacks for all features
+
+## 🚢 Deployment
+
+### GitHub Pages (Recommended)
+
+1. **Create Repository**
+   - For user site: `yourusername.github.io`
+   - For project site: any name (e.g., `portfolio`)
+
+2. **Push Code**
+   ```bash
+   git push origin main
+   ```
+
+3. **Enable Pages**
+   - Go to repository Settings → Pages
+   - Select "Deploy from a branch"
+   - Choose `main` branch and `/ (root)` folder
+   - Save
+
+4. **Access Site**
+   - User site: `https://yourusername.github.io`
+   - Project site: `https://yourusername.github.io/repository-name`
+
+### Other Hosting Platforms
+
+The site works with any static hosting service:
+- Netlify
+- Vercel
+- AWS S3
+- Firebase Hosting
+
+## 🔧 Troubleshooting
+
+### Blog Posts Not Showing
+
+1. Check that Markdown files have proper frontmatter
+2. Run `npm run build:blog` to regenerate data
+3. Ensure `js/blogs-data.json` exists and is valid
+
+### Theme Not Persisting
+
+- Check browser localStorage support
+- Ensure JavaScript is enabled
+
+### Images Not Loading
+
+- Verify image paths are relative to the Markdown file
+- Run blog build script to convert to base64
+
+## 📱 Browser Support
+
+- Chrome 80+
+- Firefox 75+
+- Safari 13+
+- Edge 80+
+
+## 📄 License
+
+MIT License - see LICENSE file for details
+
+## 🤝 Contributing
+
+Feel free to submit issues and enhancement requests!
+
+---
+
+**Made with ❤️ by Vikash Singh**
