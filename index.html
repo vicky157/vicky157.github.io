@@ -79,13 +79,36 @@
         <section id="publication-update" class="card-style">
             <h2>Latest Publication Update</h2>
             <div class="publication-item-home">
+                <h3 class="publication-title-home">$K^4$: Online Log Anomaly Detection Via Unsupervised Typicality Learning</h3>
+                <p class="publication-authors-home">Chen, W., <strong>Singh, V.</strong>, Rahmani, Z., Ganguly, D., Hariri, M., Chaudhary, V.</p>
+                <p class="publication-venue-home"><em>arXiv preprint</em>, July 2025.</p>
+                <div class="publication-links-home">
+                    <a href="https://arxiv.org/abs/2507.20051" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
+                    <a href="#" onclick="toggleBibtex(event, 'bibtex-entry-chen2025')" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
+                </div>
+                <div id="bibtex-entry-chen2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-border-color);">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>
+@misc{chen2025k4onlineloganomaly,
+      title={$K^4$: Online Log Anomaly Detection Via Unsupervised Typicality Learning}, 
+      author={Weicong Chen and Vikash Singh and Zahra Rahmani and Debargha Ganguly and Mohsen Hariri and Vipin Chaudhary},
+      year={2025},
+      eprint={2507.20051},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2507.20051}, 
+}
+                    </code></pre>
+                </div>
+            </div>
+            <div class="publication-item-home">
                 <h3 class="publication-title-home">Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks</h3>
                 <p class="publication-authors-home">Ganguly, D., <strong>Singh, V.</strong>, Sankar, S., Zhang, B., Zhang, X., Iyengar, S., Han, X., Sharma, A., Kalyanaraman, S., Chaudhary, V.</p>
                 <p class="publication-venue-home"><em>arXiv preprint</em>, May 2025.</p>
                 <div class="publication-links-home">
                     <a href="https://arxiv.org/abs/2505.20047" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
                     <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
-                    <a href="#" onclick="toggleBibtex(event)" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
+                    <a href="#" onclick="toggleBibtex(event, 'bibtex-entry-ganguly2025')" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
                     <a href="publications.html" class="btn">More Publications <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div id="bibtex-entry-ganguly2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-border-color);">
@@ -204,29 +227,6 @@
             </div>
         </div>
         
-        <!-- <div class="footer-bottom">
-            <div class="footer-bottom-content">
-                <div class="copyright">
-                    <p>&copy; <span id="current-year"></span> Vikash Singh. All rights reserved.</p>
-                    <p class="build-info">Built with ❤️ using modern web technologies</p>
-                </div>
-                <div class="footer-stats">
-                    <div class="stat-item" id="research-counter">
-                        <i class="fas fa-flask"></i>
-                        <span><span class="counter" data-target="5">0</span> Active Projects</span>
-                    </div>
-                    <div class="stat-item" id="publication-counter">
-                        <i class="fas fa-scroll"></i>
-                        <span><span class="counter" data-target="3">0</span> Publications</span>
-                    </div>
-                    <div class="stat-item" id="experience-counter">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span><span class="counter" data-target="2">0</span> Years PhD</span>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        
         <div class="footer-decoration">
             <div class="decoration-dots">
                 <span></span><span></span><span></span><span></span><span></span>
@@ -235,13 +235,15 @@
     </footer>
 
     <script>
-        function toggleBibtex(event) {
+        function toggleBibtex(event, bibtexId) {
             event.preventDefault(); // Prevent page jump
-            const bibtexEntry = document.getElementById('bibtex-entry-ganguly2025');
-            if (bibtexEntry.style.display === 'none') {
-                bibtexEntry.style.display = 'block';
-            } else {
-                bibtexEntry.style.display = 'none';
+            const bibtexEntry = document.getElementById(bibtexId);
+            if (bibtexEntry) {
+                if (bibtexEntry.style.display === 'none' || bibtexEntry.style.display === '') {
+                    bibtexEntry.style.display = 'block';
+                } else {
+                    bibtexEntry.style.display = 'none';
+                }
             }
         }
     </script>
