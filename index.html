@@ -237,15 +237,192 @@
     <script>
         function toggleBibtex(event, bibtexId) {
             event.preventDefault(); // Prevent page jump
+            event.stopPropagation(); // Prevent event bubbling
+            
             const bibtexEntry = document.getElementById(bibtexId);
-            if (bibtexEntry) {
-                if (bibtexEntry.style.display === 'none' || bibtexEntry.style.display === '') {
-                    bibtexEntry.style.display = 'block';
-                } else {
-                    bibtexEntry.style.display = 'none';
+            if (!bibtexEntry) {
+                console.warn('BibTeX entry not found:', bibtexId);
+                return;
+            }
+            
+            const isCurrentlyVisible = bibtexEntry.style.display === 'block';
+            
+            // Close all other BibTeX entries first
+            const allBibtexEntries = document.querySelectorAll('[id^="bibtex-entry-"]');
+            allBibtexEntries.forEach(entry => {
+                if (entry.id !== bibtexId) {
+                    entry.style.display = 'none';
+                    // Update button text for other entries
+                    const button = document.querySelector(`[onclick*="${entry.id}"]`);
+                    if (button) {
+                        const text = button.childNodes[button.childNodes.length - 1];
+                        if (text && text.nodeType === Node.TEXT_NODE) {
+                            text.textContent = ' BibTeX';
+                        }
+                    }
+                }
+            });
+            
+            // Toggle the current entry
+            if (isCurrentlyVisible) {
+                bibtexEntry.style.display = 'none';
+                updateButtonText(bibtexId, ' BibTeX');
+            } else {
+                bibtexEntry.style.display = 'block';
+                updateButtonText(bibtexId, ' Hide BibTeX');
+                
+                // Smooth scroll to the BibTeX entry on mobile
+                if (window.innerWidth <= 768) {
+                    setTimeout(() => {
+                        bibtexEntry.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'nearest' 
+                        });
+                    }, 100);
                 }
             }
         }
+        
+        function updateButtonText(bibtexId, newText) {
+            const button = document.querySelector(`[onclick*="${bibtexId}"]`);
+            if (button) {
+                const textNode = button.childNodes[button.childNodes.length - 1];
+                if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+                    textNode.textContent = newText;
+                }
+            }
+        }
+        
+        // Add copy functionality for BibTeX entries
+        function copyBibtexToClipboard(bibtexId) {
+            const bibtexEntry = document.getElementById(bibtexId);
+            if (bibtexEntry) {
+                const bibtexText = bibtexEntry.querySelector('code').textContent.trim();
+                
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(bibtexText).then(() => {
+                        showCopyNotification('BibTeX copied to clipboard!');
+                    }).catch(err => {
+                        console.warn('Failed to copy to clipboard:', err);
+                        fallbackCopyTextToClipboard(bibtexText);
+                    });
+                } else {
+                    fallbackCopyTextToClipboard(bibtexText);
+                }
+            }
+        }
+        
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopyNotification('BibTeX copied to clipboard!');
+            } catch (err) {
+                console.warn('Fallback copy failed:', err);
+                showCopyNotification('Copy failed. Please select and copy manually.');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        function showCopyNotification(message) {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.copy-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'copy-notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--current-theme-accent);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 25px;
+                font-size: 14px;
+                z-index: 1001;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Hide notification
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 2000);
+        }
+        
+        // Add copy buttons to BibTeX entries after DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const bibtexEntries = document.querySelectorAll('[id^="bibtex-entry-"]');
+            bibtexEntries.forEach(entry => {
+                // Add copy button
+                const copyButton = document.createElement('button');
+                copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                copyButton.className = 'copy-bibtex-btn';
+                copyButton.style.cssText = `
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: rgba(74, 144, 226, 0.8);
+                    color: white;
+                    border: none;
+                    padding: 6px 12px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 12px;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                `;
+                
+                copyButton.addEventListener('click', () => {
+                    copyBibtexToClipboard(entry.id);
+                });
+                
+                copyButton.addEventListener('mouseenter', () => {
+                    copyButton.style.background = 'rgba(74, 144, 226, 1)';
+                    copyButton.style.transform = 'scale(1.05)';
+                });
+                
+                copyButton.addEventListener('mouseleave', () => {
+                    copyButton.style.background = 'rgba(74, 144, 226, 0.8)';
+                    copyButton.style.transform = 'scale(1)';
+                });
+                
+                entry.style.position = 'relative';
+                entry.appendChild(copyButton);
+            });
+        });
     </script>
     <script src="js/main.js"></script>
 </body>

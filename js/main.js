@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeAnimations();
     initializeDynamicFooter();
     initializeInteractiveElements();
+    initializePublicationFeatures();
     updateCurrentYear();
 });
 
@@ -119,65 +120,161 @@ function initializeFooterInteractions() {
  * Site-wide Interactive Elements
  */
 function initializeInteractiveElements() {
-    // Add magnetic effect to buttons
-    const buttons = document.querySelectorAll('.btn, .social-icon, .card-style');
-    buttons.forEach(button => {
-        button.addEventListener('mousemove', (e) => {
-            const rect = button.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
+    // Check if device supports hover (not touch-only)
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
+    
+    // Add magnetic effect to buttons (only on non-touch devices)
+    if (supportsHover) {
+        const buttons = document.querySelectorAll('.btn, .social-icon, .card-style');
+        buttons.forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.02)`;
+            });
             
-            button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.02)`;
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = '';
+            });
         });
-        
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = '';
-        });
-    });
+    }
 
-    // Add floating animation to cards
+    // Add floating animation to cards (reduce on mobile)
     const cards = document.querySelectorAll('.card-style');
     cards.forEach((card, index) => {
-        // Add subtle floating animation
-        card.style.animation = `cardFloat 4s ease-in-out infinite`;
-        card.style.animationDelay = `${index * 0.5}s`;
+        // Reduce animation intensity on mobile
+        const isMobile = window.innerWidth <= 768;
+        if (!isMobile) {
+            card.style.animation = `cardFloat 4s ease-in-out infinite`;
+            card.style.animationDelay = `${index * 0.5}s`;
+        }
         
-        // Add enhanced hover effect
+        // Add enhanced hover effect (touch-friendly)
         card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px) scale(1.02)';
-            card.style.boxShadow = '0 20px 40px rgba(74, 144, 226, 0.3)';
+            if (supportsHover) {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+                card.style.boxShadow = '0 20px 40px rgba(74, 144, 226, 0.3)';
+            }
         });
         
         card.addEventListener('mouseleave', () => {
             card.style.transform = '';
             card.style.boxShadow = '';
         });
+
+        // Touch support for mobile
+        if (!supportsHover) {
+            let touchTimeout;
+            
+            card.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                card.style.transform = 'translateY(-5px) scale(1.01)';
+                card.style.boxShadow = '0 15px 30px rgba(74, 144, 226, 0.2)';
+                
+                clearTimeout(touchTimeout);
+                touchTimeout = setTimeout(() => {
+                    card.style.transform = '';
+                    card.style.boxShadow = '';
+                }, 150);
+            });
+        }
     });
 
     // Add ripple effect to clickable elements
-    const clickableElements = document.querySelectorAll('.btn, .social-icon, .publication-links-home a');
+    const clickableElements = document.querySelectorAll('.btn, .social-icon, .publication-links-home a, .btn-icon, .publication-links a');
     clickableElements.forEach(element => {
         element.addEventListener('click', (e) => {
             createRippleEffect(element, e);
         });
+        
+        // Touch support
+        element.addEventListener('touchstart', (e) => {
+            createRippleEffect(element, e.touches[0]);
+        });
+    });
+
+    // Improve touch interactions for mobile
+    initializeTouchImprovements();
+    
+    // Initialize viewport height fix for mobile browsers
+    initializeViewportFix();
+}
+
+function initializeTouchImprovements() {
+    // Add touch feedback to interactive elements
+    const interactiveElements = document.querySelectorAll('button, .btn, .btn-icon, a, .social-icon');
+    
+    interactiveElements.forEach(element => {
+        // Add active state for better touch feedback
+        element.addEventListener('touchstart', () => {
+            element.classList.add('touch-active');
+        });
+        
+        element.addEventListener('touchend', () => {
+            setTimeout(() => {
+                element.classList.remove('touch-active');
+            }, 150);
+        });
+        
+        element.addEventListener('touchcancel', () => {
+            element.classList.remove('touch-active');
+        });
+    });
+    
+    // Prevent double-tap zoom on buttons
+    const buttons = document.querySelectorAll('button, .btn, .btn-icon');
+    buttons.forEach(button => {
+        button.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            // Trigger click manually to maintain functionality
+            setTimeout(() => {
+                button.click();
+            }, 0);
+        });
+    });
+}
+
+function initializeViewportFix() {
+    // Fix viewport height issues on mobile browsers
+    function setViewportHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setViewportHeight();
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', () => {
+        setTimeout(setViewportHeight, 100);
     });
 }
 
 function createRippleEffect(element, event = null) {
+    // Prevent multiple ripples
+    const existingRipple = element.querySelector('.ripple-effect');
+    if (existingRipple) {
+        existingRipple.remove();
+    }
+    
     const ripple = document.createElement('span');
     const rect = element.getBoundingClientRect();
     
     let x, y;
     if (event) {
-        x = event.clientX - rect.left;
-        y = event.clientY - rect.top;
+        x = (event.clientX || event.pageX) - rect.left;
+        y = (event.clientY || event.pageY) - rect.top;
     } else {
         x = rect.width / 2;
         y = rect.height / 2;
     }
     
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
+    const size = Math.max(rect.width, rect.height) * 2;
+    
+    ripple.style.left = (x - size / 2) + 'px';
+    ripple.style.top = (y - size / 2) + 'px';
+    ripple.style.width = size + 'px';
+    ripple.style.height = size + 'px';
     ripple.className = 'ripple-effect';
     
     element.style.position = 'relative';
@@ -185,7 +282,9 @@ function createRippleEffect(element, event = null) {
     element.appendChild(ripple);
     
     setTimeout(() => {
-        ripple.remove();
+        if (ripple.parentNode) {
+            ripple.remove();
+        }
     }, 600);
 }
 
@@ -251,13 +350,49 @@ function initializeMobileMenu() {
         return; // Mobile menu not available on this page
     }
 
-    mobileMenuToggle.addEventListener('click', () => {
+    mobileMenuToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         toggleMobileMenu(mobileMenu, mobileMenuToggle);
     });
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', (event) => {
-        if (!mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+        if (mobileMenu.classList.contains('active') && 
+            !mobileMenu.contains(event.target) && 
+            !mobileMenuToggle.contains(event.target)) {
+            closeMobileMenu(mobileMenu, mobileMenuToggle);
+        }
+    });
+
+    // Close mobile menu when clicking on a menu item
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeMobileMenu(mobileMenu, mobileMenuToggle);
+        });
+    });
+
+    // Close mobile menu on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            closeMobileMenu(mobileMenu, mobileMenuToggle);
+        }
+    });
+
+    // Handle orientation change
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+            if (mobileMenu.classList.contains('active')) {
+                // Recalculate menu positioning if needed
+                adjustMobileMenuPosition(mobileMenu);
+            }
+        }, 100);
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
             closeMobileMenu(mobileMenu, mobileMenuToggle);
         }
     });
@@ -270,9 +405,22 @@ function toggleMobileMenu(mobileMenu, mobileMenuToggle) {
     if (isActive) {
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = 'hidden';
+        // Add ARIA attributes for accessibility
+        mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        // Focus management
+        setTimeout(() => {
+            const firstLink = mobileMenu.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }, 100);
     } else {
         icon.classList.remove('fa-times');
         icon.classList.add('fa-bars');
+        document.body.style.overflow = '';
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
     }
 }
 
@@ -281,6 +429,26 @@ function closeMobileMenu(mobileMenu, mobileMenuToggle) {
     const icon = mobileMenuToggle.querySelector('i');
     icon.classList.remove('fa-times');
     icon.classList.add('fa-bars');
+    document.body.style.overflow = '';
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenuToggle.focus(); // Return focus to toggle button
+}
+
+function adjustMobileMenuPosition(mobileMenu) {
+    // Adjust menu position for landscape orientation
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    
+    if (windowHeight < 600 && windowWidth > windowHeight) {
+        // Landscape mode adjustments
+        mobileMenu.style.flexDirection = 'row';
+        mobileMenu.style.alignItems = 'center';
+    } else {
+        // Portrait mode
+        mobileMenu.style.flexDirection = 'column';
+        mobileMenu.style.justifyContent = 'center';
+    }
 }
 
 /**
@@ -350,6 +518,65 @@ function initializeAnimations() {
     fadeElems.forEach(elem => {
         elem.classList.add('fade-in');
         intersectionObserver.observe(elem);
+    });
+}
+
+/**
+ * Publication page specific features
+ */
+function initializePublicationFeatures() {
+    // Enhance BibTeX toggle buttons for better mobile experience
+    const bibtexButtons = document.querySelectorAll('[onclick*="toggleBibtex"]');
+    bibtexButtons.forEach(button => {
+        // Add better touch handling
+        button.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            button.style.transform = 'scale(0.95)';
+        });
+        
+        button.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            button.style.transform = '';
+            // Trigger the click after a short delay to ensure proper handling
+            setTimeout(() => {
+                button.click();
+            }, 50);
+        });
+        
+        button.addEventListener('touchcancel', () => {
+            button.style.transform = '';
+        });
+    });
+    
+    // Ensure publication links are touch-friendly
+    const publicationLinks = document.querySelectorAll('.publication-links a, .publication-links-home a');
+    publicationLinks.forEach(link => {
+        // Add visual feedback for touch
+        link.addEventListener('touchstart', () => {
+            link.style.opacity = '0.7';
+        });
+        
+        link.addEventListener('touchend', () => {
+            link.style.opacity = '';
+        });
+        
+        link.addEventListener('touchcancel', () => {
+            link.style.opacity = '';
+        });
+    });
+    
+    // Handle external links properly on mobile
+    const externalLinks = document.querySelectorAll('a[target="_blank"]');
+    externalLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Add a small delay on mobile to ensure the touch feedback is visible
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                setTimeout(() => {
+                    window.open(link.href, '_blank');
+                }, 100);
+            }
+        });
     });
 }
 

@@ -1871,6 +1871,648 @@ button:focus, a:focus, input:focus {
     }
 }
 
+/* ===========================
+   RESPONSIVE DESIGN & MOBILE
+   =========================== */
+
+/* Mobile-first responsive breakpoints */
+@media screen and (max-width: 768px) {
+    /* Root adjustments for mobile */
+    :root {
+        --border-radius-main: 12px;
+        --border-radius-small: 8px;
+    }
+
+    /* Body adjustments */
+    body {
+        padding-top: 10px;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    /* Header and Navigation */
+    header {
+        padding: 10px 0;
+    }
+
+    nav {
+        margin: 0 10px;
+        padding: 0.6em 1em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav .logo a {
+        font-size: 1.3em;
+    }
+
+    nav .logo svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 6px;
+    }
+
+    /* Hide desktop menu on mobile */
+    nav ul {
+        display: none;
+    }
+
+    /* Show mobile menu toggle */
+    #mobile-menu-toggle {
+        display: block !important;
+        order: 3;
+    }
+
+    #theme-toggle {
+        order: 2;
+        margin-right: 10px;
+    }
+
+    /* Mobile menu improvements */
+    #mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--current-glass-bg-navbar);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: none;
+        border-radius: 0;
+        z-index: 9999;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #mobile-menu.active {
+        transform: translateX(0);
+        max-height: none;
+        opacity: 1;
+        padding: 2em;
+    }
+
+    #mobile-menu ul {
+        display: block;
+        text-align: center;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    #mobile-menu ul li {
+        margin-bottom: 1em;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.3s ease;
+    }
+
+    #mobile-menu.active ul li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #mobile-menu.active ul li:nth-child(1) { transition-delay: 0.1s; }
+    #mobile-menu.active ul li:nth-child(2) { transition-delay: 0.15s; }
+    #mobile-menu.active ul li:nth-child(3) { transition-delay: 0.2s; }
+    #mobile-menu.active ul li:nth-child(4) { transition-delay: 0.25s; }
+    #mobile-menu.active ul li:nth-child(5) { transition-delay: 0.3s; }
+
+    #mobile-menu ul li a {
+        font-size: 1.3em;
+        padding: 1em 1.5em;
+        display: block;
+        border-radius: 12px;
+        margin: 0.5em 0;
+        background: rgba(74, 144, 226, 0.1);
+        border: 2px solid transparent;
+        font-weight: 600;
+    }
+
+    #mobile-menu ul li a:hover,
+    #mobile-menu ul li a.active {
+        background: rgba(74, 144, 226, 0.2);
+        border-color: var(--current-theme-accent);
+        transform: scale(1.05);
+    }
+
+    /* Main content */
+    main {
+        margin: 1em auto;
+        padding: 0 15px;
+        max-width: 100%;
+    }
+
+    /* Card sections */
+    .card-style, .content-section {
+        padding: 20px 18px;
+        margin-bottom: 1.5em;
+        border-radius: var(--border-radius-main);
+    }
+
+    .card-style:hover {
+        transform: translateY(-3px) scale(1.01);
+    }
+
+    /* Typography responsive adjustments */
+    h1 {
+        font-size: 2em !important;
+        line-height: 1.2;
+        margin-bottom: 0.5em;
+    }
+
+    h2 {
+        font-size: 1.6em !important;
+        line-height: 1.3;
+        margin-top: 1em;
+    }
+
+    h3 {
+        font-size: 1.3em !important;
+        line-height: 1.4;
+    }
+
+    h4 {
+        font-size: 1.1em !important;
+    }
+
+    p {
+        font-size: 1em;
+        line-height: 1.6;
+        margin-bottom: 1em;
+    }
+
+    /* Hero section mobile */
+    .hero-section {
+        padding: 1.5em 1em;
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-size: 2.2em !important;
+        margin-bottom: 0.3em;
+    }
+
+    .hero-section .subtitle {
+        font-size: 1.1em !important;
+        margin-bottom: 0.5em;
+        line-height: 1.4;
+    }
+
+    .hero-section .location {
+        font-size: 0.95em !important;
+        margin-bottom: 1.2em;
+    }
+
+    /* Social links mobile layout */
+    .social-links {
+        margin-top: 1.5em;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        justify-content: center;
+        max-width: 320px;
+        margin: 1.5em auto 0;
+    }
+
+    .social-links .btn {
+        padding: 0.8em 1em;
+        font-size: 0.9em;
+        text-align: center;
+        justify-content: center;
+        white-space: nowrap;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+
+    .social-links .btn i {
+        margin-right: 6px;
+        font-size: 1.1em;
+    }
+
+    /* Publication sections mobile */
+    .publication-item, .publication-item-home {
+        padding-bottom: 1.2em;
+        margin-bottom: 1.5em;
+    }
+
+    .publication-title, .publication-title-home {
+        font-size: 1.2em !important;
+        line-height: 1.3;
+        margin-bottom: 0.5em;
+    }
+
+    .publication-authors, .publication-authors-home {
+        font-size: 0.9em;
+        line-height: 1.4;
+        margin-bottom: 0.5em;
+    }
+
+    .publication-venue, .publication-venue-home {
+        font-size: 0.85em;
+        margin-bottom: 0.8em;
+    }
+
+    .publication-links, .publication-links-home {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .publication-links .btn-icon,
+    .publication-links-home .btn-icon,
+    .publication-links .btn,
+    .publication-links-home .btn {
+        font-size: 0.85em;
+        padding: 0.6em 0.9em;
+        flex: 1;
+        min-width: 80px;
+        text-align: center;
+        justify-content: center;
+    }
+
+    /* News list mobile */
+    .news-list li {
+        padding-left: 12px;
+        margin-bottom: 1.2em;
+        border-left-width: 2px;
+    }
+
+    .news-list .date {
+        font-size: 0.85em;
+        display: block;
+        margin-bottom: 0.3em;
+    }
+
+    /* Tables mobile responsiveness */
+    .blog-content-body table,
+    table {
+        font-size: 0.85em;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .blog-content-body .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+        margin: 1em 0;
+    }
+
+    .blog-content-body th,
+    .blog-content-body td,
+    th, td {
+        padding: 8px 12px;
+        min-width: 120px;
+    }
+
+    /* Interest list mobile */
+    .interest-list li {
+        margin-bottom: 1em;
+        font-size: 0.95em;
+        line-height: 1.5;
+    }
+
+    /* Code blocks mobile */
+    .blog-content-body pre,
+    pre {
+        padding: 1em;
+        font-size: 0.85em;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .blog-content-body code,
+    code {
+        font-size: 0.85em;
+        padding: 0.2em 0.3em;
+    }
+
+    /* Form elements mobile */
+    input, select, textarea {
+        font-size: 16px !important; /* Prevent zoom on iOS */
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: var(--border-radius-small);
+    }
+
+    /* Blog controls mobile */
+    .blog-controls {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .search-container {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .sort-container {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    /* Blog meta mobile */
+    .blog-meta {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+        font-size: 0.9em;
+    }
+
+    .meta-item {
+        justify-content: center;
+    }
+
+    /* Education entries mobile */
+    .entry {
+        padding-left: 20px;
+        margin-bottom: 1.5em;
+    }
+
+    .entry::before {
+        left: 0;
+        width: 8px;
+        height: 8px;
+        top: 10px;
+    }
+
+    .entry h3 {
+        font-size: 1.2em !important;
+        line-height: 1.3;
+    }
+
+    .entry .institution {
+        font-size: 0.95em;
+        line-height: 1.4;
+    }
+
+    .entry .dates {
+        font-size: 0.85em;
+    }
+
+    .entry ul {
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+
+    /* Project entries mobile */
+    .project-entry .project-date {
+        float: none;
+        display: block;
+        margin-bottom: 0.5em;
+    }
+}
+
+/* Tablet styles */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    nav {
+        margin: 0 20px;
+        padding: 0.7em 1.3em;
+    }
+
+    main {
+        margin: 1.5em auto;
+        padding: 0 30px;
+        max-width: 100%;
+    }
+
+    .card-style, .content-section {
+        padding: 22px 25px;
+    }
+
+    .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        max-width: 600px;
+        margin: 1.5em auto 0;
+    }
+
+    .social-links .btn {
+        flex: 1;
+        min-width: 140px;
+        max-width: 180px;
+    }
+
+    h1 {
+        font-size: 2.2em !important;
+    }
+
+    h2 {
+        font-size: 1.8em !important;
+    }
+
+    .hero-section h1 {
+        font-size: 2.6em !important;
+    }
+}
+
+/* Large mobile devices */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+
+    nav {
+        margin: 0 5px;
+        padding: 0.5em 0.8em;
+    }
+
+    nav .logo a {
+        font-size: 1.2em;
+    }
+
+    main {
+        padding: 0 10px;
+    }
+
+    .card-style, .content-section {
+        padding: 15px;
+        margin-bottom: 1.2em;
+    }
+
+    .hero-section {
+        padding: 1.2em 0.8em;
+    }
+
+    .hero-section h1 {
+        font-size: 1.8em !important;
+    }
+
+    .hero-section .subtitle {
+        font-size: 1em !important;
+    }
+
+    .social-links {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        max-width: 280px;
+    }
+
+    .social-links .btn {
+        padding: 0.7em 0.8em;
+        font-size: 0.85em;
+    }
+
+    .publication-links, .publication-links-home {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .publication-links .btn-icon,
+    .publication-links-home .btn-icon,
+    .publication-links .btn,
+    .publication-links-home .btn {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    h1 {
+        font-size: 1.6em !important;
+    }
+
+    h2 {
+        font-size: 1.4em !important;
+    }
+
+    h3 {
+        font-size: 1.2em !important;
+    }
+}
+
+/* Very small devices */
+@media screen and (max-width: 320px) {
+    nav .logo a {
+        font-size: 1.1em;
+    }
+
+    nav .logo svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.6em !important;
+    }
+
+    .social-links {
+        max-width: 250px;
+    }
+
+    .card-style, .content-section {
+        padding: 12px;
+    }
+}
+
+/* Landscape mobile orientation */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    #mobile-menu {
+        flex-direction: row;
+        justify-content: center;
+        padding: 1em;
+    }
+
+    #mobile-menu ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 100%;
+        gap: 10px;
+    }
+
+    #mobile-menu ul li {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    #mobile-menu ul li a {
+        font-size: 1em;
+        padding: 0.8em 1em;
+    }
+}
+
+/* High DPI displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2), 
+       screen and (min-resolution: 192dpi) {
+    nav .logo svg,
+    .footer-logo svg {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Dark mode mobile adjustments */
+@media screen and (max-width: 768px) {
+    .dark-mode #mobile-menu {
+        background: var(--glass-bg-dark);
+    }
+
+    .dark-mode #mobile-menu ul li a {
+        background: rgba(88, 127, 231, 0.15);
+        color: var(--current-text-dark);
+    }
+
+    .dark-mode #mobile-menu ul li a:hover,
+    .dark-mode #mobile-menu ul li a.active {
+        background: rgba(88, 127, 231, 0.25);
+        border-color: var(--current-theme-accent);
+    }
+}
+
+/* Accessibility improvements for mobile */
+@media screen and (max-width: 768px) {
+    /* Larger touch targets */
+    button, .btn, .btn-icon, a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Better focus indicators */
+    button:focus, a:focus, input:focus {
+        outline: 3px solid var(--current-theme-accent);
+        outline-offset: 2px;
+    }
+
+    /* Improved readability */
+    p, li {
+        line-height: 1.6;
+    }
+}
+
+/* Print media mobile */
+@media print {
+    .social-links {
+        display: none;
+    }
+
+    #mobile-menu, #mobile-menu-toggle {
+        display: none !important;
+    }
+
+    nav ul {
+        display: flex !important;
+    }
+
+    .card-style {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        margin-bottom: 1em;
+    }
+}
+
 /* =========================
    CLEAN, IMPRESSIVE FOOTER
    ========================= */
@@ -2223,4 +2865,715 @@ button:focus, a:focus, input:focus {
 .research-tags li:hover {
     transform: translateY(-3px) scale(1.05);
     background: rgba(74, 144, 226, 0.2);
+}
+
+/* Footer responsive styles */
+@media screen and (max-width: 768px) {
+    .modern-footer {
+        padding: 2.5em 0 1.5em 0;
+        text-align: center;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2em;
+        padding: 0 1.5em;
+        max-width: 100%;
+    }
+
+    .footer-section {
+        padding: 1.2em;
+        margin-bottom: 1em;
+    }
+
+    .footer-section:hover {
+        transform: translateY(-4px);
+    }
+
+    .footer-logo {
+        padding: 1.5em 1em;
+    }
+
+    .footer-logo h3 {
+        font-size: 1.5em;
+        margin-bottom: 0.5em;
+    }
+
+    .footer-tagline {
+        font-size: 1em;
+        letter-spacing: 1px;
+    }
+
+    .footer-description {
+        font-size: 0.9em;
+        line-height: 1.6;
+    }
+
+    .footer-section h4 {
+        font-size: 1.1em;
+        margin-bottom: 1em;
+        text-align: center;
+    }
+
+    .footer-links ul {
+        text-align: center;
+    }
+
+    .footer-links a {
+        justify-content: center;
+        padding: 0.7em 1em;
+        margin: 0 auto 0.8em;
+        max-width: 200px;
+    }
+
+    .footer-links a:hover {
+        transform: translateY(-2px) scale(1.02);
+        padding-left: 1em;
+        border-left: none;
+        border-bottom: 3px solid var(--current-theme-accent);
+    }
+
+    .research-tags {
+        justify-content: center;
+        gap: 0.8em;
+    }
+
+    .research-tags li {
+        font-size: 0.8em;
+        padding: 0.5em 1em;
+        margin-bottom: 0.5em;
+    }
+
+    .footer-social-links {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .social-icon {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+        padding: 0.8em 1.2em;
+    }
+
+    .footer-download {
+        margin-top: 1em;
+        text-align: center;
+    }
+
+    .download-cv {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+        padding: 0.8em 1.2em;
+    }
+
+    .footer-wave {
+        height: 40px;
+        top: -30px;
+    }
+
+    .footer-decoration {
+        margin-top: 1em;
+    }
+
+    .decoration-dots {
+        justify-content: center;
+    }
+
+    /* Reduce particle density on mobile */
+    .particle {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer-content {
+        padding: 0 1em;
+        gap: 1.5em;
+    }
+
+    .footer-section {
+        padding: 1em;
+    }
+
+    .footer-logo h3 {
+        font-size: 1.3em;
+    }
+
+    .footer-tagline {
+        font-size: 0.9em;
+        letter-spacing: 0.5px;
+    }
+
+    .footer-description {
+        font-size: 0.85em;
+    }
+
+    .footer-section h4 {
+        font-size: 1em;
+    }
+
+    .footer-links a {
+        font-size: 0.9em;
+        padding: 0.6em 0.8em;
+    }
+
+    .research-tags li {
+        font-size: 0.75em;
+        padding: 0.4em 0.8em;
+    }
+
+    .social-icon, .download-cv {
+        font-size: 0.9em;
+        padding: 0.7em 1em;
+    }
+}
+
+/* Footer dark mode mobile adjustments */
+@media screen and (max-width: 768px) {
+    .dark-mode .footer-section {
+        background: rgba(45, 52, 54, 0.05);
+        border-color: rgba(88, 127, 231, 0.2);
+    }
+
+    .dark-mode .footer-links a:hover {
+        background: rgba(88, 127, 231, 0.15);
+        border-color: var(--current-theme-accent);
+    }
+
+    .dark-mode .research-tags li {
+        background: rgba(88, 127, 231, 0.2);
+        border-color: rgba(88, 127, 231, 0.3);
+    }
+}
+
+/* Footer landscape mobile */
+@media screen and (max-height: 600px) and (orientation: landscape) and (max-width: 768px) {
+    .modern-footer {
+        padding: 1.5em 0 1em 0;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5em;
+    }
+
+    .footer-section {
+        padding: 0.8em;
+    }
+
+    .footer-logo {
+        padding: 1em;
+    }
+
+    .footer-logo h3 {
+        font-size: 1.2em;
+    }
+
+    .footer-description {
+        display: none; /* Hide to save space */
+    }
+}
+
+/* ===========================
+   MOBILE ENHANCEMENTS & FIXES
+   =========================== */
+
+/* Enhanced mobile viewport height */
+:root {
+    --vh: 1vh; /* Fallback, will be updated by JS */
+}
+
+/* Touch improvements */
+.touch-active {
+    transform: scale(0.98) !important;
+    opacity: 0.8 !important;
+    transition: all 0.1s ease !important;
+}
+
+/* Improved ripple effect */
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    background-color: rgba(74, 144, 226, 0.3);
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes ripple {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Mobile-specific hover states (disable on touch devices) */
+@media (hover: none) {
+    .card-style:hover {
+        transform: none !important;
+        box-shadow: var(--current-box-shadow) !important;
+    }
+    
+    .btn:hover, .social-icon:hover, .btn-icon:hover {
+        transform: none !important;
+    }
+    
+    .footer-section:hover {
+        transform: none !important;
+    }
+}
+
+/* Improved focus states for keyboard navigation */
+button:focus-visible, 
+.btn:focus-visible, 
+.btn-icon:focus-visible, 
+a:focus-visible {
+    outline: 3px solid var(--current-theme-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+/* High contrast mode improvements */
+@media (prefers-contrast: high) {
+    .card-style, .content-section {
+        border: 2px solid var(--current-text);
+    }
+    
+    .btn, .social-icon, .btn-icon {
+        border: 2px solid var(--current-text);
+        background: var(--current-bg);
+        color: var(--current-text);
+    }
+    
+    .btn:hover, .social-icon:hover {
+        background: var(--current-text);
+        color: var(--current-bg);
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .card-style {
+        animation: none !important;
+    }
+    
+    .particle {
+        display: none !important;
+    }
+    
+    .floating-action-button {
+        display: none !important;
+    }
+    
+    .footer-wave {
+        animation: none !important;
+    }
+    
+    .footer-particles {
+        display: none !important;
+    }
+}
+
+/* Improved scrollbar for mobile */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: rgba(74, 144, 226, 0.5);
+        border-radius: 3px;
+    }
+}
+
+/* Safe area adjustments for notched devices */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+    
+    header {
+        padding-top: max(20px, env(safe-area-inset-top));
+    }
+    
+    .modern-footer {
+        padding-bottom: max(2em, env(safe-area-inset-bottom));
+    }
+    
+    #mobile-menu {
+        padding-top: max(2em, env(safe-area-inset-top));
+        padding-bottom: max(2em, env(safe-area-inset-bottom));
+    }
+}
+
+/* Improved table responsiveness */
+@media (max-width: 768px) {
+    .blog-content-body .table-wrapper {
+        position: relative;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--current-theme-accent) transparent;
+    }
+    
+    .blog-content-body .table-wrapper::after {
+        content: '← Scroll →';
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        font-size: 0.75em;
+        color: var(--current-text-secondary);
+        opacity: 0.7;
+        pointer-events: none;
+    }
+    
+    .blog-content-body table {
+        min-width: 500px;
+        width: auto;
+    }
+}
+
+/* Enhanced loading states */
+.loading-skeleton {
+    background: linear-gradient(90deg, 
+        var(--current-glass-bg) 25%, 
+        rgba(74, 144, 226, 0.1) 50%, 
+        var(--current-glass-bg) 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Dark mode enhancements */
+.dark-mode .loading-skeleton {
+    background: linear-gradient(90deg, 
+        var(--glass-bg-dark) 25%, 
+        rgba(88, 127, 231, 0.1) 50%, 
+        var(--glass-bg-dark) 75%);
+    background-size: 200% 100%;
+}
+
+/* Performance optimizations */
+.card-style, .content-section {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* GPU acceleration for animations */
+.hero-section h1,
+.hero-section .subtitle,
+.hero-section .location,
+.social-links a {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+/* Better mobile text selection */
+@media (max-width: 768px) {
+    * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+    }
+    
+    button, .btn, .btn-icon {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .card-style, .content-section {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    
+    #mobile-menu {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
+    }
+    
+    #mobile-menu.active {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Android Chrome specific fixes */
+@media screen and (max-width: 768px) {
+    input, textarea, select {
+        font-size: 16px !important; /* Prevent zoom on focus */
+        transform: translateZ(0); /* Force hardware acceleration */
+    }
+}
+
+/* Edge cases and final responsive fixes */
+@media screen and (max-width: 768px) and (max-height: 500px) {
+    /* Very short mobile screens (landscape phones) */
+    .hero-section {
+        padding: 1em;
+    }
+    
+    .card-style, .content-section {
+        margin-bottom: 1em;
+        padding: 15px;
+    }
+    
+    .modern-footer {
+        padding: 1.5em 0 1em 0;
+    }
+}
+
+/* Final accessibility improvements */
+@media (max-width: 768px) {
+    /* Ensure adequate color contrast */
+    .btn, .social-icon {
+        font-weight: 600;
+    }
+    
+    /* Better spacing for readability */
+    p, li {
+        margin-bottom: 1em;
+    }
+    
+    /* Improved link visibility */
+    a {
+        text-decoration: underline;
+        text-decoration-color: rgba(74, 144, 226, 0.3);
+        text-underline-offset: 2px;
+    }
+    
+    a:hover {
+        text-decoration-color: var(--current-theme-accent);
+    }
+}
+
+/* Publication links mobile layout improvements */
+.publication-links, .publication-links-home {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 0.8em;
+}
+
+.publication-links .btn-icon,
+.publication-links-home .btn-icon,
+.publication-links .btn,
+.publication-links-home .btn {
+    font-size: 0.9em;
+    padding: 0.5em 1em;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+}
+
+/* BibTeX entry styling improvements */
+[id^="bibtex-entry-"] {
+    display: none;
+    margin-top: 1em;
+    background-color: var(--current-glass-bg);
+    padding: 1em;
+    border-radius: 8px;
+    border: 1px solid var(--current-glass-border);
+    position: relative;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+[id^="bibtex-entry-"] pre {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+[id^="bibtex-entry-"] code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--current-text);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85em;
+    line-height: 1.4;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* Copy button styling */
+.copy-bibtex-btn {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: rgba(74, 144, 226, 0.8) !important;
+    color: white !important;
+    border: none !important;
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 12px !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    z-index: 10 !important;
+    min-height: 32px !important;
+    min-width: 60px !important;
+}
+
+.copy-bibtex-btn:hover {
+    background: rgba(74, 144, 226, 1) !important;
+    transform: scale(1.05) !important;
+}
+
+.copy-bibtex-btn:active {
+    transform: scale(0.95) !important;
+}
+
+/* Dark mode adjustments for BibTeX */
+.dark-mode [id^="bibtex-entry-"] {
+    background-color: var(--glass-bg-dark);
+    border-color: var(--glass-border-color-dark);
+}
+
+.dark-mode [id^="bibtex-entry-"] code {
+    color: var(--current-text-dark);
+}
+
+/* Mobile-specific publication improvements */
+@media (max-width: 768px) {
+    .publication-links, .publication-links-home {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .publication-links .btn-icon,
+    .publication-links-home .btn-icon,
+    .publication-links .btn,
+    .publication-links-home .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        padding: 0.7em 1em;
+        font-size: 0.9em;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* BibTeX entries mobile optimization */
+    [id^="bibtex-entry-"] {
+        margin: 1em 0;
+        padding: 0.8em;
+        border-radius: 6px;
+    }
+
+    [id^="bibtex-entry-"] code {
+        font-size: 0.8em;
+        line-height: 1.3;
+    }
+
+    .copy-bibtex-btn {
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+        margin-top: 10px !important;
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .publication-links .btn-icon,
+    .publication-links-home .btn-icon {
+        font-size: 0.85em;
+        padding: 0.6em 0.8em;
+    }
+
+    [id^="bibtex-entry-"] {
+        padding: 0.6em;
+    }
+
+    [id^="bibtex-entry-"] code {
+        font-size: 0.75em;
+    }
+}
+
+/* Button focus improvements for accessibility */
+.publication-links a:focus,
+.publication-links-home a:focus {
+    outline: 2px solid var(--current-theme-accent);
+    outline-offset: 2px;
+    z-index: 10;
+}
+
+/* Prevent button text selection */
+.publication-links a,
+.publication-links-home a,
+.copy-bibtex-btn {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Ensure buttons work properly on touch devices */
+.publication-links a,
+.publication-links-home a {
+    -webkit-tap-highlight-color: rgba(74, 144, 226, 0.3);
+}
+
+/* Very wide screens responsiveness */
+@media screen and (min-width: 1400px) {
+    main {
+        max-width: 1000px;
+    }
+    
+    nav {
+        max-width: 1000px;
+    }
+    
+    .footer-content {
+        max-width: 1000px;
+    }
 }
