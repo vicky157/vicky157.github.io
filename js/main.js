@@ -12,8 +12,72 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeDynamicFooter();
     initializeInteractiveElements();
     initializePublicationFeatures();
+    initializeMobileScrolling(); // Add mobile scrolling optimizations
     updateCurrentYear();
 });
+
+/**
+ * Mobile Scrolling Optimizations
+ */
+function initializeMobileScrolling() {
+    // Optimize viewport height for mobile browsers
+    function setViewportHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    // Set initial value
+    setViewportHeight();
+    
+    // Update on resize and orientation change
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', () => {
+        setTimeout(setViewportHeight, 100);
+    });
+    
+    // Prevent zoom on iOS when focusing inputs
+    if (navigator.platform.includes('iPhone') || navigator.platform.includes('iPad')) {
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            if (parseFloat(getComputedStyle(input).fontSize) < 16) {
+                input.style.fontSize = '16px';
+            }
+        });
+    }
+    
+    // Improve touch scrolling behavior
+    if ('ontouchstart' in window) {
+        // Add momentum scrolling to all scrollable elements
+        const scrollableElements = document.querySelectorAll(
+            '.table-wrapper, pre, .mobile-menu, .card-style, .content-section'
+        );
+        
+        scrollableElements.forEach(element => {
+            element.style.webkitOverflowScrolling = 'touch';
+            element.style.overscrollBehavior = 'contain';
+            element.style.touchAction = 'pan-y pan-x';
+        });
+        
+        // Specifically ensure cards allow touch scrolling
+        const cards = document.querySelectorAll('.card-style, .content-section');
+        cards.forEach(card => {
+            card.style.touchAction = 'pan-y pan-x';
+            
+            // Remove any potential touch event blocking
+            card.addEventListener('touchstart', (e) => {
+                // Don't prevent default - allow scrolling
+            }, { passive: true });
+            
+            card.addEventListener('touchmove', (e) => {
+                // Don't prevent default - allow scrolling
+            }, { passive: true });
+        });
+        
+        // Prevent rubber band effect on body
+        document.body.style.overscrollBehavior = 'contain';
+        document.documentElement.style.overscrollBehavior = 'contain';
+    }
+}
 
 /**
  * Simple Dynamic Footer Features
@@ -169,7 +233,8 @@ function initializeInteractiveElements() {
             let touchTimeout;
             
             card.addEventListener('touchstart', (e) => {
-                e.preventDefault();
+                // DON'T prevent default - allow scrolling gestures
+                // Only apply visual feedback, not prevent touch events
                 card.style.transform = 'translateY(-5px) scale(1.01)';
                 card.style.boxShadow = '0 15px 30px rgba(74, 144, 226, 0.2)';
                 
@@ -178,7 +243,7 @@ function initializeInteractiveElements() {
                     card.style.transform = '';
                     card.style.boxShadow = '';
                 }, 150);
-            });
+            }, { passive: true }); // Make it passive to allow scrolling
         }
     });
 

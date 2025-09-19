@@ -87,6 +87,27 @@ body {
 /* ---=== Smooth Scrolling & Base Elements ===--- */
 html {
     scroll-behavior: smooth;
+    /* Enable momentum scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    background-color: var(--current-bg);
+    color: var(--current-text);
+    line-height: 1.7;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    overflow-x: hidden;
+    padding-top: 20px;
+    /* Optimize scrolling performance on mobile */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent horizontal scroll issues on mobile */
+    width: 100%;
+    min-height: 100vh;
+    /* Improve touch scrolling smoothness */
+    overscroll-behavior: contain;
 }
 
 /* ---=== Basic Elements ===--- */
@@ -352,6 +373,9 @@ main {
     max-width: 900px; 
     margin: 2em auto;
     padding: 0 20px;
+    /* Ensure main content area allows touch scrolling */
+    touch-action: pan-y pan-x;
+    -webkit-overflow-scrolling: touch;
 }
 
 .card-style, .content-section { 
@@ -364,11 +388,23 @@ main {
     border-radius: var(--border-radius-main);
     box-shadow: var(--current-box-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background var(--transition-speed) ease, border var(--transition-speed) ease;
+    /* Allow touch scrolling through cards */
+    touch-action: pan-y pan-x;
+    /* Prevent cards from blocking scroll gestures */
+    pointer-events: auto;
 }
 
 .card-style:hover {
     transform: translateY(-6px) scale(1.015);
     box-shadow: 0 12px 40px 0 var(--current-box-shadow); 
+}
+
+/* Ensure links and buttons within cards work properly while allowing scrolling */
+.card-style a, .card-style button, .content-section a, .content-section button {
+    /* Allow these elements to capture touch events for interaction */
+    touch-action: manipulation;
+    position: relative;
+    z-index: 1;
 }
 
 /* ---=== Home Page Specific === */
@@ -1024,6 +1060,11 @@ main {
     color: #2d3748;
     font-family: 'Courier New', Courier, monospace;
     line-height: 1.5;
+    /* Enhanced mobile scrolling */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    /* Improve touch scroll performance */
+    transform: translateZ(0);
 }
 
 .dark-mode .blog-content-body pre {
@@ -1134,6 +1175,11 @@ main {
     border-radius: 8px;
     border: 1px solid #e0e6ed;
     background: rgba(248, 250, 252, 0.7);
+    /* Enhanced mobile scrolling */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    /* Improve touch scroll performance */
+    transform: translateZ(0);
 }
 
 /* Enhanced table wrapper with scroll indicators */
@@ -1888,6 +1934,27 @@ button:focus, a:focus, input:focus {
         padding-top: 10px;
         font-size: 16px;
         line-height: 1.6;
+        /* Enhanced mobile scrolling */
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+        /* Prevent horizontal bounce/overscroll */
+        overscroll-behavior-x: none;
+        /* Improve touch scrolling performance */
+        touch-action: pan-y pinch-zoom;
+    }
+    
+    /* Optimize all scrollable elements for mobile */
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Improve main container scrolling */
+    main {
+        /* Ensure smooth scrolling within main content */
+        overscroll-behavior: contain;
+        /* Better touch performance */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
 
     /* Header and Navigation */
@@ -3122,6 +3189,15 @@ button:focus, a:focus, input:focus {
         box-shadow: var(--current-box-shadow) !important;
     }
     
+    /* Ensure cards allow touch scrolling */
+    .card-style, .content-section {
+        touch-action: pan-y pan-x !important;
+        /* Remove any potential scroll blocking */
+        -webkit-touch-callout: none;
+        -webkit-user-select: text;
+        user-select: text;
+    }
+    
     .btn:hover, .social-icon:hover, .btn-icon:hover {
         transform: none !important;
     }
@@ -3238,6 +3314,9 @@ a:focus-visible {
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
         scrollbar-color: var(--current-theme-accent) transparent;
+        /* Enhanced mobile scrolling */
+        overscroll-behavior-x: contain;
+        transform: translateZ(0);
     }
     
     .blog-content-body .table-wrapper::after {
@@ -3254,6 +3333,32 @@ a:focus-visible {
     .blog-content-body table {
         min-width: 500px;
         width: auto;
+    }
+    
+    /* Additional mobile scrolling improvements */
+    .card-style, .content-section {
+        /* Ensure smooth scrolling within cards */
+        overscroll-behavior: contain;
+        /* Allow touch scrolling on cards - this allows pan gestures for scrolling */
+        touch-action: pan-y pan-x !important;
+    }
+    
+    /* Improve modal/menu scrolling */
+    #mobile-menu {
+        /* Prevent bounce scroll when menu is open */
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Optimize footer scrolling */
+    .modern-footer {
+        overscroll-behavior: contain;
+    }
+    
+    /* Better scroll performance for all elements */
+    * {
+        /* Optimize scrolling performance */
+        scroll-behavior: smooth;
     }
 }
 
@@ -3317,19 +3422,39 @@ a:focus-visible {
 
 /* iOS Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
+    body {
+        /* Improve iOS scrolling performance */
+        -webkit-overflow-scrolling: touch;
+        /* Prevent bounce at document boundaries */
+        overscroll-behavior: contain;
+    }
+    
     .card-style, .content-section {
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
+        /* Improve scrolling within cards on iOS */
+        -webkit-overflow-scrolling: touch;
     }
     
     #mobile-menu {
         -webkit-transform: translate3d(100%, 0, 0);
         transform: translate3d(100%, 0, 0);
+        /* Better iOS mobile menu scrolling */
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
     }
     
     #mobile-menu.active {
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
+    }
+    
+    /* iOS-specific scrollable element optimizations */
+    .blog-content-body .table-wrapper,
+    .blog-content-body pre,
+    [id^="bibtex-entry-"] pre {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
     }
 }
 
