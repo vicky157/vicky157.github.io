@@ -402,9 +402,17 @@ main {
 /* Ensure links and buttons within cards work properly while allowing scrolling */
 .card-style a, .card-style button, .content-section a, .content-section button {
     /* Allow these elements to capture touch events for interaction */
-    touch-action: manipulation;
+    touch-action: auto;
     position: relative;
     z-index: 1;
+}
+
+/* Specific optimization for BibTeX and publication buttons */
+.publication-links a, .publication-links-home a,
+[onclick*="toggleBibtex"], [onclick*="copyBibtex"] {
+    touch-action: auto !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1) !important;
+    cursor: pointer;
 }
 
 /* ---=== Home Page Specific === */
@@ -458,12 +466,20 @@ main {
     border-radius: var(--border-radius-small);
     text-decoration: none;
     font-weight: 500;
-    transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow 0.2s ease, font-size 0.2s ease;
     border: 1px solid transparent;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* Base responsive sizing */
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    min-height: 44px; /* Minimum touch target for accessibility */
+    min-width: fit-content;
+    /* Flexible sizing */
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 .dark-mode .social-links .btn, .dark-mode .btn {
      background-color: var(--current-theme-accent); 
@@ -487,10 +503,20 @@ main {
     color: var(--current-link-color); 
     border: 1px solid var(--current-link-color); 
     border-radius: var(--border-radius-small);
-    transition: background-color var(--transition-speed), color var(--transition-speed), transform 0.2s ease, border-color var(--transition-speed) ease;
+    transition: background-color var(--transition-speed), color var(--transition-speed), transform 0.2s ease, border-color var(--transition-speed) ease, font-size 0.2s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 7px;
+    /* Responsive sizing */
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    min-height: 40px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    /* Better touch interaction - allow all touch actions for clickable elements */
+    touch-action: auto;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 /* Icon color for btn-icon is handled by global icon rule */
 
@@ -2149,13 +2175,29 @@ button:focus, a:focus, input:focus {
 
     .social-links .btn {
         padding: 0.8em 1em;
-        font-size: 0.9em;
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
         text-align: center;
         justify-content: center;
         white-space: nowrap;
-        min-height: 48px;
+        min-height: 48px; /* Larger touch target for mobile */
         display: flex;
         align-items: center;
+        /* Better spacing for mobile */
+        margin: 0.3em;
+        /* Improved mobile interaction */
+        cursor: pointer;
+        touch-action: auto;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+    }
+
+    /* All buttons responsive sizing for mobile */
+    .btn {
+        padding: 0.9em 1.2em;
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        min-height: 48px;
+        /* Better mobile touch experience */
+        touch-action: auto;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     }
 
     .social-links .btn i {
@@ -2197,12 +2239,17 @@ button:focus, a:focus, input:focus {
     .publication-links-home .btn-icon,
     .publication-links .btn,
     .publication-links-home .btn {
-        font-size: 0.85em;
-        padding: 0.6em 0.9em;
+        font-size: clamp(0.85rem, 2.8vw, 0.95rem);
+        padding: 0.7em 1em;
         flex: 1;
         min-width: 80px;
+        min-height: 44px;
         text-align: center;
         justify-content: center;
+        /* Enhanced mobile touch - allow all interactions for clickable buttons */
+        touch-action: auto;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        cursor: pointer;
     }
 
     /* News list mobile */
@@ -2370,7 +2417,19 @@ button:focus, a:focus, input:focus {
     .social-links .btn {
         flex: 1;
         min-width: 140px;
-        max-width: 180px;
+        padding: 0.8em 1.3em;
+        font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+        min-height: 46px;
+        /* Better tablet interaction */
+        touch-action: auto;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+    }
+
+    /* All buttons responsive sizing for tablet */
+    .btn {
+        padding: 0.8em 1.3em;
+        font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+        min-height: 46px;
     }
 
     h1 {
@@ -2429,8 +2488,24 @@ button:focus, a:focus, input:focus {
     }
 
     .social-links .btn {
-        padding: 0.7em 0.8em;
-        font-size: 0.85em;
+        padding: 0.85em 1em;
+        font-size: clamp(0.85rem, 3.5vw, 1rem);
+        min-height: 50px; /* Slightly larger for small screens */
+        /* Enhanced mobile interaction */
+        touch-action: auto;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        /* Full width on small screens */
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* All buttons for small mobile */
+    .btn {
+        padding: 0.85em 1em;
+        font-size: clamp(0.85rem, 3.5vw, 1rem);
+        min-height: 50px;
+        touch-action: auto;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     }
 
     .publication-links, .publication-links-home {
@@ -2444,6 +2519,11 @@ button:focus, a:focus, input:focus {
     .publication-links-home .btn {
         width: 100%;
         margin-bottom: 8px;
+        /* Specific mobile touch optimizations */
+        touch-action: auto;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        min-height: 48px;
+        font-size: 0.9rem;
     }
 
     h1 {
@@ -3686,6 +3766,46 @@ a:focus-visible {
 .publication-links a,
 .publication-links-home a {
     -webkit-tap-highlight-color: rgba(74, 144, 226, 0.3);
+}
+
+/* Large desktop screens - enhanced button sizing */
+@media screen and (min-width: 1025px) {
+    .social-links .btn, .btn {
+        padding: 0.8em 1.6em;
+        font-size: clamp(1rem, 1.2vw, 1.1rem);
+        min-height: 44px;
+        /* Enhance desktop interaction */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-icon {
+        padding: 0.7em 1.3em;
+        font-size: clamp(0.9rem, 1.1vw, 1rem);
+        min-height: 42px;
+    }
+
+    /* Better hover states for desktop */
+    .social-links .btn:hover, .btn:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .btn-icon:hover {
+        transform: translateY(-2px) scale(1.02);
+    }
+
+    /* Larger buttons for very wide screens */
+    @media screen and (min-width: 1400px) {
+        .social-links .btn, .btn {
+            font-size: clamp(1.05rem, 1.1vw, 1.15rem);
+            padding: 0.9em 1.8em;
+        }
+
+        .btn-icon {
+            font-size: clamp(0.95rem, 1vw, 1.05rem);
+            padding: 0.8em 1.4em;
+        }
+    }
 }
 
 /* Very wide screens responsiveness */
