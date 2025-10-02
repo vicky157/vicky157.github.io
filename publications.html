@@ -57,10 +57,31 @@
     <main>
         <section id="publications-list" class="content-section card-style">
             <h2>Publications</h2>
+
+            <div class="publication-item" id="pub-zhang2025">
+                <h3 class="publication-title">Efficient Fine-Grained GPU Performance Modeling for Distributed Deep Learning of LLM</h3>
+                <p class="publication-authors">Zhang, B., Zheng, M., Ganguly, D., Zhang, X., <strong>Singh, V.</strong>, Chaudhary, V., Zhang, Z.</p>
+                <p class="publication-venue"><em>Accepted to HiPC 2025</em>.</p>
+                <div class="publication-links">
+                    <a href="https://www.arxiv.org/abs/2509.22832" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
+                    <a href="#" onclick="toggleBibtex(event, 'bibtex-entry-zhang2025')" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
+                </div>
+                <div id="bibtex-entry-zhang2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-glass-border);">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>
+@article{zhang2025efficient,
+    title={Efficient Fine-Grained GPU Performance Modeling for Distributed Deep Learning of LLM},
+    author={Zhang, Biyao and Zheng, Mingkai and Ganguly, Debargha and Zhang, Xuecen and Singh, Vikash and Chaudhary, Vipin and Zhang, Zhao},
+    journal={arXiv preprint arXiv:2509.22832},
+    year={2025}
+}
+                    </code></pre>
+                </div>
+            </div>
+
             <div class="publication-item" id="pub1">
                 <h3 class="publication-title">Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks</h3>
                 <p class="publication-authors">Ganguly, D., <strong>Singh, V.</strong>, Sankar, S., Zhang, B., Zhang, X., Iyengar, S., Han, X., Sharma, A., Kalyanaraman, S., Chaudhary, V.</p>
-                <p class="publication-venue"><em>arXiv preprint</em>, May 2025.</p>
+                <p class="publication-venue"><em>Accepted to NeurIPS 2025</em>.</p>
                 <div class="publication-links">
                     <a href="https://arxiv.org/abs/2505.20047" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
                     <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
@@ -83,8 +104,9 @@
 
             <div class="publication-item" id="pub2">
                 <h3 class="publication-title">K⁴: Online Log Anomaly Detection Via Unsupervised Typicality Learning</h3>
-                <p class="publication-authors">Chen, W., <strong>Singh, V.</strong>, Rahmani, Z., Ganguly, D., Hariri, M., Chaudhary, V.</p>
-                <p class="publication-venue"><em>arXiv preprint</em>, July 2025.</p>
+                <p class="publication-authors"><strong>Singh, V.</strong>*, Chen, W.*, Rahmani, Z., Ganguly, D., Hariri, M., Chaudhary, V.</p>
+                <p style="font-size: 0.9em; font-style: italic; margin-top: -0.8em;">*Denotes equal contribution</p>
+                <p class="publication-venue"><em>Accepted to HiPC 2025</em>.</p>
                 <div class="publication-links">
                     <a href="https://arxiv.org/abs/2507.20051" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
                     <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
@@ -94,7 +116,7 @@
                     <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>
 @misc{chen2025k4onlineloganomaly,
       title={$K^4$: Online Log Anomaly Detection Via Unsupervised Typicality Learning}, 
-      author={Weicong Chen and Vikash Singh and Zahra Rahmani and Debargha Ganguly and Mohsen Hariri and Vipin Chaudhary},
+      author={Vikash Singh and Weicong Chen and Zahra Rahmani and Debargha Ganguly and Mohsen Hariri and Vipin Chaudhary},
       year={2025},
       eprint={2507.20051},
       archivePrefix={arXiv},
@@ -182,29 +204,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- <div class="footer-bottom">
-            <div class="footer-bottom-content">
-                <div class="copyright">
-                    <p>&copy; <span id="current-year"></span> Vikash Singh. All rights reserved.</p>
-                    <p class="build-info">Committed to advancing AI research and knowledge</p>
-                </div>
-                <div class="footer-stats">
-                    <div class="stat-item" id="publications-counter">
-                        <i class="fas fa-file-alt"></i>
-                        <span><span class="counter" data-target="3">0</span> Publications</span>
-                    </div>
-                    <div class="stat-item" id="citations-counter">
-                        <i class="fas fa-quote-right"></i>
-                        <span><span class="counter" data-target="15">0</span>+ Citations</span>
-                    </div>
-                    <div class="stat-item" id="venues-counter">
-                        <i class="fas fa-university"></i>
-                        <span><span class="counter" data-target="2">0</span> Venues</span>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         
         <div class="footer-decoration">
             <div class="decoration-dots">
