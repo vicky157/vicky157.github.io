@@ -169,6 +169,7 @@
     <main>
         <!-- Content will be added soon -->
         <!--
+        <section id="abstract">
             <h2>Abstract</h2>
             <p>
                 Training Large Language Models (LLMs) is one of the most compute-intensive tasks in high-performance computing. Predicting end-to-end training time for multi-billion parameter models distributed across hundreds of GPUs remains challenging. We address this by decomposing LLMs into core computational primitives and modeling them with: (1) operator-level decomposition for fine-grained analysis; (2) lightweight sampling-based hardware-aware prediction models for key operations; (3) an end-to-end prediction system integrating these components across complex parallelization strategies. Our framework achieves low average prediction errors—4.98% on Perlmutter (A100) and 9.38% on Vista (GH200)—for models up to 20B parameters across 128 GPUs. Importantly, it runs entirely on CPUs, enabling rapid iteration over hardware configurations and training strategies without costly on-cluster experimentation.
@@ -196,7 +197,6 @@
                 </defs>
                 <text x="400" y="30" font-size="18" text-anchor="middle" font-family="sans-serif" fill="#333">Performance Modeling Workflow</text>
                 
-                <!-- Inputs -->
                 <g id="inputs">
                     <rect x="50" y="60" width="180" height="60" fill="#e0eff9" stroke="#4a90e2" rx="5"/>
                     <text x="140" y="85" text-anchor="middle" font-family="sans-serif">LLM Architecture</text>
@@ -206,7 +206,6 @@
                 <line x1="230" y1="95" x2="270" y2="95" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow-perf)"/>
                 <text x="250" y="90" font-size="12" text-anchor="middle">Decomposed Into</text>
 
-                <!-- Decomposition -->
                  <g id="decomposition">
                     <rect x="320" y="60" width="160" height="120" fill="#fff" stroke="#ccc" rx="5"/>
                     <text x="400" y="80" text-anchor="middle" font-size="12">Normalization Ops</text>
@@ -218,7 +217,6 @@
                 <line x1="480" y1="120" x2="520" y2="120" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow-perf)"/>
                 <text x="500" y="115" font-size="12" text-anchor="middle">Modeled As</text>
 
-                <!-- Regressors -->
                 <g id="regressors">
                     <rect x="530" y="60" width="220" height="120" fill="#e0eff9" stroke="#4a90e2" rx="5"/>
                     <text x="640" y="85" text-anchor="middle" font-family="sans-serif">Per-Operation Regressors</text>
@@ -228,7 +226,6 @@
                 <line x1="400" y1="180" x2="400" y2="210" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow-perf)"/>
                 <text x="400" y="175" font-size="12" text-anchor="middle">Integrated Into</text>
 
-                <!-- Final Prediction -->
                 <g id="final-prediction">
                      <rect x="250" y="220" width="300" height="50" fill="#d0e0ed" stroke="#4a90e2" rx="5"/>
                     <text x="400" y="250" text-anchor="middle" font-family="sans-serif" font-weight="bold">End-to-End Runtime Prediction</text>
@@ -351,6 +348,7 @@
             <p>
                 We presented an operator-level performance prediction framework for LLM training that achieves high accuracy across diverse model configurations. By decomposing complex architectures into fundamental primitives and using specialized regression models, our approach accurately forecasts training performance without requiring costly experimentation. As LLMs continue to scale, accurate performance prediction becomes increasingly critical for resource optimization. Our framework's strong generalization enables informed decisions on resource allocation, promoting more efficient utilization of scarce HPC resources.
             </p>
+        </section>
         -->
     </main>
 

@@ -168,6 +168,7 @@
     <main>
         <!-- Content will be added soon -->
         <!--
+        <section id="abstract">
             <h2>Abstract</h2>
             <p>
                 Log anomaly detection (LogAD) is crucial for identifying failures and threats in large-scale computing systems. However, most existing approaches suffer from key limitations: they depend on slow and error-prone log parsing, employ tightly coupled pipelines, often require supervision, and rely on flawed evaluation protocols. To address these limitations, we introduce $K^4$ (Knowing the Unknown by Knowing only the Known), a fully unsupervised, parser-independent, and representation-agnostic LogAD framework. At its core, $K^4$ is grounded in representation-level typicality estimation, which transforms arbitrary log embeddings into compact four-dimensional descriptors: Precision, Recall, Density, and Coverage (PRDC). These descriptors inform lightweight, modular detectors, enabling efficient and accurate anomaly scoring. We also propose a principled chunk-based evaluation protocol that mimics online log ingestion. Compared to six representative baselines, $K^4$ consistently sets new state-of-the-art results (AUROC: 0.995-0.999, F1: 0.989-0.992) and outperforms all baselines by large margins, while keeping detector training under 4 seconds and inference latency as low as 4µs.
@@ -195,7 +196,6 @@
                 </defs>
                 <text x="400" y="30" font-size="18" text-anchor="middle" font-family="sans-serif" fill="#333">The $K^4$ Framework vs. Traditional Methods</text>
                 
-                <!-- Traditional Path -->
                 <g id="traditional-path">
                     <text x="150" y="60" font-size="14" text-anchor="middle" font-family="sans-serif" fill="#555">Traditional Pipeline</text>
                     <path d="M 50 80 H 250" stroke="#aaa" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-grey)"/>
@@ -211,7 +211,6 @@
                     <text x="150" y="255" text-anchor="middle" font-family="sans-serif">Flawed Evaluation</text>
                 </g>
 
-                <!-- K4 Path -->
                  <g id="k4-path">
                     <text x="550" y="60" font-size="14" text-anchor="middle" font-family="sans-serif" fill="#4a90e2">$K^4$ Pipeline</text>
                     
@@ -317,24 +316,20 @@
                  <svg width="100%" viewBox="0 0 800 350">
                     <text x="400" y="30" font-size="16" text-anchor="middle" font-family="sans-serif">AUROC vs. Training Samples on HDFS</text>
                     <g transform="translate(60, 40)">
-                         <!-- Axes -->
                         <line x1="0" y1="250" x2="700" y2="250" stroke="#333" />
                         <line x1="0" y1="0" x2="0" y2="250" stroke="#333" />
                         <text x="350" y="280" text-anchor="middle" font-size="12"># Training Samples</text>
                         <text x="-30" y="125" transform="rotate(-90, -30, 125)" text-anchor="middle" font-size="12">AUROC</text>
                         
-                        <!-- Y Ticks -->
                         <text x="-10" y="255" text-anchor="end">0.4</text><line x1="-5" y1="250" x2="0" y2="250" stroke="#333"/>
                         <text x="-10" y="192" text-anchor="end">0.6</text><line x1="-5" y1="187.5" x2="0" y2="187.5" stroke="#333"/>
                         <text x="-10" y="130" text-anchor="end">0.8</text><line x1="-5" y1="125" x2="0" y2="125" stroke="#333"/>
                         <text x="-10" y="5" text-anchor="end">1.0</text><line x1="-5" y1="0" x2="0" y2="0" stroke="#333"/>
                         
-                        <!-- X Ticks -->
                         <text y="265" x="50">500</text>
                         <text y="265" x="250">5k</text>
                         <text y="265" x="650">20k</text>
 
-                        <!-- Baseline Data -->
                         <path d="M 50 180 L 250 195 L 650 190" stroke="#ff7f00" fill="none" stroke-width="2"/>
                         <circle cx="50" cy="180" r="3" fill="#ff7f00"/>
                         <circle cx="250" cy="195" r="3" fill="#ff7f00"/>
@@ -344,13 +339,11 @@
                         <circle cx="50" cy="220" r="3" fill="#377eb8"/>
                         <circle cx="650" cy="225" r="3" fill="#377eb8"/>
                         
-                        <!-- K4 Data -->
                         <path d="M 50 130 C 150 50, 250 20, 650 5" stroke="#e41a1c" fill="none" stroke-width="3"/>
                         <circle cx="50" cy="130" r="4" fill="#e41a1c"/>
                         <circle cx="250" cy="25" r="4" fill="#e41a1c"/>
                         <circle cx="650" cy="5" r="4" fill="#e41a1c"/>
 
-                        <!-- Legend -->
                         <rect x="550" y="100" width="120" height="90" fill="white" stroke="#ccc"/>
                         <circle cx="565" cy="115" r="3" fill="#ff7f00"/><text x="575" y="120" font-size="12">DeepLog</text>
                         <circle cx="565" cy="135" r="3" fill="#377eb8"/><text x="575" y="140" font-size="12">LogAnomaly</text>
@@ -369,6 +362,7 @@
             <p>
                 We present $K^4$, a novel log anomaly detection framework that operates directly on raw log sequences without requiring log parsing, supervised labels, or retraining of embedding models. By decoupling embedding from detection and leveraging compact PRDC statistics, $K^4$ supports limitless pretrained embeddings and offers four efficient detector backends. Our extensive evaluation under a realistic online LogAD setting demonstrates that $K^4$ consistently delivers near-perfect detection performance while achieving detection latency as low as 4µs, several orders of magnitude faster than existing methods. These results underscore the practical viability of $K^4$ as a high-performance, modular, and robust solution for modern log anomaly detection workloads.
             </p>
+        </section>
         -->
     </main>
 
