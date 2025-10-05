@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K4: Online Log Anomaly Detection Via Unsupervised Typicality Learning</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <style>
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fdfdfd;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1.5rem;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+        .authors {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+        .affiliations {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        h2 {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            font-size: 1.8rem;
+            color: #333;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        h3 {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            font-size: 1.4rem;
+            color: #444;
+            margin-top: 2rem;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        figure {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            text-align: center;
+            overflow-x: auto;
+        }
+        figcaption {
+            margin-top: 1rem;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f1f1f1;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            color: #888;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #4a90e2;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            background-color: #357abd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="../publications.html" class="back-link">← Back to Publications</a>
+    
+    <header>
+        <h1>$K^4$: Online Log Anomaly Detection Via Unsupervised Typicality Learning</h1>
+        <div class="authors">
+            Weicong Chen, Vikash Singh, Zahra Rahmani, Debargha Ganguly, Mohsen Hariri, Vipin Chaudhary
+        </div>
+        <div class="affiliations">
+            Case Western Reserve University, Cleveland, OH, USA
+        </div>
+        <p><a href="https://arxiv.org/abs/2507.20051" target="_blank">[arXiv:2507.20051v1]</a></p>
+    </header>
+
+    <main>
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <p>
+                Log anomaly detection (LogAD) is crucial for identifying failures and threats in large-scale computing systems. However, most existing approaches suffer from key limitations: they depend on slow and error-prone log parsing, employ tightly coupled pipelines, often require supervision, and rely on flawed evaluation protocols. To address these limitations, we introduce $K^4$ (Knowing the Unknown by Knowing only the Known), a fully unsupervised, parser-independent, and representation-agnostic LogAD framework. At its core, $K^4$ is grounded in representation-level typicality estimation, which transforms arbitrary log embeddings into compact four-dimensional descriptors: Precision, Recall, Density, and Coverage (PRDC). These descriptors inform lightweight, modular detectors, enabling efficient and accurate anomaly scoring. We also propose a principled chunk-based evaluation protocol that mimics online log ingestion. Compared to six representative baselines, $K^4$ consistently sets new state-of-the-art results (AUROC: 0.995-0.999, F1: 0.989-0.992) and outperforms all baselines by large margins, while keeping detector training under 4 seconds and inference latency as low as 4µs.
+            </p>
+        </section>
+        
+        <hr>
+        
+        <section id="introduction">
+            <h2>1. Introduction</h2>
+            <p>
+                Logs are essential artifacts in computing systems. In large-scale environments, automated log anomaly detection (LogAD) is vital for prompt error recovery and system management. Recent AI techniques have begun leveraging language models to capture semantic patterns in logs. These methods typically follow a pipeline of parsing, grouping, representation generation, and classification.
+            </p>
+             <p>
+                However, existing approaches fall short of real-world operational requirements, such as online detection, fast cold-start, and unsupervised operation. We identify four critical gaps: the reliance on supervision for better performance, widespread use of slow and error-prone log parsers, rigid coupling of models and detectors, and flawed single-pass evaluation protocols. Our framework, $K^4$, is designed to address these gaps.
+            </p>
+        </section>
+
+        <figure>
+            <svg width="100%" viewBox="0 0 800 350" style="background-color: #f9f9f9; border-radius: 5px;">
+                 <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#e41a1c" />
+                    </marker>
+                </defs>
+                <text x="400" y="30" font-size="18" text-anchor="middle" font-family="sans-serif" fill="#333">The $K^4$ Framework vs. Traditional Methods</text>
+                
+                <!-- Traditional Path -->
+                <g id="traditional-path">
+                    <text x="150" y="60" font-size="14" text-anchor="middle" font-family="sans-serif" fill="#555">Traditional Pipeline</text>
+                    <path d="M 50 80 H 250" stroke="#aaa" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-grey)"/>
+                    <rect x="50" y="90" width="200" height="40" fill="#fff" stroke="#ccc" rx="5"/>
+                    <text x="150" y="115" text-anchor="middle" font-family="sans-serif">Slow & Error-Prone Parsing</text>
+                    
+                    <path d="M 150 130 V 150" stroke="#aaa" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-grey)"/>
+                     <rect x="50" y="160" width="200" height="40" fill="#fff" stroke="#ccc" rx="5"/>
+                    <text x="150" y="185" text-anchor="middle" font-family="sans-serif">Rigid Training Pipeline</text>
+
+                    <path d="M 150 200 V 220" stroke="#aaa" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-grey)"/>
+                     <rect x="50" y="230" width="200" height="40" fill="#fff" stroke="#ccc" rx="5"/>
+                    <text x="150" y="255" text-anchor="middle" font-family="sans-serif">Flawed Evaluation</text>
+                </g>
+
+                <!-- K4 Path -->
+                 <g id="k4-path">
+                    <text x="550" y="60" font-size="14" text-anchor="middle" font-family="sans-serif" fill="#4a90e2">$K^4$ Pipeline</text>
+                    
+                    <rect x="350" y="90" width="180" height="40" fill="#e0eff9" stroke="#4a90e2" rx="5"/>
+                    <text x="440" y="115" text-anchor="middle" font-family="sans-serif">Unstructured Raw Logs</text>
+
+                    <line x1="440" y1="130" x2="440" y2="150" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <rect x="350" y="160" width="180" height="40" fill="#e0eff9" stroke="#4a90e2" rx="5"/>
+                    <text x="440" y="185" text-anchor="middle" font-family="sans-serif">Flexible Embeddings</text>
+                    
+                    <line x1="530" y1="180" x2="570" y2="180" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <rect x="580" y="90" width="180" height="40" fill="#e0eff9" stroke="#4a90e2" rx="5"/>
+                    <text x="670" y="115" text-anchor="middle" font-family="sans-serif">Novel PRDC Features</text>
+                    
+                    <line x1="670" y1="130" x2="670" y2="150" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="580" y="160" width="180" height="40" fill="#e0eff9" stroke="#4a90e2" rx="5"/>
+                    <text x="670" y="185" text-anchor="middle" font-family="sans-serif">Unsupervised Detection</text>
+
+                    <line x1="670" y1="200" x2="670" y2="220" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="580" y="230" width="180" height="40" fill="#d0e0ed" stroke="#4a90e2" rx="5"/>
+                    <text x="670" y="255" text-anchor="middle" font-family="sans-serif" font-weight="bold">SOTA Performance</text>
+                </g>
+                <text x="400" y="320" font-size="12" text-anchor="middle" fill="#666">An illustrative comparison of the rigid, flawed traditional pipeline versus the flexible, high-performance $K^4$ framework.</text>
+            </svg>
+            <figcaption>Figure 1: High-level comparison of the $K^4$ framework against traditional LogAD pipelines.</figcaption>
+        </figure>
+        
+        <hr>
+
+        <section id="methodology-k4">
+            <h2>2. Methodology of $K^4$</h2>
+            
+            <h3>Representation-Level Typicality Estimation</h3>
+            <p>
+                The original typicality estimation operates at the distribution level, which is unsuitable for instance-level anomaly detection. We adapt the per-point PRDC formulation to compute geometric statistics for each test representation with respect to a reference set of normal samples.
+            </p>
+            <p>
+                Formally, let $E_{ref}=\{x_{i}^{(r)}\}_{i=1}^{n}\subset\mathbb{R}^{d}$ be a reference set of embeddings from normal logs, and $E_{query}=\{x_{j}^{(q)}\}_{j=1}^{m}\subset\mathbb{R}^{d}$ be query embeddings. The PRDC statistics for a query point $x_{j}^{(q)}$ are defined as:
+            </p>
+            <ul>
+                <li><strong>Precision Per Point ($P_j$):</strong> Indicates whether the query lies within the k-NN ball of any reference point.
+                $$ P_{j}=I[x_{j}^{(q)}\in\bigcup_{i=1}^{n}B(x_{i}^{(r)},NND_{k}(x_{i}^{(r)}))] $$</li>
+                <li><strong>Recall Per Point ($R_j$):</strong> Measures the fraction of reference points within the k-NN ball of the query.
+                $$ R_{j}=\frac{1}{n}\sum_{i=1}^{n}1[x_{i}^{(r)}\in B(x_{j}^{(q)},NND_{k}(x_{j}^{(q)}))] $$</li>
+                <li><strong>Density Per Point ($D_j$):</strong> Captures the local data density surrounding the query.
+                 $$ D_{j}=\frac{1}{kn}\sum_{i=1}^{n}I[x_{j}^{(q)}\in B(x_{i}^{(r)},NND_{k}(x_{i}^{(r)}))] $$</li>
+                <li><strong>Coverage Per Point ($C_j$):</strong> Reflects the support coverage of the normal data.
+                $$ C_{j}=1[\min_{i}||x_{j}^{(q)}-x_{i}^{(r)}||<NND_{k}(x_{j}^{(q)})] $$</li>
+            </ul>
+            <p>
+                 Each query sample is thereby mapped into a four-dimensional vector: $r_{j}=[P_{j},R_{j},D_{j},C_{j}]^{\top}\in\mathbb{R}^{4}$.
+            </p>
+
+            <h3>Unsupervised Typicality Learning</h3>
+             <p>
+                We cast the problem as learning the statistical "normality" of PRDC vectors derived purely from normal log embeddings. During training, we split normal log embeddings into reference and query sets, compute PRDC vectors for the query set, and train a detector on these vectors. During inference, we compute the PRDC vector for a test embedding against the same reference set and score it with the trained detector. We support four detectors: GMM, KDE, OCSVM, and an adapted DeepSVDD.
+            </p>
+        </section>
+
+        <hr>
+
+        <section id="evaluation">
+            <h2>3. Evaluation</h2>
+            <p>
+                We conducted over 125,000 experiments across three real-world datasets (HDFS, BGL, Thunderbird), six pre-trained embedding models, and four detectors. We benchmark against six representative LogAD studies.
+            </p>
+
+            <figure>
+                <table>
+                    <caption>Table III: Detection performance of $K^4$ and baselines. $K^4$ consistently and significantly outperforms all other methods across all metrics.</caption>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Dataset</th>
+                            <th>AUROC</th>
+                            <th>AUPRC</th>
+                            <th>FPR@95TPR</th>
+                            <th>F1</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>DeepLog</td><td>HDFS</td><td>0.697</td><td>0.506</td><td>0.568</td><td>0.093</td><td>0.049</td><td>0.963</td></tr>
+                        <tr><td>LogAnomaly</td><td>HDFS</td><td>0.615</td><td>0.460</td><td>1.000</td><td>0.347</td><td>0.664</td><td>0.235</td></tr>
+                        <tr><td>LogRobust</td><td>HDFS</td><td>0.501</td><td>0.612</td><td>0.997</td><td>0.367</td><td>0.225</td><td>0.999</td></tr>
+                        <tr><td>FastLogAD</td><td>HDFS</td><td>0.512</td><td>0.031</td><td>0.947</td><td>0.059</td><td>0.031</td><td>0.771</td></tr>
+                         <tr><td>Ladle</td><td>HDFS</td><td>0.440</td><td>0.837</td><td>0.992</td><td>0.146</td><td>0.167</td><td>0.428</td></tr>
+                        <tr><td style="font-weight:bold;">$K^4$ (Ours)</td><td style="font-weight:bold;">HDFS</td><td style="background-color:#a6d96a">0.996</td><td style="background-color:#a6d96a">0.995</td><td style="background-color:#a6d96a">0.008</td><td style="background-color:#a6d96a">0.989</td><td style="background-color:#a6d96a">0.989</td><td style="background-color:#a6d96a">0.990</td></tr>
+                        <tr><td colspan="8" style="background-color:#f0f0f0;"></td></tr>
+                        <tr><td>DeepLog</td><td>BGL</td><td>0.896</td><td>0.899</td><td>0.208</td><td>0.888</td><td>0.799</td><td>1.000</td></tr>
+                        <tr><td>LogRobust</td><td>BGL</td><td>0.946</td><td>0.983</td><td>1.000</td><td>0.943</td><td>0.999</td><td>0.892</td></tr>
+                        <tr><td style="font-weight:bold;">$K^4$ (Ours)</td><td style="font-weight:bold;">BGL</td><td style="background-color:#4daf4a; color:white;">0.999</td><td style="background-color:#4daf4a; color:white;">0.999</td><td style="background-color:#4daf4a; color:white;">0.000</td><td style="background-color:#4daf4a; color:white;">0.992</td><td style="background-color:#4daf4a; color:white;">0.993</td><td style="background-color:#4daf4a; color:white;">0.992</td></tr>
+                    </tbody>
+                </table>
+            </figure>
+            
+            <figure>
+                 <svg width="100%" viewBox="0 0 800 350">
+                    <text x="400" y="30" font-size="16" text-anchor="middle" font-family="sans-serif">AUROC vs. Training Samples on HDFS</text>
+                    <g transform="translate(60, 40)">
+                         <!-- Axes -->
+                        <line x1="0" y1="250" x2="700" y2="250" stroke="#333" />
+                        <line x1="0" y1="0" x2="0" y2="250" stroke="#333" />
+                        <text x="350" y="280" text-anchor="middle" font-size="12"># Training Samples</text>
+                        <text x="-30" y="125" transform="rotate(-90, -30, 125)" text-anchor="middle" font-size="12">AUROC</text>
+                        
+                        <!-- Y Ticks -->
+                        <text x="-10" y="255" text-anchor="end">0.4</text><line x1="-5" y1="250" x2="0" y2="250" stroke="#333"/>
+                        <text x="-10" y="192" text-anchor="end">0.6</text><line x1="-5" y1="187.5" x2="0" y2="187.5" stroke="#333"/>
+                        <text x="-10" y="130" text-anchor="end">0.8</text><line x1="-5" y1="125" x2="0" y2="125" stroke="#333"/>
+                        <text x="-10" y="5" text-anchor="end">1.0</text><line x1="-5" y1="0" x2="0" y2="0" stroke="#333"/>
+                        
+                        <!-- X Ticks -->
+                        <text y="265" x="50">500</text>
+                        <text y="265" x="250">5k</text>
+                        <text y="265" x="650">20k</text>
+
+                        <!-- Baseline Data -->
+                        <path d="M 50 180 L 250 195 L 650 190" stroke="#ff7f00" fill="none" stroke-width="2"/>
+                        <circle cx="50" cy="180" r="3" fill="#ff7f00"/>
+                        <circle cx="250" cy="195" r="3" fill="#ff7f00"/>
+                        <circle cx="650" cy="190" r="3" fill="#ff7f00"/>
+
+                        <path d="M 50 220 L 650 225" stroke="#377eb8" fill="none" stroke-width="2"/>
+                        <circle cx="50" cy="220" r="3" fill="#377eb8"/>
+                        <circle cx="650" cy="225" r="3" fill="#377eb8"/>
+                        
+                        <!-- K4 Data -->
+                        <path d="M 50 130 C 150 50, 250 20, 650 5" stroke="#e41a1c" fill="none" stroke-width="3"/>
+                        <circle cx="50" cy="130" r="4" fill="#e41a1c"/>
+                        <circle cx="250" cy="25" r="4" fill="#e41a1c"/>
+                        <circle cx="650" cy="5" r="4" fill="#e41a1c"/>
+
+                        <!-- Legend -->
+                        <rect x="550" y="100" width="120" height="90" fill="white" stroke="#ccc"/>
+                        <circle cx="565" cy="115" r="3" fill="#ff7f00"/><text x="575" y="120" font-size="12">DeepLog</text>
+                        <circle cx="565" cy="135" r="3" fill="#377eb8"/><text x="575" y="140" font-size="12">LogAnomaly</text>
+                        <circle cx="565" cy="155" r="4" fill="#e41a1c"/><text x="575" y="160" font-size="12" font-weight="bold">$K^4$ (Ours)</text>
+                    </g>
+                </svg>
+                <figcaption>Figure 6 (simplified): Comparison between $K^4$ and baselines, showing AUROC vs. training samples. $K^4$ consistently outperforms baselines, which often perform near random chance.</figcaption>
+            </figure>
+
+        </section>
+
+        <hr>
+
+        <section id="conclusion-k4">
+            <h2>4. Conclusion</h2>
+            <p>
+                We present $K^4$, a novel log anomaly detection framework that operates directly on raw log sequences without requiring log parsing, supervised labels, or retraining of embedding models. By decoupling embedding from detection and leveraging compact PRDC statistics, $K^4$ supports limitless pretrained embeddings and offers four efficient detector backends. Our extensive evaluation under a realistic online LogAD setting demonstrates that $K^4$ consistently delivers near-perfect detection performance while achieving detection latency as low as 4µs, several orders of magnitude faster than existing methods. These results underscore the practical viability of $K^4$ as a high-performance, modular, and robust solution for modern log anomaly detection workloads.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Paper presented: July 26, 2025. This page is an HTML representation of the work.</p>
+        <p><a href="https://arxiv.org/abs/2507.20051" target="_blank">View original paper on arXiv</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>

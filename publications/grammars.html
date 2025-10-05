@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks</title>
+    <!-- Replaced KaTeX with MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <style>
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fdfdfd;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1.5rem;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+        .authors {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+        .affiliations {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        h2 {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            font-size: 1.8rem;
+            color: #333;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        h3 {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            font-size: 1.4rem;
+            color: #444;
+            margin-top: 2rem;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        figure {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            text-align: center;
+            /* Added overflow-x to make tables and other content scrollable */
+            overflow-x: auto;
+        }
+        figcaption {
+            margin-top: 1rem;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            /* Added white-space: nowrap to prevent text wrapping in table cells */
+            white-space: nowrap;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f1f1f1;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            color: #888;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #4a90e2;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            background-color: #357abd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="../publications.html" class="back-link">← Back to Publications</a>
+    
+    <header>
+        <h1>Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks</h1>
+        <div class="authors">
+            Debargha Ganguly¹, Vikash Singh¹, Sreehari Sankar¹, Biyao Zhang¹, Xuecen Zhang¹, Srinivasan Iyengar², Xiaotian Han¹, Amit Sharma³, Shivkumar Kalyanaraman², Vipin Chaudhary¹
+        </div>
+        <div class="affiliations">
+            ¹Case Western Reserve University, ²Microsoft Corporation, ³Microsoft Research
+        </div>
+        <p><a href="https://arxiv.org/abs/2505.20047" target="_blank">[arXiv:2505.20047v1]</a></p>
+    </header>
+
+    <main>
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <p>
+                Large language models (LLMs) show remarkable promise for democratizing automated reasoning by generating formal specifications. However, a fundamental tension exists: LLMs are probabilistic, while formal verification demands deterministic guarantees. This paper addresses this epistemological gap by comprehensively investigating failure modes and uncertainty quantification (UQ) in LLM-generated formal artifacts. Our systematic evaluation of five frontier LLMs reveals Satisfiability Modulo Theories (SMT) based autoformalization's domain-specific impact on accuracy (from +34.8% on logical tasks to -44.5% on factual ones), with known UQ techniques like the entropy of token probabilities failing to identify these errors. We introduce a probabilistic context-free grammar (PCFG) framework to model LLM outputs, yielding a refined uncertainty taxonomy. We find uncertainty signals are task-dependent (e.g., grammar entropy for logic, $AUROC > 0.93$). Finally, a lightweight fusion of these signals enables selective verification, drastically reducing errors (14-100%) with minimal abstention, transforming LLM-driven formalization into a reliable engineering discipline.
+            </p>
+        </section>
+        
+        <hr>
+        
+        <section id="introduction">
+            <h2>1. Introduction</h2>
+            <p>
+                Formal methods offer robust mathematical guarantees for system reliability, but their widespread adoption is impeded by high expertise and labor demands, traditionally limiting their application to safety-critical domains. Concurrently, Large Language Models (LLMs) have emerged with a remarkable ability to generate formal artifacts such as code, proofs, and specifications, potentially democratizing formal methods.
+            </p>
+            <p>
+                However, these two approaches embody fundamentally different epistemological paradigms. Formal methods are rooted in deterministic logical calculi, while LLMs operate probabilistically. This inherent tension presents a core challenge: how can we harness the generative power of LLMs for formal reasoning while upholding the rigorous guarantees that define formal verification's value?
+            </p>
+            <p>
+                The central thesis of this paper is that the inherent probabilistic uncertainty in LLM outputs for formal reasoning tasks is a valuable source of information for guiding verification. We demonstrate how to systematically capture and analyze this output uncertainty by modeling LLM-generated SMT-LIB program distributions with Probabilistic Context-Free Grammars (PCFGs).
+            </p>
+        </section>
+        
+        <hr>
+
+        <section id="methodology">
+            <h2>2. Methodology</h2>
+            <p>
+                To mitigate engineering friction, we adopt the stable, widely supported SMT-LIB standard as a common intermediate representation. This section presents a theoretical framework linking language models and verification to analyze LLM-generated SMT-LIB program distributions, enabling principled reasoning about their uncertainty.
+            </p>
+            <h3>Problem Setup</h3>
+            <p>
+                We formalize the probability space over SMT-LIB programs. Let $\Sigma$ be a finite alphabet. The SMT-LIB language $L_{SMT} \subseteq \Sigma^*$. For a task $T$ and an LLM with parameters $\theta$, the LLM induces a probability measure $\mu_{T,\theta}$ on $(\Sigma^*, \mathcal{F})$. The measure over valid SMT-LIB programs is then the conditional measure:
+                $$ \mu_{T,\theta,SMT}(A) = \frac{\mu_{T,\theta}(A \cap L_{SMT})}{\mu_{T,\theta}(L_{SMT})} $$
+            </p>
+            <h3>Modeling with PCFGs</h3>
+            <p>
+                To model distributions over structured programs like $\mu_{T,\theta,SMT}$, we employ Probabilistic Context-Free Grammars (PCFGs). PCFGs extend standard Context-Free Grammars by associating probabilities with their production rules. We generate $N$ SMT-LIB program samples from the target LLM and parse them using the SMT-LIB grammar. From the resulting parse trees, we estimate rule probabilities using Maximum Likelihood Estimation (MLE), with smoothing to handle zero counts.
+            </p>
+
+            <figure>
+                <svg width="100%" height="300" viewBox="0 0 800 300" style="background: #f9f9f9;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a90e2" />
+                        </marker>
+                    </defs>
+                    <!-- Column 1: SMT Samples -->
+                    <rect x="50" y="40" width="200" height="220" fill="#fff" stroke="#ccc" />
+                    <text x="150" y="30" text-anchor="middle" font-family="sans-serif">SMT Samples (LLM Output)</text>
+                    <text x="60" y="60" font-family="monospace" font-size="12px">(forall ((x Person)) ...)</text>
+                    <text x="60" y="110" font-family="monospace" font-size="12px">(forall ((x Person)) ...)</text>
+                    <text x="60" y="160" font-family="monospace" font-size="12px">(forall ((x Person)) ...)</text>
+                    <text x="60" y="210" font-family="monospace" font-size="12px">(forall ((x Person)) ...)</text>
+
+                    <!-- Arrow -->
+                    <line x1="270" y1="150" x2="330" y2="150" stroke="#4a90e2" stroke-width="2" marker-end="url(#arrow)" />
+                    <text x="300" y="140" text-anchor="middle" font-family="sans-serif" font-size="12px">Parse using</text>
+                    <text x="300" y="165" text-anchor="middle" font-family="sans-serif" font-size="12px">PCFG</text>
+
+                    <!-- Column 2: PCFG Analysis -->
+                    <rect x="350" y="40" width="200" height="220" fill="#fff" stroke="#ccc" />
+                    <text x="450" y="30" text-anchor="middle" font-family="sans-serif">PCFG Rule Probabilities</text>
+                    <rect x="370" y="60" width="30" height="150" fill="#66c2a5" />
+                    <rect x="410" y="80" width="30" height="130" fill="#fc8d62" />
+                    <rect x="450" y="100" width="30" height="110" fill="#8da0cb" />
+                    <rect x="490" y="120" width="30" height="90" fill="#e78ac3" />
+                    <line x1="360" y1="210" x2="540" y2="210" stroke="#333" />
+
+                    <!-- Arrow -->
+                    <line x1="570" y1="150" x2="630" y2="150" stroke="#4a90e2" stroke-width="2" marker-end="url(#arrow)" />
+                     <text x="600" y="140" text-anchor="middle" font-family="sans-serif" font-size="12px">Calculate</text>
+                    <text x="600" y="165" text-anchor="middle" font-family="sans-serif" font-size="12px">Uncertainty</text>
+
+                    <!-- Column 3: Prediction -->
+                    <rect x="650" y="90" width="130" height="120" fill="#fff" stroke="#ccc" />
+                    <text x="715" y="80" text-anchor="middle" font-family="sans-serif">Prediction</text>
+                    <text x="715" y="120" text-anchor="middle" font-family="sans-serif" font-size="14px">Is LLM uncertain</text>
+                    <text x="715" y="140" text-anchor="middle" font-family="sans-serif" font-size="14px">& likely to err?</text>
+                    <text x="680" y="170" fill="green" font-weight="bold" font-family="sans-serif">YES</text>
+                    <text x="730" y="170" fill="red" font-weight="bold" font-family="sans-serif">NO</text>
+                </svg>
+                <figcaption>Figure 1: Conceptual workflow of the PCFG-based uncertainty analysis. SMT-LIB samples are drawn from an LLM, parsed to learn rule probabilities, from which uncertainty metrics are calculated to predict potential errors.</figcaption>
+            </figure>
+            
+            <h3>PCFG-Derived Metrics</h3>
+            <p>
+                We derive a comprehensive suite of metrics from the learned PCFGs to quantify uncertainty, including:
+            </p>
+            <ul>
+                <li><strong>Static Metrics:</strong> Basic structural properties like the number of rules and non-terminals.</li>
+                <li><strong>Spectral Properties:</strong> The spectral radius of the grammar's mean matrix, offering insights into recursive complexity.</li>
+                <li><strong>Information-Theoretic Measures:</strong> Shannon Entropy, Rényi Entropy, Perplexity, and KL Divergence to measure probabilistic uncertainty.</li>
+                <li><strong>Rule Distribution Metrics:</strong> Statistical analysis of the learned rule probabilities (mean, standard deviation, kurtosis, etc.).</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section id="results">
+            <h2>3. Results</h2>
+            <p>
+                We evaluated five frontier LLMs (03-mini, DeepSeekR1, DeepSeek-v3, Gemini Flash 2.0 & Lite) on four reasoning datasets: StrategyQA, ProntoQA, ProofWriter, and FOLIO. Answers were derived from direct text output and by solving LLM-generated SMT-LIB programs with the Z3 solver.
+            </p>
+            
+            <figure>
+                <table>
+                    <caption>Table 1: Benchmarking accuracy of LLMs using direct text output (Text) vs. SMT-LIB generation (SMT). No single approach is universally superior.</caption>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th colspan="3">StrategyQA</th>
+                            <th colspan="3">ProntoQA</th>
+                            <th colspan="3">ProofWriter</th>
+                            <th colspan="3">FOLIO</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Text</th>
+                            <th>SMT</th>
+                            <th>&delta;</th>
+                            <th>Text</th>
+                            <th>SMT</th>
+                            <th>&delta;</th>
+                            <th>Text</th>
+                            <th>SMT</th>
+                            <th>&delta;</th>
+                            <th>Text</th>
+                            <th>SMT</th>
+                            <th>&delta;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>03-mini</td><td>0.7828</td><td>0.7980</td><td style="color:red;">-0.0152</td><td>1.0000</td><td>0.9980</td><td style="color:green;">0.0020</td><td>0.8893</td><td>0.9418</td><td style="color:red;">-0.0524</td><td>0.9450</td><td>0.5000</td><td style="color:green;">0.4450</td>
+                        </tr>
+                        <tr>
+                            <td>DeepSeekv3</td><td>0.8292</td><td>0.6720</td><td style="color:green;">0.1572</td><td>1.0000</td><td>0.4501</td><td style="color:green;">0.5499</td><td>0.8057</td><td>0.5800</td><td style="color:green;">0.2257</td><td>0.9333</td><td>0.5961</td><td style="color:green;">0.3372</td>
+                        </tr>
+                        <tr>
+                            <td>DeepSeek R1</td><td>0.8580</td><td>0.7760</td><td style="color:green;">0.0820</td><td>0.9939</td><td>0.7440</td><td style="color:green;">0.2499</td><td>0.9423</td><td>0.4935</td><td style="color:green;">0.4488</td><td>0.9252</td><td>0.5200</td><td style="color:green;">0.4052</td>
+                        </tr>
+                        <tr>
+                            <td>Flash 2.0</td><td>0.7188</td><td>0.5360</td><td style="color:green;">0.1828</td><td>0.9820</td><td>0.9000</td><td style="color:green;">0.0820</td><td>0.4900</td><td>0.6660</td><td style="color:red;">-0.1760</td><td>0.9010</td><td>0.5625</td><td style="color:green;">0.3385</td>
+                        </tr>
+                        <tr>
+                            <td>Flash 2.0 Lite</td><td>0.6760</td><td>0.4500</td><td style="color:green;">0.2260</td><td>0.9980</td><td>0.9980</td><td style="color:green;">0.0000</td><td>0.4060</td><td>0.7540</td><td style="color:red;">-0.3480</td><td>0.9017</td><td>0.7321</td><td style="color:green;">0.1696</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </figure>
+            
+            <h3>Performance of Uncertainty Metrics</h3>
+            <p>
+                We evaluated our uncertainty metrics on two prediction tasks: (1) whether the SMT program would yield the correct ground truth answer, and (2) whether the SMT output would be consistent with the model's own natural language reasoning.
+            </p>
+            <ul>
+                <li><strong>Knowledge-Intensive Reasoning (StrategyQA):</strong> Cross-modal agreement metrics (consistency between text and SMT outputs) were dominant predictors of correctness.</li>
+                <li><strong>Premise-Explicit Reasoning (ProofWriter):</strong> PCFG-derived metrics, especially grammar entropy, showed exceptional power. For 03-mini, grammar entropy achieved an AUROC of 0.9301, confirming that procedural epistemic uncertainty is the primary challenge in formal reasoning tasks.</li>
+            </ul>
+
+            <figure>
+                <table>
+                <caption>Table 3: Uncertainty quantification metrics for predicting ground truth correctness via PCFGs. Ensemble methods consistently outperform individual metrics. Darker green indicates better performance.</caption>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th colspan="4">StrategyQA (DeepSeek-v3)</th>
+                        <th colspan="4">ProofWriter (03-mini)</th>
+                    </tr>
+                     <tr>
+                        <th></th>
+                        <th>AUROC</th><th>ECE</th><th>Brier</th><th>AURC</th>
+                        <th>AUROC</th><th>ECE</th><th>Brier</th><th>AURC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Grammar Entropy</td>
+                        <td style="background-color:#ccebc5">0.7087</td><td>0.1575</td><td>0.2302</td><td>0.2097</td>
+                        <td style="background-color:#4daf4a; color:white;">0.9301</td><td>0.4419</td><td>0.2500</td><td style="background-color:#4daf4a; color:white;">0.0008</td>
+                    </tr>
+                    <tr>
+                        <td>Perplexity</td>
+                        <td style="background-color:#fbb4ae">0.6122</td><td>0.1601</td><td>0.2641</td><td>0.2497</td>
+                        <td style="background-color:#7fbc41; color:white;">0.9194</td><td>0.5358</td><td>0.3515</td><td style="background-color:#4daf4a; color:white;">0.0008</td>
+                    </tr>
+                     <tr>
+                        <td>Self Consistency Text</td>
+                        <td style="background-color:#fbb4ae">0.6017</td><td>0.2882</td><td>0.3048</td><td>0.2874</td>
+                        <td style="background-color:#b2dd2c">0.8990</td><td>0.0423</td><td>0.0280</td><td style="background-color:#7fbc41; color:white;">0.0020</td>
+                    </tr>
+                    <tr>
+                        <td>Ensemble ML</td>
+                        <td style="background-color:#a6d96a">0.7709</td><td>0.0877</td><td>0.1968</td><td>0.1847</td>
+                        <td style="background-color:#4daf4a; color:white;">0.9892</td><td>0.0572</td><td>0.0280</td><td style="background-color:#4daf4a; color:white;">0.0003</td>
+                    </tr>
+                </tbody>
+                </table>
+            </figure>
+            
+            <h3>Ablation Studies and Temperature</h3>
+            <p>
+                We investigated the effect of LLM sampling temperature on the generated SMT artifacts. We found smooth, monotonic changes in PCFG characteristics, indicating a continuous response to temperature rather than abrupt phase transitions. Key findings include:
+            </p>
+            <ul>
+                <li>The PCFG <strong>spectral radius</strong>, a measure of recursive complexity, decreased as temperature increased.</li>
+                <li><strong>Grammar entropy</strong> consistently increased with temperature, reflecting greater diversity in generated programs.</li>
+            </ul>
+            
+            <figure>
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                    <div style="flex-basis: 48%;">
+                         <svg width="100%" viewBox="0 0 400 300">
+                             <text x="200" y="20" text-anchor="middle" font-size="14" font-family="sans-serif">Spectral Radius vs. Temperature</text>
+                             <g transform="translate(40, 20)">
+                                 <line x1="0" y1="250" x2="350" y2="250" stroke="#333" />
+                                 <line x1="0" y1="0" x2="0" y2="250" stroke="#333" />
+                                 <text x="175" y="280" text-anchor="middle" font-size="12">Temperature</text>
+                                 <text x="-20" y="125" transform="rotate(-90, -20, 125)" text-anchor="middle" font-size="12">Spectral Radius</text>
+                                 <path d="M 0 150 L 25 100 L 50 120 L 75 80 L 100 130 L 125 110 L 150 160 L 175 90 L 200 140 L 225 100 L 250 150 L 275 80 L 300 130 L 325 70 L 350 120" fill="none" stroke="#4a90e2" stroke-width="2" />
+                            </g>
+                         </svg>
+                         <figcaption>Figure 2: PCFG spectral radius generally decreases with sampling temperature.</figcaption>
+                    </div>
+                    <div style="flex-basis: 48%;">
+                         <svg width="100%" viewBox="0 0 400 300">
+                             <text x="200" y="20" text-anchor="middle" font-size="14" font-family="sans-serif">Grammar Entropy vs. Temperature</text>
+                              <g transform="translate(40, 20)">
+                                 <line x1="0" y1="250" x2="350" y2="250" stroke="#333" />
+                                 <line x1="0" y1="0" x2="0" y2="250" stroke="#333" />
+                                 <text x="175" y="280" text-anchor="middle" font-size="12">Temperature</text>
+                                 <text x="-20" y="125" transform="rotate(-90, -20, 125)" text-anchor="middle" font-size="12">Grammar Entropy</text>
+                                 <path d="M 0 240 Q 50 180, 100 150 T 200 100 T 300 60 L 350 50" fill="none" stroke="#e41a1c" stroke-width="2" />
+                            </g>
+                         </svg>
+                         <figcaption>Figure 3: Grammar entropy shows an upward trend with temperature, indicating increased diversity.</figcaption>
+                    </div>
+                </div>
+            </figure>
+
+        </section>
+
+        <hr>
+
+        <section id="conclusion">
+            <h2>4. Conclusion</h2>
+            <p>
+                Our research presents a PCFG-based framework for SMT-LIB uncertainty quantification, establishing that syntactic atypicalities in LLM-generated formal artifacts serve as potent, quantifiable signals of underlying semantic errors. Our evaluations revealed nuanced LLM behaviors, including task-dependent uncertainty responses and the diagnostic power of localized PCFG entropy. We introduced a novel uncertainty taxonomy and a lightweight, model-agnostic signal fusion technique that improves metric synergy. Applied together, this framework and fusion strategy achieve substantial error rate reductions via selective verification, offering an empirically validated methodology to significantly enhance LLM reliability in formal verification workflows.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Paper presented: May 26, 2025. This page is an HTML representation of the work.</p>
+        <p><a href="https://arxiv.org/abs/2505.20047" target="_blank">View original paper on arXiv</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>
+

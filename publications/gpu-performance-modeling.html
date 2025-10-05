@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efficient Fine-Grained GPU Performance Modeling for Distributed Deep Learning of LLM</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <style>
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fdfdfd;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1.5rem;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+        .authors {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+        .affiliations {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        h2 {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            font-size: 1.8rem;
+            color: #333;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        h3 {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            font-size: 1.4rem;
+            color: #444;
+            margin-top: 2rem;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        figure {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            text-align: center;
+            overflow-x: auto;
+        }
+        figcaption {
+            margin-top: 1rem;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f1f1f1;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            color: #888;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #4a90e2;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            background-color: #357abd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="../publications.html" class="back-link">← Back to Publications</a>
+    
+    <header>
+        <h1>Efficient Fine-Grained GPU Performance Modeling for Distributed Deep Learning of LLM</h1>
+        <div class="authors">
+            Biyao Zhang¹, Mingkai Zheng², Debargha Ganguly¹, Xuecen Zhang¹, Vikash Singh¹, Vipin Chaudhary¹, Zhao Zhang²
+        </div>
+        <div class="affiliations">
+            ¹Case Western Reserve University, Cleveland, OH, USA<br>
+            ²Rutgers University, Brunswick, NJ, USA
+        </div>
+        <p><a href="https://arxiv.org/abs/2509.22832" target="_blank">[arXiv:2509.22832v1]</a></p>
+    </header>
+
+    <main>
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <p>
+                Training Large Language Models (LLMs) is one of the most compute-intensive tasks in high-performance computing. Predicting end-to-end training time for multi-billion parameter models distributed across hundreds of GPUs remains challenging. We address this by decomposing LLMs into core computational primitives and modeling them with: (1) operator-level decomposition for fine-grained analysis; (2) lightweight sampling-based hardware-aware prediction models for key operations; (3) an end-to-end prediction system integrating these components across complex parallelization strategies. Our framework achieves low average prediction errors—4.98% on Perlmutter (A100) and 9.38% on Vista (GH200)—for models up to 20B parameters across 128 GPUs. Importantly, it runs entirely on CPUs, enabling rapid iteration over hardware configurations and training strategies without costly on-cluster experimentation.
+            </p>
+        </section>
+        
+        <hr>
+        
+        <section id="introduction">
+            <h2>1. Introduction</h2>
+            <p>
+                Large Language Models (LLMs) have evolved into one of the most computationally intensive workloads in high-performance computing (HPC), with resource requirements increasing 10-100x per model generation. This unprecedented scaling has transformed LLM training into a critical HPC scheduling and resource allocation challenge. Effective planning hinges on accurately predicting performance across complex supercomputing environments before committing substantial resources.
+            </p>
+             <p>
+                Accurately predicting training time for large-scale LLMs is uniquely challenging. A significant gap remains in providing accurate, empirically validated end-to-end time predictions for these multi-billion parameter pre-training jobs on real-world supercomputers. These challenges have led to costly sampling-based models. We propose that systematic decomposition can accurately model large-scale pre-training performance without costly end-to-end sampling.
+            </p>
+        </section>
+
+        <figure>
+            <svg width="100%" viewBox="0 0 800 350" style="background-color: #f9f9f9; border-radius: 5px;">
+                 <defs>
+                    <marker id="arrow-perf" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#e41a1c" />
+                    </marker>
+                </defs>
+                <text x="400" y="30" font-size="18" text-anchor="middle" font-family="sans-serif" fill="#333">Performance Modeling Workflow</text>
+                
+                <!-- Inputs -->
+                <g id="inputs">
+                    <rect x="50" y="60" width="180" height="60" fill="#e0eff9" stroke="#4a90e2" rx="5"/>
+                    <text x="140" y="85" text-anchor="middle" font-family="sans-serif">LLM Architecture</text>
+                    <text x="140" y="105" text-anchor="middle" font-family="sans-serif">& Training Strategy</text>
+                </g>
+
+                <line x1="230" y1="95" x2="270" y2="95" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow-perf)"/>
+                <text x="250" y="90" font-size="12" text-anchor="middle">Decomposed Into</text>
+
+                <!-- Decomposition -->
+                 <g id="decomposition">
+                    <rect x="320" y="60" width="160" height="120" fill="#fff" stroke="#ccc" rx="5"/>
+                    <text x="400" y="80" text-anchor="middle" font-size="12">Normalization Ops</text>
+                    <text x="400" y="100" text-anchor="middle" font-size="12">Linear Transforms</text>
+                    <text x="400" y="120" text-anchor="middle" font-size="12">Attention Components</text>
+                     <text x="400" y="140" text-anchor="middle" font-size="12">Communication Ops</text>
+                </g>
+
+                <line x1="480" y1="120" x2="520" y2="120" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow-perf)"/>
+                <text x="500" y="115" font-size="12" text-anchor="middle">Modeled As</text>
+
+                <!-- Regressors -->
+                <g id="regressors">
+                    <rect x="530" y="60" width="220" height="120" fill="#e0eff9" stroke="#4a90e2" rx="5"/>
+                    <text x="640" y="85" text-anchor="middle" font-family="sans-serif">Per-Operation Regressors</text>
+                    <text x="640" y="105" text-anchor="middle" font-family="sans-serif">(via Lightweight Sampling)</text>
+                </g>
+                
+                <line x1="400" y1="180" x2="400" y2="210" stroke="#e41a1c" stroke-width="2" marker-end="url(#arrow-perf)"/>
+                <text x="400" y="175" font-size="12" text-anchor="middle">Integrated Into</text>
+
+                <!-- Final Prediction -->
+                <g id="final-prediction">
+                     <rect x="250" y="220" width="300" height="50" fill="#d0e0ed" stroke="#4a90e2" rx="5"/>
+                    <text x="400" y="250" text-anchor="middle" font-family="sans-serif" font-weight="bold">End-to-End Runtime Prediction</text>
+                </g>
+                <text x="400" y="320" font-size="12" text-anchor="middle" fill="#666">Our approach decomposes the LLM into fundamental operators, builds specialized regressors, and integrates them for end-to-end prediction.</text>
+            </svg>
+            <figcaption>Figure 1: High-level overview of the performance modeling workflow.</figcaption>
+        </figure>
+        
+        <hr>
+
+        <section id="methodology-gpu">
+            <h2>2. Methodology</h2>
+            
+            <p>
+                We use a bottom-up approach to performance modeling, starting with operator-level profiling of core computations like matrix multiplications, attention, and communication. Per-operator regressors capture compute, memory, and communication behavior across hardware. These models are hierarchically aggregated to predict end-to-end performance.
+            </p>
+
+            <h3>Performance Data Collection</h3>
+            <p>
+                We propose a three-pronged strategy—micro-benchmarking, parameter exploration, and interpolation—to build a robust LLM performance dataset. Operator-level performance is measured using micro-benchmarks that reflect real LLM workloads. We use tree-based regressors (RandomForest and XGBoost) to interpolate and extrapolate performance from the collected data, capturing execution discontinuities from auto-tuning and hardware effects.
+            </p>
+
+            <h3>Timeline Modeling of Distributed Training</h3>
+             <p>
+                In large-scale LLM training, pipeline parallelism introduces unique performance considerations. A key challenge is model partitioning. The total time cost per parameter update for a 1F1B pipeline with data parallelism is given by:
+             </p>
+             $$
+             \begin{align*}
+                \text{Runtime} = & (\#\text{Micro\_Batches} - 1 + \#\text{Pipeline\_Stages}) \\
+                & \times (\text{Max\_Fwd} + \text{Max\_Bwd}) \\
+                & + \text{First\_Stage\_Grad\_Sync} \\
+                & + \text{Max\_Update}
+             \end{align*}
+             $$
+             <p>
+                Here, Max_Fwd and Max_Bwd are the maximum forward and backward pass times across all pipeline stages. The other terms account for gradient synchronization and optimizer updates, with overlaps modeled to reflect real-world execution.
+            </p>
+        </section>
+
+        <hr>
+
+        <section id="results-gpu">
+            <h2>3. Results</h2>
+            <p>
+                We evaluated GPT-20B, LLaMA-13B, and Llemma-7B on two distinct HPC platforms: Perlmutter (NVIDIA A100-SXM4) and Vista (NVIDIA GH200).
+            </p>
+
+            <figure>
+                <table>
+                    <caption>Table IX: Component-level and overall prediction errors for the fastest training batch. Our framework demonstrates high accuracy, with average end-to-end errors of 4.98% on Perlmutter and 9.38% on Vista.</caption>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th colspan="2">GPT-20B (4-8-4)</th>
+                            <th colspan="2">LLaMA-13B (4-8-2)</th>
+                            <th colspan="2">Llemma-7B (4-2-2)</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Perlmutter (P)</th>
+                            <th>Vista (V)</th>
+                            <th>Perlmutter (P)</th>
+                            <th>Vista (V)</th>
+                            <th>Perlmutter (P)</th>
+                            <th>Vista (V)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Encoder Fwd</td><td>1.47%</td><td>-14.17%</td><td>-1.84%</td><td>-10.43%</td><td>-2.52%</td><td>-2.24%</td></tr>
+                        <tr><td>Encoder Bwd</td><td>5.49%</td><td>-9.69%</td><td>-10.34%</td><td>-11.78%</td><td>-1.55%</td><td>-13.33%</td></tr>
+                        <tr><td>Stage_Fwd_Max</td><td>6.43%</td><td>-11.99%</td><td>0.53%</td><td>-9.06%</td><td>-1.86%</td><td>0.32%</td></tr>
+                        <tr><td>Stage_Bwd_Max</td><td>4.89%</td><td>-10.37%</td><td>-11.11%</td><td>-12.52%</td><td>-1.66%</td><td>-13.73%</td></tr>
+                        <tr><td>MP_Allreduce</td><td>10.67%</td><td>1.22%</td><td>1.98%</td><td>1.99%</td><td>4.42%</td><td>1.12%</td></tr>
+                        <tr style="background-color: #e0eff9; font-weight: bold;">
+                            <td>Overall</td>
+                            <td>3.94%</td>
+                            <td>-15.16%</td>
+                            <td>-4.95%</td>
+                            <td>-9.02%</td>
+                            <td>1.30%</td>
+                            <td>-5.18%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </figure>
+            
+            <figure>
+                 <svg width="100%" viewBox="0 0 800 300">
+                    <text x="400" y="20" font-size="16" text-anchor="middle" font-family="sans-serif">Estimated Runtime Breakdown (LLaMA-13B on Perlmutter)</text>
+                    <g transform="translate(150, 50)">
+                        <text x="-10" y="25" text-anchor="end" font-size="12">encoder_fwd</text>
+                        <rect y="15" width="250" height="20" fill="#4a90e2"/><text x="255" y="30" font-size="12">62.43%</text>
+
+                        <text x="-10" y="65" text-anchor="end" font-size="12">encoder_bwd</text>
+                        <rect y="55" width="263" height="20" fill="#4a90e2"/><text x="268" y="70" font-size="12">65.83%</text>
+
+                        <text x="-10" y="105" text-anchor="end" font-size="12">dp_allreduce</text>
+                        <rect y="95" width="6" height="20" fill="#a6d96a"/><text x="11" y="110" font-size="12">1.61%</text>
+                        
+                        <text x="-10" y="145" text-anchor="end" font-size="12">mp_allreduce</text>
+                        <rect y="135" width="348" height="20" fill="#e41a1c"/><text x="353" y="150" font-size="12">86.95%</text>
+                        
+                        <line x1="0" y1="180" x2="400" y2="180" stroke="#333"/>
+                        <text x="0" y="195">0%</text>
+                        <text x="200" y="195" text-anchor="middle">50%</text>
+                        <text x="400" y="195" text-anchor="end">100%</text>
+                        <text x="200" y="215" text-anchor="middle" font-size="12">Percentage of Total Runtime</text>
+                    </g>
+                </svg>
+                <figcaption>Figure 3 (simplified): Time cost proportions for LLaMA-13B. Compute-heavy components (encoder passes) and certain communication (mp_allreduce) dominate the runtime.</figcaption>
+            </figure>
+
+        </section>
+
+        <hr>
+
+        <section id="conclusion-gpu">
+            <h2>4. Conclusion</h2>
+            <p>
+                We presented an operator-level performance prediction framework for LLM training that achieves high accuracy across diverse model configurations. By decomposing complex architectures into fundamental primitives and using specialized regression models, our approach accurately forecasts training performance without requiring costly experimentation. As LLMs continue to scale, accurate performance prediction becomes increasingly critical for resource optimization. Our framework's strong generalization enables informed decisions on resource allocation, promoting more efficient utilization of scarce HPC resources.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Paper presented: September 26, 2025. This page is an HTML representation of the work.</p>
+        <p><a href="https://arxiv.org/abs/2509.22832" target="_blank">View original paper on arXiv</a></p>
+    </footer>
+
+</div>
+
+</body>
+</html>
+
