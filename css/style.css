@@ -3926,12 +3926,20 @@ a:focus-visible {
     gap: 0.5rem;
     transition: all var(--transition-speed) ease;
     border: 2px solid transparent;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
 .btn-paper-primary:hover {
     background: var(--current-theme-accent-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(65, 105, 225, 0.3);
+}
+
+.btn-paper-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(65, 105, 225, 0.2);
 }
 
 .btn-paper-secondary {
@@ -3949,13 +3957,21 @@ a:focus-visible {
     color: var(--current-theme-accent);
     cursor: pointer;
     font-family: var(--font-primary);
-    font-size: 1rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
 .btn-paper-secondary:hover {
     background: var(--current-theme-accent);
     color: white;
     transform: translateY(-2px);
+}
+
+.btn-paper-secondary:active {
+    transform: translateY(0);
+    background: var(--current-theme-accent-hover);
+    color: white;
 }
 
 /* Responsive adjustments for paper cards */
@@ -3971,10 +3987,81 @@ a:focus-visible {
     
     .paper-card-actions {
         flex-direction: column;
+        gap: 0.5rem;
     }
     
     .btn-paper-primary,
     .btn-paper-secondary {
         width: 100%;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.85rem;
+        min-height: 40px;
+        justify-content: center;
+    }
+    
+    .btn-paper-primary i,
+    .btn-paper-secondary i {
+        font-size: 0.9rem;
+    }
+    
+    .paper-card-title {
+        font-size: 1.1rem;
+    }
+    
+    .paper-card-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .paper-card-authors {
+        font-size: 0.8rem;
+    }
+    
+    .paper-card-meta {
+        font-size: 0.8rem;
+    }
+    
+    .paper-card-description {
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+    .paper-card {
+        padding: 1.2rem;
+    }
+    
+    .paper-card-actions {
+        gap: 0.5rem;
+    }
+    
+    .btn-paper-primary,
+    .btn-paper-secondary {
+        padding: 0.6rem 0.85rem;
+        font-size: 0.8rem;
+        min-height: 38px;
+    }
+    
+    .btn-paper-primary i,
+    .btn-paper-secondary i {
+        font-size: 0.85rem;
+    }
+    
+    .paper-card-title {
+        font-size: 1.05rem;
+        line-height: 1.3;
+    }
+    
+    .paper-card-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .paper-icon {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .paper-icon i {
+        font-size: 22px;
     }
 }
