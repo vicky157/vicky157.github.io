@@ -149,6 +149,11 @@
 <div class="container">
     <a href="../publications.html" class="back-link">← Back to Publications</a>
     
+    <div style="background-color: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; text-align: center;">
+        <h3 style="color: #856404; margin: 0 0 0.5rem 0; font-size: 1.5rem;">🚧 Coming Soon! 🚧</h3>
+        <p style="color: #856404; margin: 0; font-size: 1.1rem;">This page is currently being updated with full paper details. Please check back soon!</p>
+    </div>
+    
     <header>
         <h1>$K^4$: Online Log Anomaly Detection Via Unsupervised Typicality Learning</h1>
         <div class="authors">
@@ -161,7 +166,8 @@
     </header>
 
     <main>
-        <section id="abstract">
+        <!-- Content will be added soon -->
+        <!--
             <h2>Abstract</h2>
             <p>
                 Log anomaly detection (LogAD) is crucial for identifying failures and threats in large-scale computing systems. However, most existing approaches suffer from key limitations: they depend on slow and error-prone log parsing, employ tightly coupled pipelines, often require supervision, and rely on flawed evaluation protocols. To address these limitations, we introduce $K^4$ (Knowing the Unknown by Knowing only the Known), a fully unsupervised, parser-independent, and representation-agnostic LogAD framework. At its core, $K^4$ is grounded in representation-level typicality estimation, which transforms arbitrary log embeddings into compact four-dimensional descriptors: Precision, Recall, Density, and Coverage (PRDC). These descriptors inform lightweight, modular detectors, enabling efficient and accurate anomaly scoring. We also propose a principled chunk-based evaluation protocol that mimics online log ingestion. Compared to six representative baselines, $K^4$ consistently sets new state-of-the-art results (AUROC: 0.995-0.999, F1: 0.989-0.992) and outperforms all baselines by large margins, while keeping detector training under 4 seconds and inference latency as low as 4µs.
@@ -363,7 +369,7 @@
             <p>
                 We present $K^4$, a novel log anomaly detection framework that operates directly on raw log sequences without requiring log parsing, supervised labels, or retraining of embedding models. By decoupling embedding from detection and leveraging compact PRDC statistics, $K^4$ supports limitless pretrained embeddings and offers four efficient detector backends. Our extensive evaluation under a realistic online LogAD setting demonstrates that $K^4$ consistently delivers near-perfect detection performance while achieving detection latency as low as 4µs, several orders of magnitude faster than existing methods. These results underscore the practical viability of $K^4$ as a high-performance, modular, and robust solution for modern log anomaly detection workloads.
             </p>
-        </section>
+        -->
     </main>
 
     <footer>
