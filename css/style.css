@@ -3161,6 +3161,28 @@ button:focus, a:focus, input:focus {
     transform: rotate(-10deg) scale(1.2);
 }
 
+/* Footer Copyright */
+.footer-copyright {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2em 0 1em 0;
+    margin-top: 2em;
+    border-top: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.footer-copyright p {
+    color: var(--current-text-secondary);
+    font-size: 0.9em;
+    margin: 0;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer-copyright:hover p {
+    opacity: 1;
+}
+
 /* Footer responsive styles */
 @media screen and (max-width: 768px) {
     .modern-footer {
@@ -3274,6 +3296,15 @@ button:focus, a:focus, input:focus {
 
     .decoration-dots {
         justify-content: center;
+    }
+    
+    .footer-copyright {
+        padding: 1.5em 1em 0.8em 1em;
+        margin-top: 1.5em;
+    }
+    
+    .footer-copyright p {
+        font-size: 0.85em;
     }
 
     /* Reduce particle density on mobile */
