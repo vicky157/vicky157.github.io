@@ -63,10 +63,10 @@ else
 fi
 
 # Check if resume exists
-if [ -f "assets/resume/CV_Vikash_PhD.pdf" ]; then
+if [ -f "assets/CV_Vikash_PhD.pdf" ]; then
     echo "✅ Found: Resume file"
 else
-    echo "⚠️  Resume file not found at assets/resume/CV_Vikash_PhD.pdf"
+    echo "⚠️  Resume file not found at assets/CV_Vikash_PhD.pdf"
 fi
 
 echo ""

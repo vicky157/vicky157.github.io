@@ -154,7 +154,7 @@ function toggleBibtex(publicationId) {
 ### Resume/CV
 
 1. Compile your LaTeX CV into a PDF
-2. Save as `CV_Vikash_PhD.pdf` in the `assets/resume/` directory
+2. Save as `CV_Vikash_PhD.pdf` in the `assets/` directory
 
 ### Blog Posts
 
