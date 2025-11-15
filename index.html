@@ -8,8 +8,60 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-    <link rel="alternate icon" href="assets/icons/favicon.ico" type="image/x-icon"> <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png"> <meta name="theme-color" content="#4169E1"> <meta name="description" content="Portfolio of Vikash Singh, AI & LLM Researcher.">
-    <title>Home - Vikash Singh</title>
+        <link rel="alternate icon" href="assets/icons/favicon.ico" type="image/x-icon"> <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png"> <meta name="theme-color" content="#4169E1"> <meta name="description" content="Portfolio of Vikash Singh, AI & LLM Researcher.">
+            <title>Home - Vikash Singh</title>
+        <!-- Structured Data: WebSite -->
+            <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Vikash Singh",
+                "url": "https://vikash-singh.me/"
+            }
+            </script>
+            <!-- Structured Data: Person (moved from About) -->
+            <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": "Vikash Singh",
+                "url": "https://vikash-singh.me/",
+                "jobTitle": "AI & LLM Researcher; PhD Student",
+                "affiliation": {
+                    "@type": "Organization",
+                    "name": "Case Western Reserve University"
+                },
+                "alumniOf": [
+                    {"@type": "CollegeOrUniversity", "name": "Case Western Reserve University", "sameAs": "https://case.edu"},
+                    {"@type": "CollegeOrUniversity", "name": "Indian Institute of Technology Mandi", "sameAs": "https://iitmandi.ac.in"}
+                ],
+                "email": "mailto:vikashjohn2505@gmail.com",
+                "sameAs": [
+                    "https://github.com/vicky157",
+                    "https://www.linkedin.com/in/vikash-singh-john/",
+                    "https://scholar.google.com/citations?user=zt0c4WsAAAAJ"
+                ],
+                "homeLocation": {
+                    "@type": "Place",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Cleveland",
+                        "addressRegion": "OH",
+                        "postalCode": "44106",
+                        "addressCountry": "US"
+                    }
+                },
+                "knowsAbout": [
+                    "Large Language Models",
+                    "AI Interpretability",
+                    "Uncertainty Quantification",
+                    "Explainable AI",
+                    "Model Optimization",
+                    "Formal Reasoning",
+                    "LLM Pruning"
+                ]
+            }
+            </script>
 </head>
 <body class="light-mode">
 
@@ -17,12 +69,7 @@
         <nav>
             <div class="logo">
                 <a href="index.html">
-                    <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px; position: relative; top: -2px;">
-                        <path d="M50,5 C25.147,5 5,25.147 5,50 C5,74.853 25.147,95 50,95 C62.037,95 72.934,90.373 80.711,82.799 L75,95 L75,75 C86.393,69.996 95,59.151 95,50 C95,25.147 74.853,5 50,5 Z" fill="var(--current-theme-accent)"/>
-                        <circle cx="50" cy="50" r="15" fill="var(--current-glass-bg-navbar)"/> <circle cx="50" cy="50" r="10" fill="var(--current-link-color)"/>
-                        <circle cx="30" cy="35" r="5" fill="rgba(255,255,255,0.5)"/>
-                        <circle cx="70" cy="35" r="5" fill="rgba(255,255,255,0.5)"/>
-                    </svg>
+                    <img src="assets/icons/dog-logo.svg" alt="Vikash Singh logo - cute dog face" class="logo-icon" width="32" height="32">
                     Vikash Singh
                 </a>
             </div>
@@ -67,13 +114,59 @@
             </div>
         </section>
 
-        <section id="about-short" class="card-style">
-            <h2>About Me</h2>
+        <section id="about" class="card-style">
+            <h2>About</h2>
             <p>
-                Driven by an insatiable curiosity for AI's cutting edge, I'm a PhD student at Case Western Reserve University on a mission to make Large Language Models (LLMs) more understandable, reliable, and fair. My research tackles the core challenges of LLM interpretability, focusing on their biases, evaluation, and reasoning processes. A key part of my work involves developing novel techniques to quantify uncertainty in LLM-generated formal artifacts, as explored in my research on "Grammars of Formal Uncertainty," aiming to establish when we can confidently trust these powerful models in automated reasoning tasks.
-                I thrive on a challenge and am always ready to dive into complex problems. With a proactive and hard-working approach, I'm a rapid learner, adept at quickly grasping new concepts and translating them into practical implementations, often within a matter of days. If there's something I don't know, my first instinct is to learn it. This enthusiasm extends to my explorations in explainable AI (XAI), including counterfactual methods, and my ongoing efforts in LLM pruning and bias mitigation.
-                Building on a robust background in Machine Learning and AI from my MS at CWRU and B.Tech, I'm committed to advancing the field through innovative research and contributing solutions that push the boundaries of what's possible with AI.
+                Vikash Singh is a researcher in Artificial Intelligence and a PhD student at Case Western Reserve University. His work advances the reliability of Large Language Models (LLMs) by studying their reasoning behavior, uncertainty, and fairness. He develops practical methods that bridge formal verification and data-driven modeling, including recent work on grammars of formal uncertainty and selective verification signals for automated reasoning tasks. Vikash enjoys tackling challenging problems end-to-end—from idea to robust implementation—and frequently explores adjacent topics like pruning, hyperparameter optimization, and explainable AI.
             </p>
+        </section>
+
+        <section id="key-facts" class="content-section card-style">
+            <h2>Key Facts</h2>
+            <div class="about-facts-grid">
+                <div class="fact-item">
+                    <i class="fas fa-id-card"></i>
+                    <div>
+                        <div class="label">Name</div>
+                        <div class="value">Vikash Singh</div>
+                    </div>
+                </div>
+                <div class="fact-item">
+                    <i class="fas fa-briefcase"></i>
+                    <div>
+                        <div class="label">Occupation</div>
+                        <div class="value">PhD Student, Machine Learning & AI Researcher</div>
+                    </div>
+                </div>
+                <div class="fact-item">
+                    <i class="fas fa-cake-candles"></i>
+                    <div>
+                        <div class="label">Date of Birth</div>
+                        <div class="value">May 25</div>
+                    </div>
+                </div>
+                <div class="fact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <div class="label">Location(s)</div>
+                        <div class="value">Cleveland, OH 44106 • New York, USA (seasonal)</div>
+                    </div>
+                </div>
+                <div class="fact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <div class="label">Contact</div>
+                        <div class="value"><a href="mailto:vikashjohn2505@gmail.com">vikashjohn2505@gmail.com</a></div>
+                    </div>
+                </div>
+                <div class="fact-item">
+                    <i class="fas fa-globe"></i>
+                    <div>
+                        <div class="label">Website</div>
+                        <div class="value"><a href="https://vikash-singh.me" target="_blank" rel="noopener">vikash-singh.me</a></div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="latest-publications" class="card-style">
@@ -184,6 +277,7 @@
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-user"></i> About</a></li>
                     <li><a href="publications.html"><i class="fas fa-graduation-cap"></i> Publications</a></li>
                     <li><a href="education_experience.html"><i class="fas fa-user-graduate"></i> Experience</a></li>
                     <li><a href="blogs.html"><i class="fas fa-blog"></i> Blog</a></li>

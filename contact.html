@@ -12,6 +12,17 @@
     <meta name="theme-color" content="#4169E1">
     <meta name="description" content="Contact Vikash Singh, AI & LLM Researcher.">
     <title>Contact - Vikash Singh</title>
+        <!-- Structured Data: Contact Page breadcrumb -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vikash-singh.me/"},
+                {"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://vikash-singh.me/contact.html"}
+            ]
+        }
+        </script>
 </head>
 <body class="light-mode">
 
@@ -59,34 +70,55 @@
             <h2>Get In Touch</h2>
             <p>Feel free to reach out to me through any of the following platforms. I'm always open to discussing research, projects, or potential collaborations.</p>
             
-            <div class="contact-details">
-                <div class="contact-item">
+            <div class="contact-details-grid">
+                <div class="contact-detail-item">
                     <i class="fas fa-envelope"></i>
-                    <p>Email: <a href="mailto:vikashjohn2505@gmail.com">vikashjohn2505@gmail.com</a></p>
+                    <div>
+                        <div class="label">Email</div>
+                        <div class="value"><a href="mailto:vikashjohn2505@gmail.com">vikashjohn2505@gmail.com</a></div>
+                    </div>
                 </div>
-                <div class="contact-item">
+                <div class="contact-detail-item">
                     <i class="fab fa-linkedin"></i>
-                    <p>LinkedIn: <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank">linkedin.com/in/vikash-singh-john</a></p>
+                    <div>
+                        <div class="label">LinkedIn</div>
+                        <div class="value"><a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank" rel="noopener">linkedin.com/in/vikash-singh-john</a></div>
+                    </div>
                 </div>
-                <div class="contact-item">
+                <div class="contact-detail-item">
                     <i class="fab fa-github"></i>
-                    <p>GitHub: <a href="https://github.com/vicky157" target="_blank">github.com/vicky157</a></p>
+                    <div>
+                        <div class="label">GitHub</div>
+                        <div class="value"><a href="https://github.com/vicky157" target="_blank" rel="noopener">github.com/vicky157</a></div>
+                    </div>
                 </div>
-                <div class="contact-item">
+                <div class="contact-detail-item">
                     <i class="fas fa-graduation-cap"></i>
-                    <p>Google Scholar: <a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank"> Google Scholar</a></p>
+                    <div>
+                        <div class="label">Scholar</div>
+                        <div class="value"><a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank" rel="noopener">Google Scholar Profile</a></div>
+                    </div>
                 </div>
-                 <div class="contact-item">
+                <div class="contact-detail-item">
                     <i class="fas fa-globe"></i>
-                    <p>Personal Website/Portfolio: <a href="https://vicky157.github.io" target="_blank">vicky157.github.io</a></p>
+                    <div>
+                        <div class="label">Website</div>
+                        <div class="value"><a href="https://vikash-singh.me" target="_blank" rel="noopener">vikash-singh.me</a></div>
+                    </div>
                 </div>
-                <div class="contact-item">
+                <div class="contact-detail-item">
                     <i class="fas fa-phone"></i>
-                    <p>Phone: +1 (216) 463-0000 (Please use email for initial contact)</p>
+                    <div>
+                        <div class="label">Phone</div>
+                        <div class="value">+1 (216) 463-0000 <span style="display:block; font-size:0.75em; color: var(--current-text-secondary);">(Use email for initial contact)</span></div>
+                    </div>
                 </div>
-                <div class="contact-item">
+                <div class="contact-detail-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <p>Address: Cleveland, OH, 44106 (Please use email for initial contact)</p>
+                    <div>
+                        <div class="label">Location</div>
+                        <div class="value">Cleveland, OH 44106, USA</div>
+                    </div>
                 </div>
             </div>
         </section>

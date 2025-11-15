@@ -12,29 +12,35 @@
     <meta name="theme-color" content="#4169E1">
     <meta name="description" content="Publications by Vikash Singh, AI & LLM Researcher.">
     <title>Publications - Vikash Singh</title>
+    
+        <!-- Structured Data: Breadcrumbs for Publications page -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vikash-singh.me/"},
+                {"@type": "ListItem", "position": 2, "name": "Publications", "item": "https://vikash-singh.me/publications"}
+            ]
+        }
+        </script>
 </head>
 <body class="light-mode">
 
     <header>
         <nav>
             <div class="logo">
-                <a href="index.html">
-                    <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px; position: relative; top: -2px;">
-                        <path d="M50,5 C25.147,5 5,25.147 5,50 C5,74.853 25.147,95 50,95 C62.037,95 72.934,90.373 80.711,82.799 L75,95 L75,75 C86.393,69.996 95,59.151 95,50 C95,25.147 74.853,5 50,5 Z" fill="var(--current-theme-accent)"/>
-                        <circle cx="50" cy="50" r="15" fill="var(--current-glass-bg-navbar)"/>
-                        <circle cx="50" cy="50" r="10" fill="var(--current-link-color)"/>
-                        <circle cx="30" cy="35" r="5" fill="rgba(255,255,255,0.5)"/>
-                        <circle cx="70" cy="35" r="5" fill="rgba(255,255,255,0.5)"/>
-                    </svg>
+                <a href="/">
+                    <img src="assets/icons/dog-logo.svg" alt="Vikash Singh logo - cute dog face" class="logo-icon" width="32" height="32">
                     Vikash Singh
                 </a>
             </div>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="publications.html" class="active">Publications</a></li>
-                <li><a href="education_experience.html">Education & Experience</a></li>
-                <li><a href="blogs.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/publications" class="active">Publications</a></li>
+                <li><a href="/education_experience">Education & Experience</a></li>
+                <li><a href="/blogs">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
             <button id="theme-toggle" aria-label="Toggle theme">
                 <i class="fas fa-sun"></i><i class="fas fa-moon" style="display:none;"></i>
@@ -45,11 +51,11 @@
         </nav>
          <div id="mobile-menu">
             <ul>
-                 <li><a href="index.html">Home</a></li>
-                <li><a href="publications.html" class="active">Publications</a></li>
-                <li><a href="education_experience.html">Education & Experience</a></li>
-                <li><a href="blogs.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                 <li><a href="/">Home</a></li>
+                <li><a href="/publications" class="active">Publications</a></li>
+                <li><a href="/education_experience">Education & Experience</a></li>
+                <li><a href="/blogs">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
         </div>
     </header>
@@ -57,112 +63,84 @@
     <main>
         <section id="publications-list" class="content-section card-style">
             <h2>Publications</h2>
-            <p style="margin-bottom: 2rem; color: var(--current-text-secondary);">Browse my research publications. Click on any paper to view the full article with detailed methodology and results.</p>
-            
-            <div class="papers-grid">
-                <div class="paper-card">
-                    <div class="paper-icon">
-                        <i class="fas fa-brain"></i>
+            <p style="margin-bottom: 2rem; color: var(--current-text-secondary);">Select a paper and use the Abstract or BibTeX buttons to reveal details.</p>
+            <ul style="list-style:none; margin:0; padding:0;">
+                <li class="publication-item" style="padding:0 0 1.2em; margin:0 0 1.8em; border-bottom:1px dashed var(--current-glass-border);">
+                    <h3 class="publication-title" style="margin-top:0;">Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks</h3>
+                    <p class="publication-authors">Ganguly, D., <strong>Singh, V.</strong>, Sankar, S., Zhang, B., Zhang, X., Iyengar, S., Han, X., Sharma, A., Kalyanaraman, S., Chaudhary, V.</p>
+                    <p class="publication-venue"><em>NeurIPS 2025</em> • May 2025</p>
+                    <div class="publication-actions" style="display:flex; flex-wrap:wrap; gap:10px;">
+                        <a href="publications/grammars.html" class="btn-icon"><i class="fas fa-book-open"></i> HTML</a>
+                        <a href="https://arxiv.org/abs/2505.20047" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
+                        <button class="btn-icon" onclick="toggleAbstract(event,'abs-ganguly2025')"><i class="fas fa-align-left"></i> Abstract</button>
+                        <button class="btn-icon" onclick="toggleBibtex(event, 'bibtex-entry-ganguly2025')"><i class="fas fa-quote-right"></i> BibTeX</button>
                     </div>
-                    <h3 class="paper-card-title">Grammars of Formal Uncertainty</h3>
-                    <p class="paper-card-subtitle">When to Trust LLMs in Automated Reasoning Tasks</p>
-                    <p class="paper-card-authors">Ganguly, D., <strong>Singh, V.</strong>, Sankar, S., Zhang, B., Zhang, X., Iyengar, S., Han, X., Sharma, A., Kalyanaraman, S., Chaudhary, V.</p>
-                    <p class="paper-card-meta"><em>NeurIPS 2025</em> • May 2025</p>
-                    <p class="paper-card-description">This paper addresses the epistemological gap between probabilistic LLMs and deterministic formal verification by introducing a PCFG framework to model LLM outputs. We systematically evaluate five frontier LLMs, revealing domain-specific impacts of SMT-based autoformalization and demonstrating that task-dependent uncertainty signals enable selective verification with drastically reduced errors.</p>
-                    <div class="paper-card-actions">
-                        <a href="publications/grammars.html" class="btn-paper-primary">
-                            <i class="fas fa-book-open"></i> HTML Page
-                        </a>
-                        <a href="https://arxiv.org/abs/2505.20047" target="_blank" class="btn-paper-secondary">
-                            <i class="fas fa-file-pdf"></i> arXiv
-                        </a>
-                        <a href="https://github.com/vicky157" target="_blank" class="btn-paper-secondary">
-                            <i class="fas fa-code"></i> Code
-                        </a>
-                        <button onclick="toggleBibtex(event, 'bibtex-entry-ganguly2025')" class="btn-paper-secondary">
-                            <i class="fas fa-quote-right"></i> BibTeX
-                        </button>
+                    <div id="abs-ganguly2025" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border:1px solid var(--current-glass-border); border-radius:8px;">
+                        <p style="margin:0;">This paper addresses the epistemological gap between probabilistic LLMs and deterministic formal verification by introducing a PCFG framework to model LLM outputs. A systematic evaluation of five frontier LLMs reveals domain-specific impacts of SMT-based autoformalization and demonstrates that task-dependent uncertainty signals enable selective verification with drastically reduced errors.</p>
                     </div>
-                    <div id="bibtex-entry-ganguly2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-glass-border);">
-                        <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>@misc{ganguly2025grammarsformaluncertaintytrust,
-      title={Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks}, 
-      author={Debargha Ganguly and Vikash Singh and Sreehari Sankar and Biyao Zhang and Xuecen Zhang and Srinivasan Iyengar and Xiaotian Han and Amit Sharma and Shivkumar Kalyanaraman and Vipin Chaudhary},
-      year={2025},
-      eprint={2505.20047},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2505.20047}, 
+                    <div id="bibtex-entry-ganguly2025" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border-radius:8px; border:1px solid var(--current-glass-border);">
+                        <pre style="white-space:pre-wrap; word-wrap:break-word; font-family:monospace; font-size:0.9em;"><code>@misc{ganguly2025grammarsformaluncertaintytrust,
+  title={Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks},
+  author={Debargha Ganguly and Vikash Singh and Sreehari Sankar and Biyao Zhang and Xuecen Zhang and Srinivasan Iyengar and Xiaotian Han and Amit Sharma and Shivkumar Kalyanaraman and Vipin Chaudhary},
+  year={2025},
+  eprint={2505.20047},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2505.20047}
 }</code></pre>
                     </div>
-                </div>
-
-                <div class="paper-card">
-                    <div class="paper-icon">
-                        <i class="fas fa-shield-alt"></i>
+                </li>
+                <li class="publication-item" style="padding:0 0 1.2em; margin:0 0 1.8em; border-bottom:1px dashed var(--current-glass-border);">
+                    <h3 class="publication-title" style="margin-top:0;">K⁴: Online Log Anomaly Detection Via Unsupervised Typicality Learning</h3>
+                    <p class="publication-authors"><strong>Singh, V.</strong>*, Chen, W.*, Rahmani, Z., Ganguly, D., Hariri, M., Chaudhary, V.</p>
+                    <p style="font-size:0.85em; font-style:italic; margin:-0.6rem 0 0.6rem; color:var(--current-text-secondary);">*Equal contribution</p>
+                    <p class="publication-venue"><em>HiPC 2025</em> • July 2025</p>
+                    <div class="publication-actions" style="display:flex; flex-wrap:wrap; gap:10px;">
+                        <a href="publications/k4-log-anomaly.html" class="btn-icon"><i class="fas fa-book-open"></i> HTML</a>
+                        <a href="https://arxiv.org/abs/2507.20051" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <a href="https://github.com/vicky157" target="_blank" class="btn-icon"><i class="fas fa-code"></i> Code</a>
+                        <button class="btn-icon" onclick="toggleAbstract(event,'abs-chen2025')"><i class="fas fa-align-left"></i> Abstract</button>
+                        <button class="btn-icon" onclick="toggleBibtex(event, 'bibtex-entry-chen2025')"><i class="fas fa-quote-right"></i> BibTeX</button>
                     </div>
-                    <h3 class="paper-card-title">K⁴: Online Log Anomaly Detection</h3>
-                    <p class="paper-card-subtitle">Via Unsupervised Typicality Learning</p>
-                    <p class="paper-card-authors"><strong>Singh, V.</strong>*, Chen, W.*, Rahmani, Z., Ganguly, D., Hariri, M., Chaudhary, V.</p>
-                    <p style="font-size: 0.85em; font-style: italic; margin: -0.5rem 0 0.5rem 0; color: var(--current-text-secondary);">*Denotes equal contribution</p>
-                    <p class="paper-card-meta"><em>HiPC 2025</em> • July 2025</p>
-                    <p class="paper-card-description">K⁴ presents a novel online log anomaly detection framework based on unsupervised typicality learning. By modeling what is typical rather than what is anomalous, K⁴ achieves state-of-the-art performance in detecting novel anomalies without requiring labeled data, while maintaining low computational overhead suitable for production environments.</p>
-                    <div class="paper-card-actions">
-                        <a href="publications/k4-log-anomaly.html" class="btn-paper-primary">
-                            <i class="fas fa-book-open"></i> HTML Page
-                        </a>
-                        <a href="https://arxiv.org/abs/2507.20051" target="_blank" class="btn-paper-secondary">
-                            <i class="fas fa-file-pdf"></i> arXiv
-                        </a>
-                        <a href="https://github.com/vicky157" target="_blank" class="btn-paper-secondary">
-                            <i class="fas fa-code"></i> Code
-                        </a>
-                        <button onclick="toggleBibtex(event, 'bibtex-entry-chen2025')" class="btn-paper-secondary">
-                            <i class="fas fa-quote-right"></i> BibTeX
-                        </button>
+                    <div id="abs-chen2025" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border:1px solid var(--current-glass-border); border-radius:8px;">
+                        <p style="margin:0;">K⁴ introduces an unsupervised typicality learning paradigm for online log anomaly detection. By modeling normal operational patterns rather than enumerating anomalies, it detects novel, previously unseen failures with low computational overhead suitable for production streaming environments.</p>
                     </div>
-                    <div id="bibtex-entry-chen2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-glass-border);">
-                        <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>@misc{chen2025k4onlineloganomaly,
-      title={$K^4$: Online Log Anomaly Detection Via Unsupervised Typicality Learning}, 
-      author={Vikash Singh and Weicong Chen and Zahra Rahmani and Debargha Ganguly and Mohsen Hariri and Vipin Chaudhary},
-      year={2025},
-      eprint={2507.20051},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2507.20051}, 
+                    <div id="bibtex-entry-chen2025" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border-radius:8px; border:1px solid var(--current-glass-border);">
+                        <pre style="white-space:pre-wrap; word-wrap:break-word; font-family:monospace; font-size:0.9em;"><code>@misc{chen2025k4onlineloganomaly,
+  title={$K^4$: Online Log Anomaly Detection Via Unsupervised Typicality Learning},
+  author={Vikash Singh and Weicong Chen and Zahra Rahmani and Debargha Ganguly and Mohsen Hariri and Vipin Chaudhary},
+  year={2025},
+  eprint={2507.20051},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2507.20051}
 }</code></pre>
                     </div>
-                </div>
-
-                <div class="paper-card">
-                    <div class="paper-icon">
-                        <i class="fas fa-microchip"></i>
+                </li>
+                <li class="publication-item" style="padding:0 0 1.2em; margin:0 0 1.2em;">
+                    <h3 class="publication-title" style="margin-top:0;">Efficient Fine-Grained GPU Performance Modeling for Distributed Deep Learning of LLM</h3>
+                    <p class="publication-authors">Zhang, B., Zheng, M., Ganguly, D., Zhang, X., <strong>Singh, V.</strong>, Chaudhary, V., Zhang, Z.</p>
+                    <p class="publication-venue"><em>HiPC 2025</em> • September 2025</p>
+                    <div class="publication-actions" style="display:flex; flex-wrap:wrap; gap:10px;">
+                        <a href="publications/gpu-performance-modeling.html" class="btn-icon"><i class="fas fa-book-open"></i> HTML</a>
+                        <a href="https://www.arxiv.org/abs/2509.22832" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <button class="btn-icon" onclick="toggleAbstract(event,'abs-zhang2025')"><i class="fas fa-align-left"></i> Abstract</button>
+                        <button class="btn-icon" onclick="toggleBibtex(event, 'bibtex-entry-zhang2025')"><i class="fas fa-quote-right"></i> BibTeX</button>
                     </div>
-                    <h3 class="paper-card-title">Efficient Fine-Grained GPU Performance Modeling</h3>
-                    <p class="paper-card-subtitle">For Distributed Deep Learning of LLMs</p>
-                    <p class="paper-card-authors">Zhang, B., Zheng, M., Ganguly, D., Zhang, X., <strong>Singh, V.</strong>, Chaudhary, V., Zhang, Z.</p>
-                    <p class="paper-card-meta"><em>HiPC 2025</em> • September 2025</p>
-                    <p class="paper-card-description">This work presents a fine-grained GPU performance modeling framework for distributed LLM training. By decomposing training into fundamental operations and modeling their characteristics at fine granularity, we achieve high prediction accuracy (under 10% error) while maintaining computational efficiency, enabling optimal parallelization strategy selection and hardware configuration.</p>
-                    <div class="paper-card-actions">
-                        <a href="publications/gpu-performance-modeling.html" class="btn-paper-primary">
-                            <i class="fas fa-book-open"></i> HTML Page
-                        </a>
-                        <a href="https://www.arxiv.org/abs/2509.22832" target="_blank" class="btn-paper-secondary">
-                            <i class="fas fa-file-pdf"></i> arXiv
-                        </a>
-                        <button onclick="toggleBibtex(event, 'bibtex-entry-zhang2025')" class="btn-paper-secondary">
-                            <i class="fas fa-quote-right"></i> BibTeX
-                        </button>
+                    <div id="abs-zhang2025" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border:1px solid var(--current-glass-border); border-radius:8px;">
+                        <p style="margin:0;">This work decomposes distributed LLM training into granular operations to build an accurate, efficient GPU performance model. The framework achieves prediction error under 10% while informing optimal parallelization and hardware configuration strategies for large-scale training.</p>
                     </div>
-                    <div id="bibtex-entry-zhang2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-glass-border);">
-                        <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>@article{zhang2025efficient,
-    title={Efficient Fine-Grained GPU Performance Modeling for Distributed Deep Learning of LLM},
-    author={Zhang, Biyao and Zheng, Mingkai and Ganguly, Debargha and Zhang, Xuecen and Singh, Vikash and Chaudhary, Vipin and Zhang, Zhao},
-    journal={arXiv preprint arXiv:2509.22832},
-    year={2025}
+                    <div id="bibtex-entry-zhang2025" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border-radius:8px; border:1px solid var(--current-glass-border);">
+                        <pre style="white-space:pre-wrap; word-wrap:break-word; font-family:monospace; font-size:0.9em;"><code>@article{zhang2025efficient,
+  title={Efficient Fine-Grained GPU Performance Modeling for Distributed Deep Learning of LLM},
+  author={Zhang, Biyao and Zheng, Mingkai and Ganguly, Debargha and Zhang, Xuecen and Singh, Vikash and Chaudhary, Vipin and Zhang, Zhao},
+  journal={arXiv preprint arXiv:2509.22832},
+  year={2025}
 }</code></pre>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
         </section>
 
         <section id="research-interests" class="content-section card-style">
@@ -199,8 +177,8 @@
             
             <div class="footer-section footer-links">
                 <h4>Navigate</h4>
-                <ul>
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <ul>
+                        <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="publications.html"><i class="fas fa-graduation-cap"></i> Publications</a></li>
                     <li><a href="education_experience.html"><i class="fas fa-user-graduate"></i> Experience</a></li>
                     <li><a href="blogs.html"><i class="fas fa-blog"></i> Blog</a></li>
@@ -266,6 +244,7 @@
             }
             
             const isCurrentlyVisible = bibtexEntry.style.display === 'block';
+            const thisButton = document.querySelector(`[onclick*="${bibtexId}"]`);
             
             // Close all other BibTeX entries first
             const allBibtexEntries = document.querySelectorAll('[id^="bibtex-entry-"]');
@@ -280,6 +259,7 @@
                         if (text && text.nodeType === Node.TEXT_NODE) {
                             text.textContent = ' BibTeX';
                         }
+                        button.setAttribute('aria-expanded', 'false');
                     }
                 }
             });
@@ -288,9 +268,11 @@
             if (isCurrentlyVisible) {
                 bibtexEntry.style.display = 'none';
                 updateButtonText(bibtexId, ' BibTeX');
+                thisButton && thisButton.setAttribute('aria-expanded', 'false');
             } else {
                 bibtexEntry.style.display = 'block';
                 updateButtonText(bibtexId, ' Hide BibTeX');
+                thisButton && thisButton.setAttribute('aria-expanded', 'true');
                 
                 // Smooth scroll to the BibTeX entry on mobile
                 if (window.innerWidth <= 768) {
@@ -300,6 +282,54 @@
                             block: 'nearest' 
                         });
                     }, 100);
+                }
+            }
+        }
+
+        // Abstract toggle (mirrors BibTeX pattern, independent states)
+        function toggleAbstract(event, abstractId) {
+            if (event && event.preventDefault) event.preventDefault();
+            const abstractEl = document.getElementById(abstractId);
+            if (!abstractEl) {
+                console.warn('Abstract entry not found:', abstractId);
+                return;
+            }
+            const isVisible = abstractEl.style.display === 'block';
+            const thisButton = document.querySelector(`[onclick*="${abstractId}"]`);
+
+            // Close other abstracts
+            const allAbstracts = document.querySelectorAll('[id^="abs-"]');
+            allAbstracts.forEach(el => {
+                if (el.id !== abstractId) {
+                    el.style.display = 'none';
+                    updateAbstractButtonText(el.id, ' Abstract');
+                    const btn = document.querySelector(`[onclick*="${el.id}"]`);
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            if (isVisible) {
+                abstractEl.style.display = 'none';
+                updateAbstractButtonText(abstractId, ' Abstract');
+                thisButton && thisButton.setAttribute('aria-expanded', 'false');
+            } else {
+                abstractEl.style.display = 'block';
+                updateAbstractButtonText(abstractId, ' Hide Abstract');
+                thisButton && thisButton.setAttribute('aria-expanded', 'true');
+                if (window.innerWidth <= 768) {
+                    setTimeout(() => {
+                        abstractEl.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                    }, 100);
+                }
+            }
+        }
+
+        function updateAbstractButtonText(abstractId, newText) {
+            const button = document.querySelector(`[onclick*="${abstractId}"]`);
+            if (button) {
+                const textNode = button.childNodes[button.childNodes.length - 1];
+                if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+                    textNode.textContent = newText;
                 }
             }
         }

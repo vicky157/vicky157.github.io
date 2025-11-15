@@ -22,9 +22,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vicky157/vicky157.github.io.git"
+    "url": "https://github.com/vicky157/vikash-singh.me.git"
   },
-  "homepage": "https://vicky157.github.io",
+  "homepage": "https://vikash-singh.me",
   "devDependencies": {
     "mime-types": "^3.0.1"
   },

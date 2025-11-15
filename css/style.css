@@ -234,6 +234,13 @@ nav .logo a {
     text-decoration: none;
     transition: transform 0.3s ease, color var(--transition-speed) ease;
 }
+nav .logo a .logo-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    display: inline-block;
+    vertical-align: middle;
+}
 nav .logo a:hover {
     transform: scale(1.03);
     color: var(--current-theme-accent-hover);
@@ -1861,6 +1868,96 @@ main {
     background-size: cover;
     position: relative;
 }
+
+/* ---=== About Page Specific ===--- */
+.about-facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+    margin-top: 1em;
+}
+
+.fact-item {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px 18px 16px;
+    background: var(--current-glass-bg);
+    border: 1px solid var(--current-glass-border);
+    border-radius: var(--border-radius-small);
+    min-height: 120px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.fact-item i {
+    font-size: 1.4em;
+    color: var(--current-theme-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.fact-item .label {
+    font-size: 0.70em;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+    color: var(--current-text-secondary);
+    margin-bottom: 4px;
+}
+
+.fact-item .value a {
+    text-decoration: none;
+}
+
+.fact-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(74,144,226,0.18);
+}
+
+.dark-mode .fact-item {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.dark-mode .fact-item:hover {
+    box-shadow: 0 10px 28px rgba(74,144,226,0.35);
+}
+
+
+@media (max-width: 420px) {
+    .about-facts-grid {
+        grid-template-columns: 1fr;
+    }
+    .fact-item {
+        padding: 14px 16px;
+    }
+}
+
+/* Contact details grid */
+.contact-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+    margin-top: 1.2em;
+}
+.contact-detail-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--current-glass-bg);
+    border: 1px solid var(--current-glass-border);
+    border-radius: var(--border-radius-small);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+.contact-detail-item i {font-size: 1.3em; color: var(--current-theme-accent); margin-top: 2px;}
+.contact-detail-item:hover {transform: translateY(-4px); box-shadow: 0 10px 30px rgba(74,144,226,0.18);}
+.contact-detail-item .label {font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.5px; font-weight:600; color: var(--current-text-secondary); margin-bottom:4px;}
+.contact-detail-item .value a {text-decoration:none;}
+
+/* auto-fit already handles column collapse; keep only smallest-phone tweak if needed later */
 
 /* Improved focus states for accessibility */
 button:focus, a:focus, input:focus {

@@ -11,7 +11,7 @@ A modern, responsive portfolio website for AI & LLM researcher Vikash Singh, des
 - **Modern Glassmorphism UI** - Beautiful glass effects with gradient accents
 - **Accessibility First** - WCAG compliant with keyboard navigation and screen reader support
 - **Touch Optimized** - 44px minimum touch targets and gesture support
-- **Publication Management** - BibTeX toggle functionality with copy-to-clipboard
+- **Publication Management** - List-style entries with Abstract & BibTeX toggles (copy-to-clipboard)
 - **Performance Optimized** - Hardware acceleration and optimized animations
 
 ## 🚀 Quick Start
@@ -25,8 +25,8 @@ A modern, responsive portfolio website for AI & LLM researcher Vikash Singh, des
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/vicky157/vicky157.github.io.git
-   cd vicky157.github.io
+   git clone https://github.com/vicky157/vikash-singh.me.git
+   cd vikash-singh.me
    ```
 
 2. **Run the build script**
@@ -185,6 +185,7 @@ npm run build:blog
 ### Customizing Content
 
 - **Home Page**: Edit `index.html` directly
+- **About Section**: Edit the merged About content directly in `index.html` (section id `about`). `about.html` now redirects to avoid duplicate content.
 - **Publications**: Update `publications.html`
 - **Experience**: Modify `education_experience.html`
 - **Contact Info**: Update `contact.html`
@@ -336,6 +337,13 @@ MIT License - see LICENSE file for details
 Feel free to submit issues and enhancement requests!
 
 ### Recent Improvements
+
+**v2.2.0 - Publications List & Abstract Toggle**
+- Converted publications from card grid to clean list format
+- Added accessible Abstract toggle (aria-expanded) with mobile auto-scroll
+- Unified BibTeX and Abstract visibility behavior
+- Updated About section merge (single source in `index.html`)
+- Improved accessibility for toggle buttons
 
 **v2.1.0 - Mobile Responsiveness Overhaul**
 - Complete mobile-first redesign

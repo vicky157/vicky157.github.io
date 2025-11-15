@@ -1,0 +1,44 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Dog Face Logo</title>
+  <desc id="desc">A simple cute dog face logo for Vikash Singh&apos;s site.</desc>
+  <defs>
+    <linearGradient id="dogFaceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbe9d2"/>
+      <stop offset="100%" stop-color="#f0cfa3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ears -->
+  <path d="M30 38 C22 18, 25 8, 40 16 C48 20, 50 30, 48 40" fill="#c48a5a"/>
+  <path d="M90 38 C98 18, 95 8, 80 16 C72 20, 70 30, 72 40" fill="#c48a5a"/>
+
+  <!-- Head -->
+  <circle cx="60" cy="62" r="38" fill="url(#dogFaceGradient)" stroke="#c48a5a" stroke-width="3"/>
+
+  <!-- Eye patches -->
+  <ellipse cx="45" cy="55" rx="12" ry="14" fill="#e0b58a" opacity="0.8"/>
+  <ellipse cx="75" cy="55" rx="9" ry="11" fill="#e0b58a" opacity="0.7"/>
+
+  <!-- Eyes -->
+  <circle cx="45" cy="55" r="4.3" fill="#222"/>
+  <circle cx="75" cy="55" r="4" fill="#222"/>
+  <circle cx="43.8" cy="53.6" r="1.5" fill="#fff" opacity="0.9"/>
+  <circle cx="73.8" cy="53.6" r="1.4" fill="#fff" opacity="0.9"/>
+
+  <!-- Snout -->
+  <path d="M43 68 C48 79, 72 79, 77 68 C72 72, 48 72, 43 68 Z" fill="#f5d7ae"/>
+
+  <!-- Nose -->
+  <path d="M57 67 C57 63, 63 63, 63 67 C63 70, 60 72, 60 72 C60 72, 57 70, 57 67 Z" fill="#333"/>
+
+  <!-- Mouth -->
+  <path d="M60 72 C57 77, 52 79, 48 77" fill="none" stroke="#333" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M60 72 C63 77, 68 79, 72 77" fill="none" stroke="#333" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Blush -->
+  <circle cx="40" cy="66" r="3.5" fill="#f5a3a3" opacity="0.65"/>
+  <circle cx="80" cy="66" r="3.5" fill="#f5a3a3" opacity="0.65"/>
+
+  <!-- Subtle chin shadow -->
+  <ellipse cx="60" cy="82" rx="16" ry="5" fill="#d9b48a" opacity="0.4"/>
+</svg>

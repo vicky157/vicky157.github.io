@@ -12,29 +12,34 @@
     <meta name="theme-color" content="#4169E1">
     <meta name="description" content="Education and Experience of Vikash Singh, AI & LLM Researcher.">
     <title>Education & Experience - Vikash Singh</title>
+        <!-- Structured Data: Breadcrumbs for Education & Experience -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vikash-singh.me/"},
+                {"@type": "ListItem", "position": 2, "name": "Education & Experience", "item": "https://vikash-singh.me/education_experience"}
+            ]
+        }
+        </script>
 </head>
 <body class="light-mode">
 
     <header>
         <nav>
             <div class="logo">
-                <a href="index.html">
-                    <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px; position: relative; top: -2px;">
-                        <path d="M50,5 C25.147,5 5,25.147 5,50 C5,74.853 25.147,95 50,95 C62.037,95 72.934,90.373 80.711,82.799 L75,95 L75,75 C86.393,69.996 95,59.151 95,50 C95,25.147 74.853,5 50,5 Z" fill="var(--current-theme-accent)"/>
-                        <circle cx="50" cy="50" r="15" fill="var(--current-glass-bg-navbar)"/>
-                        <circle cx="50" cy="50" r="10" fill="var(--current-link-color)"/>
-                        <circle cx="30" cy="35" r="5" fill="rgba(255,255,255,0.5)"/>
-                        <circle cx="70" cy="35" r="5" fill="rgba(255,255,255,0.5)"/>
-                    </svg>
+                <a href="/">
+                    <img src="assets/icons/dog-logo.svg" alt="Vikash Singh logo - cute dog face" class="logo-icon" width="32" height="32">
                     Vikash Singh
                 </a>
             </div>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="education_experience.html" class="active">Education & Experience</a></li>
-                <li><a href="blogs.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/publications">Publications</a></li>
+                <li><a href="/education_experience" class="active">Education & Experience</a></li>
+                <li><a href="/blogs">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
             <button id="theme-toggle" aria-label="Toggle theme">
                 <i class="fas fa-sun"></i><i class="fas fa-moon" style="display:none;"></i>
@@ -45,11 +50,11 @@
         </nav>
          <div id="mobile-menu">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="education_experience.html" class="active">Education & Experience</a></li>
-                <li><a href="blogs.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/publications">Publications</a></li>
+                <li><a href="/education_experience" class="active">Education & Experience</a></li>
+                <li><a href="/blogs">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
         </div>
     </header>
@@ -253,8 +258,8 @@
             
             <div class="footer-section footer-links">
                 <h4>Navigate</h4>
-                <ul>
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <ul>
+                        <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="publications.html"><i class="fas fa-graduation-cap"></i> Publications</a></li>
                     <li><a href="education_experience.html"><i class="fas fa-user-graduate"></i> Experience</a></li>
                     <li><a href="blogs.html"><i class="fas fa-blog"></i> Blog</a></li>
