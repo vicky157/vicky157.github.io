@@ -149,6 +149,8 @@ a {
     color: var(--current-link-color);
     text-decoration: none;
     transition: color var(--transition-speed) ease, opacity 0.2s ease-out;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 a:hover, 
@@ -377,15 +379,18 @@ nav ul li a.active {
 
 /* ---=== Main Content & Glassy Cards ===--- */
 main {
-    max-width: 900px; 
+    max-width: 900px;
     margin: 2em auto;
     padding: 0 20px;
     /* Ensure main content area allows touch scrolling */
     touch-action: pan-y pan-x;
     -webkit-overflow-scrolling: touch;
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+    width: 100%;
 }
 
-.card-style, .content-section { 
+.card-style, .content-section {
     background: var(--current-glass-bg);
     backdrop-filter: blur(var(--backdrop-blur-amount));
     -webkit-backdrop-filter: blur(var(--backdrop-blur-amount));
@@ -397,6 +402,9 @@ main {
     transition: transform 0.3s ease, box-shadow 0.3s ease, background var(--transition-speed) ease, border var(--transition-speed) ease;
     /* Allow touch scrolling through cards */
     touch-action: pan-y pan-x;
+    /* Prevent content overflow */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
     /* Prevent cards from blocking scroll gestures */
     pointer-events: auto;
 }
@@ -464,63 +472,70 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
 }
-.social-links .btn, .btn { 
-    background-color: var(--current-theme-accent);
-    color: white; 
-    padding: 0.7em 1.4em;
-    border-radius: var(--border-radius-small);
+.social-links .btn, .btn {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--current-theme-accent);
+    padding: 0.45em 0.85em;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: 500;
-    transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow 0.2s ease, font-size 0.2s ease;
-    border: 1px solid transparent;
+    transition: all 0.25s ease;
+    border: 1px solid rgba(65, 105, 225, 0.3);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    gap: 5px;
+    box-shadow: none;
     /* Base responsive sizing */
-    font-size: clamp(0.85rem, 2.5vw, 1rem);
-    min-height: 44px; /* Minimum touch target for accessibility */
+    font-size: clamp(0.7rem, 2vw, 0.8rem);
+    min-height: 36px;
     min-width: fit-content;
     /* Flexible sizing */
     flex-shrink: 0;
     white-space: nowrap;
+    /* Modern glass effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 .dark-mode .social-links .btn, .dark-mode .btn {
-     background-color: var(--current-theme-accent); 
-     color: var(--current-text-dark); 
+     background-color: rgba(255, 255, 255, 0.05);
+     color: var(--current-theme-accent);
+     border: 1px solid rgba(88, 127, 231, 0.35);
 }
 
 .social-links .btn:hover, .btn:hover {
-    background-color: var(--current-theme-accent-hover);
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    background-color: var(--current-theme-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(65, 105, 225, 0.25);
     color: white;
     text-decoration: none;
+    border-color: var(--current-theme-accent);
 }
 .dark-mode .social-links .btn:hover, .dark-mode .btn:hover {
-    color: var(--current-text-dark);
+    background-color: var(--current-theme-accent);
+    color: white;
+    border-color: var(--current-theme-accent);
 }
 
 .btn-icon {
-    padding: 0.6em 1.1em;
+    padding: 0.4em 0.75em;
     background-color: transparent;
-    color: var(--current-link-color); 
-    border: 1px solid var(--current-link-color); 
-    border-radius: var(--border-radius-small);
-    transition: background-color var(--transition-speed), color var(--transition-speed), transform 0.2s ease, border-color var(--transition-speed) ease, font-size 0.2s ease;
+    color: var(--current-link-color);
+    border: 1px solid rgba(65, 105, 225, 0.3);
+    border-radius: 6px;
+    transition: all 0.25s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 5px;
     /* Responsive sizing */
-    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
-    min-height: 40px;
+    font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+    min-height: 34px;
     white-space: nowrap;
     flex-shrink: 0;
-    /* Better touch interaction - allow all touch actions for clickable elements */
+    /* Better touch interaction */
     touch-action: auto;
     -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     cursor: pointer;
@@ -528,15 +543,16 @@ main {
 /* Icon color for btn-icon is handled by global icon rule */
 
 .btn-icon:hover {
-    background-color: var(--current-link-color); 
-    color: var(--current-bg); 
+    background-color: var(--current-link-color);
+    color: white;
     border-color: var(--current-link-color);
-    transform: translateY(-2px) scale(1.03);
+    transform: translateY(-1px);
     text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 255, 0.2);
 }
 /* Ensure icon color changes on hover for btn-icon */
 .btn-icon:hover i {
-    color: var(--current-bg) !important; 
+    color: white !important;
 }
 
 
@@ -560,12 +576,16 @@ main {
     font-size: 1.3em; /* Slightly smaller than main publication titles */
     color: var(--current-theme-accent);
     margin-bottom: 0.4em;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 #publication-update .publication-authors-home {
     font-style: italic;
     color: var(--current-text-secondary);
     margin-bottom: 0.4em;
     font-size: 0.95em;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 #publication-update .publication-authors-home strong {
     color: var(--current-text);
@@ -595,10 +615,26 @@ main {
     border-bottom: 1px dashed var(--current-glass-border); 
 }
 .publication-item:last-child { border-bottom: none; }
-.publication-title { font-size: 1.4em; margin-bottom: 0.3em; color: var(--current-theme-accent);}
-.publication-authors { font-style: italic; color: var(--current-text-secondary); margin-bottom: 0.3em; }
+.publication-title {
+    font-size: 1.4em;
+    margin-bottom: 0.3em;
+    color: var(--current-theme-accent);
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+.publication-authors {
+    font-style: italic;
+    color: var(--current-text-secondary);
+    margin-bottom: 0.3em;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
 .publication-authors strong { color: var(--current-text); font-weight: bold; }
-.publication-venue { margin-bottom: 0.5em; }
+.publication-venue {
+    margin-bottom: 0.5em;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
 
 .interest-list li { margin-bottom: 0.8em; }
 
@@ -1777,6 +1813,7 @@ main {
 .social-links a:nth-child(3) { animation-delay: 1.1s; }
 .social-links a:nth-child(4) { animation-delay: 1.2s; }
 .social-links a:nth-child(5) { animation-delay: 1.3s; }
+.social-links a:nth-child(6) { animation-delay: 1.4s; }
 
 @keyframes socialFadeIn {
     0% {
@@ -1872,7 +1909,7 @@ main {
 /* ---=== About Page Specific ===--- */
 .about-facts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: 22px;
     margin-top: 1em;
 }
@@ -1889,6 +1926,7 @@ main {
     min-height: 120px;
     box-shadow: 0 4px 18px rgba(0,0,0,0.07);
     transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease;
+    overflow: hidden;
 }
 
 .fact-item i {
@@ -1907,8 +1945,16 @@ main {
     margin-bottom: 4px;
 }
 
+.fact-item .value {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    min-width: 0;
+}
+
 .fact-item .value a {
     text-decoration: none;
+    word-break: break-all;
 }
 
 .fact-item:hover {
@@ -1928,16 +1974,28 @@ main {
 @media (max-width: 420px) {
     .about-facts-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
     .fact-item {
         padding: 14px 16px;
+        grid-template-columns: 36px 1fr;
+        gap: 10px;
+    }
+    .contact-details-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .contact-detail-item {
+        padding: 14px 16px;
+        grid-template-columns: 36px 1fr;
+        gap: 10px;
     }
 }
 
 /* Contact details grid */
 .contact-details-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
     gap: 22px;
     margin-top: 1.2em;
 }
@@ -1951,11 +2009,21 @@ main {
     border-radius: var(--border-radius-small);
     box-shadow: 0 4px 18px rgba(0,0,0,0.06);
     transition: transform 0.25s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 .contact-detail-item i {font-size: 1.3em; color: var(--current-theme-accent); margin-top: 2px;}
 .contact-detail-item:hover {transform: translateY(-4px); box-shadow: 0 10px 30px rgba(74,144,226,0.18);}
 .contact-detail-item .label {font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.5px; font-weight:600; color: var(--current-text-secondary); margin-bottom:4px;}
-.contact-detail-item .value a {text-decoration:none;}
+.contact-detail-item .value {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    min-width: 0;
+}
+.contact-detail-item .value a {
+    text-decoration: none;
+    word-break: break-all;
+}
 
 /* auto-fit already handles column collapse; keep only smallest-phone tweak if needed later */
 
@@ -2264,23 +2332,23 @@ button:focus, a:focus, input:focus {
         margin-top: 1.5em;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 8px;
         justify-content: center;
         max-width: 320px;
         margin: 1.5em auto 0;
     }
 
     .social-links .btn {
-        padding: 0.8em 1em;
-        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        padding: 0.5em 0.9em;
+        font-size: clamp(0.75rem, 2.5vw, 0.85rem);
         text-align: center;
         justify-content: center;
         white-space: nowrap;
-        min-height: 48px; /* Larger touch target for mobile */
+        min-height: 40px;
         display: flex;
         align-items: center;
         /* Better spacing for mobile */
-        margin: 0.3em;
+        margin: 0.2em;
         /* Improved mobile interaction */
         cursor: pointer;
         touch-action: auto;
@@ -2289,17 +2357,17 @@ button:focus, a:focus, input:focus {
 
     /* All buttons responsive sizing for mobile */
     .btn {
-        padding: 0.9em 1.2em;
-        font-size: clamp(0.9rem, 3vw, 1.1rem);
-        min-height: 48px;
+        padding: 0.5em 0.9em;
+        font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+        min-height: 40px;
         /* Better mobile touch experience */
         touch-action: auto;
         -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     }
 
     .social-links .btn i {
-        margin-right: 6px;
-        font-size: 1.1em;
+        margin-right: 4px;
+        font-size: 1em;
     }
 
     /* Publication sections mobile */
@@ -2506,17 +2574,17 @@ button:focus, a:focus, input:focus {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: 8px;
         max-width: 600px;
         margin: 1.5em auto 0;
     }
 
     .social-links .btn {
         flex: 1;
-        min-width: 140px;
-        padding: 0.8em 1.3em;
-        font-size: clamp(0.95rem, 2.2vw, 1.05rem);
-        min-height: 46px;
+        min-width: 120px;
+        padding: 0.5em 0.95em;
+        font-size: clamp(0.75rem, 2vw, 0.85rem);
+        min-height: 38px;
         /* Better tablet interaction */
         touch-action: auto;
         -webkit-tap-highlight-color: rgba(0,0,0,0.1);
@@ -2524,9 +2592,9 @@ button:focus, a:focus, input:focus {
 
     /* All buttons responsive sizing for tablet */
     .btn {
-        padding: 0.8em 1.3em;
-        font-size: clamp(0.95rem, 2.2vw, 1.05rem);
-        min-height: 46px;
+        padding: 0.5em 0.95em;
+        font-size: clamp(0.75rem, 2vw, 0.85rem);
+        min-height: 38px;
     }
 
     h1 {
@@ -2585,9 +2653,9 @@ button:focus, a:focus, input:focus {
     }
 
     .social-links .btn {
-        padding: 0.85em 1em;
-        font-size: clamp(0.85rem, 3.5vw, 1rem);
-        min-height: 50px; /* Slightly larger for small screens */
+        padding: 0.55em 0.95em;
+        font-size: clamp(0.75rem, 3vw, 0.85rem);
+        min-height: 42px;
         /* Enhanced mobile interaction */
         touch-action: auto;
         -webkit-tap-highlight-color: rgba(0,0,0,0.1);
@@ -2598,9 +2666,9 @@ button:focus, a:focus, input:focus {
 
     /* All buttons for small mobile */
     .btn {
-        padding: 0.85em 1em;
-        font-size: clamp(0.85rem, 3.5vw, 1rem);
-        min-height: 50px;
+        padding: 0.55em 0.95em;
+        font-size: clamp(0.75rem, 3vw, 0.85rem);
+        min-height: 42px;
         touch-action: auto;
         -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     }
@@ -4046,39 +4114,38 @@ a:focus-visible {
 /* Large desktop screens - enhanced button sizing */
 @media screen and (min-width: 1025px) {
     .social-links .btn, .btn {
-        padding: 0.8em 1.6em;
-        font-size: clamp(1rem, 1.2vw, 1.1rem);
-        min-height: 44px;
+        padding: 0.45em 0.9em;
+        font-size: clamp(0.75rem, 1vw, 0.85rem);
+        min-height: 36px;
         /* Enhance desktop interaction */
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.25s ease;
     }
 
     .btn-icon {
-        padding: 0.7em 1.3em;
-        font-size: clamp(0.9rem, 1.1vw, 1rem);
-        min-height: 42px;
+        padding: 0.4em 0.8em;
+        font-size: clamp(0.7rem, 0.95vw, 0.8rem);
+        min-height: 34px;
     }
 
     /* Better hover states for desktop */
     .social-links .btn:hover, .btn:hover {
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        transform: translateY(-1px);
     }
 
     .btn-icon:hover {
-        transform: translateY(-2px) scale(1.02);
+        transform: translateY(-1px);
     }
 
     /* Larger buttons for very wide screens */
     @media screen and (min-width: 1400px) {
         .social-links .btn, .btn {
-            font-size: clamp(1.05rem, 1.1vw, 1.15rem);
-            padding: 0.9em 1.8em;
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
+            padding: 0.5em 1em;
         }
 
         .btn-icon {
-            font-size: clamp(0.95rem, 1vw, 1.05rem);
-            padding: 0.8em 1.4em;
+            font-size: clamp(0.75rem, 0.95vw, 0.85rem);
+            padding: 0.45em 0.85em;
         }
     }
 }

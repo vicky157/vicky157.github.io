@@ -478,10 +478,10 @@ async function loadBlogData(elements) {
     
     // Show loading state
     blogPostsContainer.innerHTML = '<div class="loading-blogs"><i class="fas fa-spinner fa-spin"></i> Loading posts...</div>';
-    
+
     try {
-        const response = await fetch('js/blogs-data.json');
-        
+        const response = await fetch('/js/blogs-data.json');
+
         if (!response.ok) {
             throw new Error(`Failed to load blogs-data.json: ${response.statusText} (${response.status})`);
         }
@@ -502,7 +502,7 @@ async function loadBlogData(elements) {
             <div class="error-message">
                 <i class="fas fa-exclamation-triangle"></i>
                 <p>Error loading blog posts: ${error.message}</p>
-                <p>Please ensure 'js/blogs-data.json' exists and is accessible.</p>
+                <p>Please ensure '/js/blogs-data.json' exists and is accessible.</p>
             </div>
         `;
     }
