@@ -60,13 +60,110 @@ body {
     padding: 0;
     background-color: var(--current-bg);
     color: var(--current-text);
-    line-height: 1.7;
+    line-height: 1.6;
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
     overflow-x: hidden;
     padding-top: 20px;
     background-image: var(--current-bg-grid);
     background-size: 40px 40px;
     background-attachment: fixed;
+}
+
+/* ---=== Logical Intelligence Layout Pass ===--- */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0;
+    background: var(--current-bg);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 1rem auto 0;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--grid-line);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+nav .logo a {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.95rem;
+}
+
+nav ul li a {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    padding: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5%;
+}
+
+.card-style, .content-section {
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--grid-line);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 3rem 0;
+    margin-bottom: 0;
+}
+
+.card-style:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.hero-section {
+    text-align: left;
+    padding: 4rem 0 3rem;
+    border-top: none;
+}
+
+.hero-section h1 {
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    line-height: 0.9;
+}
+
+.hero-section .subtitle,
+.hero-section .location {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--text-muted);
+}
+
+.social-links {
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.social-links .btn, .btn, .btn-icon {
+    border-radius: 0;
+    border: 1px solid var(--text-primary);
+    background: transparent;
+    color: var(--text-primary);
+    box-shadow: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+}
+
+.social-links .btn:hover, .btn:hover, .btn-icon:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    box-shadow: none;
 }
 
 /* Logical Intelligence-inspired typography helpers */
@@ -112,6 +209,41 @@ body {
     border: none;
     border-top: 1px solid var(--text-primary);
     margin: 2rem 0;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid var(--grid-line);
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+}
+
+.tab-button {
+    background: transparent;
+    border: 1px solid var(--text-primary);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.tab-button.active {
+    background: var(--bg-dark);
+    color: var(--bg-primary);
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
 }
 
 /* ---=== Theme Setup ===--- */

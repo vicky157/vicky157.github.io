@@ -20,7 +20,7 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://vikash-singh.me/"},
-                {"@type": "ListItem", "position": 2, "name": "Publications", "item": "https://vikash-singh.me/publications.html"}
+                {"@type": "ListItem", "position": 2, "name": "Publications", "item": "https://vikash-singh.me/publications"}
             ]
         }
         </script>
@@ -30,17 +30,17 @@
     <header>
         <nav>
             <div class="logo">
-                <a href="index.html">
+                <a href="/">
                     <img src="assets/icons/dog-logo.svg" alt="Vikash Singh logo - cute dog face" class="logo-icon" width="40" height="40">
                     Vikash Singh
                 </a>
             </div>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="publications.html" class="active">Publications</a></li>
-                <li><a href="education_experience.html">Education & Experience</a></li>
-                <li><a href="blogs.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/publications" class="active">Publications</a></li>
+                <li><a href="/education-experience">Education & Experience</a></li>
+                <li><a href="/blogs">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
             <button id="theme-toggle" aria-label="Toggle theme">
                 <i class="fas fa-sun"></i><i class="fas fa-moon" style="display:none;"></i>
@@ -51,16 +51,22 @@
         </nav>
          <div id="mobile-menu">
             <ul>
-                 <li><a href="index.html">Home</a></li>
-                <li><a href="publications.html" class="active">Publications</a></li>
-                <li><a href="education_experience.html">Education & Experience</a></li>
-                <li><a href="blogs.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                 <li><a href="/">Home</a></li>
+                <li><a href="/publications" class="active">Publications</a></li>
+                <li><a href="/education-experience">Education & Experience</a></li>
+                <li><a href="/blogs">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
         </div>
     </header>
 
     <main>
+        <div class="tabs" role="tablist" aria-label="Publications tabs">
+            <button class="tab-button active" type="button" data-tab="tab-publications" role="tab" aria-selected="true">Publications</button>
+            <button class="tab-button" type="button" data-tab="tab-research-statement" role="tab" aria-selected="false">Research Statement</button>
+        </div>
+
+        <div id="tab-publications" class="tab-panel active" role="tabpanel">
         <section id="publications-list" class="content-section card-style">
             <h2>Publications</h2>
             <p style="margin-bottom: 2rem; color: var(--current-text-secondary);">Select a paper and use the Abstract or BibTeX buttons to reveal details.</p>
@@ -172,6 +178,55 @@
                 <li><strong>Explainable AI:</strong> Advancing interpretability in AI models, focusing on enhancing transparency and providing actionable insights for users.</li>
             </ul>
         </section>
+        </div>
+
+        <div id="tab-research-statement" class="tab-panel" role="tabpanel">
+            <section id="research-statement" class="content-section card-style">
+                <h2>Research Statement</h2>
+                <figure style="margin: 0 0 2rem; border: 1px solid var(--grid-line); padding: 1.25rem;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:0.75rem;">
+                        <i class="fas fa-diagram-project" aria-hidden="true"></i>
+                        <figcaption style="font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem;">
+                            Bridging Probabilistic Generative AI with Rigorous Formal Verification
+                        </figcaption>
+                    </div>
+                    <p style="margin:0;">My research centers on a fundamental tension in modern Artificial Intelligence: the gap between the powerful but hallucination-prone creativity of Large Language Models (LLMs) and the strict, deterministic guarantees required for trustworthy systems. I am developing a new class of "Neuro-Symbolic" architectures that do not just generate code or proofs, but actively reason about their own uncertainty, verify their outputs against formal constraints, and optimize their "thinking" budgets for maximum efficiency.</p>
+                </figure>
+
+                <figure style="margin: 0 0 2rem; border: 1px solid var(--grid-line); padding: 1.25rem;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:0.75rem;">
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                        <figcaption style="font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem;">
+                            Current Contributions: Quantifying Uncertainty & Controlling Reasoning
+                        </figcaption>
+                    </div>
+                    <p>My recent work, including research published at NeurIPS 2025, tackles the "epistemological gap" between probabilistic models and formal logic. I introduced a Probabilistic Context-Free Grammar (PCFG) framework to model the uncertainty of LLM-generated formal artifacts (like SMT-LIB programs). By treating LLM outputs not as final answers but as hypotheses with measurable uncertainty, I developed "selective verification" protocols that reduce logical errors by 14–100%.</p>
+                    <p style="margin:0;">Beyond verification, I focus on the efficiency of reasoning. In my work on "Mid-Think," I demonstrated that reasoning behaviors in hybrid models are driven by specific token-level triggers rather than high-level instructions. I leveraged this to create training-free prompting strategies that dynamically adjust the model's "compute budget" during inference, achieving superior accuracy-latency trade-offs. I also work on LLM safety using out-of-distribution (OOD) detection techniques.</p>
+                </figure>
+
+                <figure style="margin: 0 0 2rem; border: 1px solid var(--grid-line); padding: 1.25rem;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:0.75rem;">
+                        <i class="fas fa-atom" aria-hidden="true"></i>
+                        <figcaption style="font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem;">
+                            Future Directions: Diffusion & Energy-Based Reasoning
+                        </figcaption>
+                    </div>
+                    <p>I am currently pivoting towards Reasoning Diffusion Language Models and Energy-Based Models (EBMs) to overcome the limitations of standard auto-regressive generation. My hypothesis is that "reasoning" should not be a linear, left-to-right process, but an iterative refinement—similar to how diffusion models denoise an image.</p>
+                    <p><strong>Diffusion for Logic:</strong> I am exploring how diffusion processes can allow models to "revise" their logic in continuous latent space, enabling self-correction before generating a final answer.</p>
+                    <p style="margin:0;"><strong>Energy-Based Verification:</strong> I am investigating EBMs to model the "global consistency" of a reasoning chain. Instead of predicting the next token, these models assess the "energy" (or compatibility) of an entire proof or plan, guiding the generator toward formally correct states.</p>
+                </figure>
+
+                <figure style="margin: 0; border: 1px solid var(--grid-line); padding: 1.25rem;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:0.75rem;">
+                        <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                        <figcaption style="font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem;">
+                            Impact & Vision
+                        </figcaption>
+                    </div>
+                    <p style="margin:0;">Drawing on my experience as an Applied Scientist Intern at AWS and my background in formal methods (Lean/Coq), my goal is to build AI systems that are safe enough for critical infrastructure. I aim to create models that don't just "guess" the answer, but construct a verifiable path to it—combining the flexibility of deep learning with the rigor of mathematical proof.</p>
+                </figure>
+            </section>
+        </div>
 
     </main>
 
@@ -197,11 +252,11 @@
             <div class="footer-section footer-links">
                 <h4>Navigate</h4>
                 <ul>
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="publications.html"><i class="fas fa-graduation-cap"></i> Publications</a></li>
-                    <li><a href="education_experience.html"><i class="fas fa-user-graduate"></i> Experience</a></li>
-                    <li><a href="blogs.html"><i class="fas fa-blog"></i> Blog</a></li>
-                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/publications"><i class="fas fa-graduation-cap"></i> Publications</a></li>
+                    <li><a href="/education-experience"><i class="fas fa-user-graduate"></i> Experience</a></li>
+                    <li><a href="/blogs"><i class="fas fa-blog"></i> Blog</a></li>
+                    <li><a href="/contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </div>
             
@@ -529,6 +584,31 @@
                 button.addEventListener('touchcancel', function() {
                     this.style.opacity = '1';
                 }, { passive: true });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.tab-button');
+            const panels = document.querySelectorAll('.tab-panel');
+
+            buttons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-tab');
+
+                    buttons.forEach((btn) => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-selected', 'false');
+                    });
+                    panels.forEach((panel) => panel.classList.remove('active'));
+
+                    button.classList.add('active');
+                    button.setAttribute('aria-selected', 'true');
+                    const panel = document.getElementById(targetId);
+                    if (panel) {
+                        panel.classList.add('active');
+                    }
+                });
             });
         });
     </script>
