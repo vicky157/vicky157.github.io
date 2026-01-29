@@ -72,6 +72,30 @@
             <p style="margin-bottom: 2rem; color: var(--current-text-secondary);">Select a paper and use the Abstract or BibTeX buttons to reveal details.</p>
             <ul style="list-style:none; margin:0; padding:0;">
                 <li class="publication-item" style="padding:0 0 1.2em; margin:0 0 1.8em; border-bottom:1px dashed var(--current-glass-border);">
+                    <h3 class="publication-title" style="margin-top:0;">VERGE: Formal Refinement and Guidance Engine for Verifiable LLM Reasoning</h3>
+                    <p class="publication-authors"><strong>Vikash Singh</strong>, Darion Cassel, Nathaniel Weir, Nick Feng, Sam Bayless</p>
+                    <p class="publication-venue"><em>arXiv</em> • Jan 2026</p>
+                    <div class="publication-actions" style="display:flex; flex-wrap:wrap; gap:10px;">
+                        <a href="https://arxiv.org/abs/2601.20055" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> Preprint</a>
+                        <button class="btn-icon" onclick="toggleAbstract(event,'abs-singh2026verge')"><i class="fas fa-align-left"></i> Abstract</button>
+                        <button class="btn-icon" onclick="toggleBibtex(event, 'bibtex-entry-singh2026verge')"><i class="fas fa-quote-right"></i> BibTeX</button>
+                    </div>
+                    <div id="abs-singh2026verge" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border:1px solid var(--current-glass-border); border-radius:8px;">
+                        <p style="margin:0;">Despite the syntactic fluency of Large Language Models (LLMs), ensuring their logical correctness in high-stakes domains remains a fundamental challenge. We present a neurosymbolic framework that combines LLMs with SMT solvers to produce verification-guided answers through iterative refinement. Our approach decomposes LLM outputs into atomic claims, autoformalizes them into first-order logic, and verifies their logical consistency using automated theorem proving. We introduce three key innovations: (1) multi-model consensus via formal semantic equivalence checking to ensure logic-level alignment between candidates, eliminating the syntactic bias of surface-form metrics, (2) semantic routing that directs different claim types to appropriate verification strategies: symbolic solvers for logical claims and LLM ensembles for commonsense reasoning, and (3) precise logical error localization via Minimal Correction Subsets (MCS), which pinpoint the exact subset of claims to revise, transforming binary failure signals into actionable feedback. Our framework classifies claims by their logical status and aggregates multiple verification signals into a unified score with variance-based penalty. The system iteratively refines answers using structured feedback until acceptance criteria are met or convergence is achieved. This hybrid approach delivers formal guarantees where possible and consensus verification elsewhere, advancing trustworthy AI. With the GPT-OSS-120B model, VERGE demonstrates an average performance uplift of 18.7% at convergence across a set of reasoning benchmarks compared to single-pass approaches.</p>
+                    </div>
+                    <div id="bibtex-entry-singh2026verge" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border-radius:8px; border:1px solid var(--current-glass-border);">
+                        <pre style="white-space:pre-wrap; word-wrap:break-word; font-family:monospace; font-size:0.9em;"><code>@misc{singh2026vergeformalrefinementguidance,
+  title={VERGE: Formal Refinement and Guidance Engine for Verifiable LLM Reasoning},
+  author={Vikash Singh and Darion Cassel and Nathaniel Weir and Nick Feng and Sam Bayless},
+  year={2026},
+  eprint={2601.20055},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2601.20055}
+}</code></pre>
+                    </div>
+                </li>
+                <li class="publication-item" style="padding:0 0 1.2em; margin:0 0 1.8em; border-bottom:1px dashed var(--current-glass-border);">
                     <h3 class="publication-title" style="margin-top:0;">Mid-Think: Training-Free Intermediate-Budget Reasoning via Token-Level Triggers</h3>
                     <p class="publication-authors">Yang Wang, Debargha Ganguly, Xinpeng Li, Chaoda Song, Shouren Wang, <strong>Vikash Singh</strong>, Vipin Chaudhary, Xiaotian Han</p>
                     <p class="publication-venue"><em>arXiv</em> • Jan 2026</p>
