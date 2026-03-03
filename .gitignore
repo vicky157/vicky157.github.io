@@ -54,3 +54,4 @@ coverage/
 
 # Generated blog data (can be regenerated)
 js/blogs-data.json.backup
+spotify-now-playing-api/
