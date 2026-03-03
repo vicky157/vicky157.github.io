@@ -72,6 +72,30 @@
             <p style="margin-bottom: 2rem; color: var(--current-text-secondary);">Select a paper and use the Abstract or BibTeX buttons to reveal details.</p>
             <ul style="list-style:none; margin:0; padding:0;">
                 <li class="publication-item" style="padding:0 0 1.2em; margin:0 0 1.8em; border-bottom:1px dashed var(--current-glass-border);">
+                    <h3 class="publication-title" style="margin-top:0;">Toward Guarantees for Clinical Reasoning in Vision Language Models via Formal Verification</h3>
+                    <p class="publication-authors"><strong>Vikash Singh</strong>, Debargha Ganguly, Haotian Yu, Chengwei Zhou, Prerna Singh, Brandon Lee, Vipin Chaudhary, Gourav Datta</p>
+                    <p class="publication-venue"><em>arXiv</em> • Feb 2026</p>
+                    <div class="publication-actions" style="display:flex; flex-wrap:wrap; gap:10px;">
+                        <a href="https://arxiv.org/abs/2602.24111" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> Preprint</a>
+                        <button class="btn-icon" onclick="toggleAbstract(event,'abs-singh2026clinical')"><i class="fas fa-align-left"></i> Abstract</button>
+                        <button class="btn-icon" onclick="toggleBibtex(event, 'bibtex-entry-singh2026clinical')"><i class="fas fa-quote-right"></i> BibTeX</button>
+                    </div>
+                    <div id="abs-singh2026clinical" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border:1px solid var(--current-glass-border); border-radius:8px;">
+                        <p style="margin:0;">Vision-language models (VLMs) show promise in drafting radiology reports, yet they frequently suffer from logical inconsistencies, generating diagnostic impressions unsupported by their own perceptual findings or missing logically entailed conclusions. Standard lexical metrics heavily penalize clinical paraphrasing and fail to capture these deductive failures in reference-free settings. Toward guarantees for clinical reasoning, we introduce a neurosymbolic verification framework that deterministically audits the internal consistency of VLM-generated reports. Our pipeline autoformalizes free-text radiographic findings into structured propositional evidence, utilizing an SMT solver (Z3) and a clinical knowledge base to verify whether each diagnostic claim is mathematically entailed, hallucinated, or omitted. Evaluating seven VLMs across five chest X-ray benchmarks, our verifier exposes distinct reasoning failure modes, such as conservative observation and stochastic hallucination, that remain invisible to traditional metrics. On labeled datasets, enforcing solver-backed entailment acts as a rigorous post-hoc guarantee, systematically eliminating unsupported hallucinations to significantly increase diagnostic soundness and precision in generative clinical assistants.</p>
+                    </div>
+                    <div id="bibtex-entry-singh2026clinical" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border-radius:8px; border:1px solid var(--current-glass-border);">
+                        <pre style="white-space:pre-wrap; word-wrap:break-word; font-family:monospace; font-size:0.9em;"><code>@misc{singh2026guaranteesclinicalreasoningvision,
+  title={Toward Guarantees for Clinical Reasoning in Vision Language Models via Formal Verification},
+  author={Vikash Singh and Debargha Ganguly and Haotian Yu and Chengwei Zhou and Prerna Singh and Brandon Lee and Vipin Chaudhary and Gourav Datta},
+  year={2026},
+  eprint={2602.24111},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2602.24111}
+}</code></pre>
+                    </div>
+                </li>
+                <li class="publication-item" style="padding:0 0 1.2em; margin:0 0 1.8em; border-bottom:1px dashed var(--current-glass-border);">
                     <h3 class="publication-title" style="margin-top:0;">HugRAG: Hierarchical Causal Knowledge Graph Design for RAG</h3>
                     <p class="publication-authors">Nengbo Wang, Tuo Liang, <strong>Vikash Singh</strong>, Chaoda Song, Van Yang, Yu Yin, Jing Ma, Jagdip Singh, Vipin Chaudhary</p>
                     <p class="publication-venue"><em>arXiv</em> • Feb 2026</p>
