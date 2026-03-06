@@ -1926,34 +1926,16 @@ main {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Enhanced card hover effects */
-.card-style {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.card-style::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(0, 0, 0, 0.05), transparent);
-    transform: rotate(45deg);
-    transition: all 0.6s ease;
+/* Fade-in animation for scroll reveals */
+.fade-in {
     opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.card-style:hover::before {
+.fade-in.visible {
     opacity: 1;
-    animation: shimmer 1.5s ease-in-out;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    transform: translateY(0);
 }
 
 /* Enhanced hero section animations */
@@ -4855,5 +4837,93 @@ a:focus-visible {
 
     .spotify-widget.is-playing .spotify-album-art {
         animation: none;
+    }
+}
+
+/* ===========================
+   LAST UPDATED STAMP
+   =========================== */
+.last-updated {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1.5rem 0 0;
+    padding: 0.55rem 1.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--current-text-secondary);
+    border: 1px solid var(--grid-line);
+    border-radius: 100px;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.last-updated::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.06), transparent);
+    animation: stampShimmer 4s ease-in-out infinite;
+}
+
+@keyframes stampShimmer {
+    0%   { left: -50%; }
+    50%  { left: 100%; }
+    100% { left: -50%; }
+}
+
+.last-updated .stamp-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--current-text-secondary);
+    animation: stampPulse 2.5s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes stampPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.4); }
+}
+
+.last-updated:hover {
+    border-color: var(--current-text);
+    color: var(--current-text);
+}
+
+.last-updated:hover .stamp-dot {
+    background: var(--current-text);
+}
+
+@media screen and (max-width: 768px) {
+    .last-updated {
+        margin: 1.2rem auto 0;
+        font-size: 0.62rem;
+        padding: 0.5rem 1rem;
+        gap: 7px;
+    }
+
+    /* Center it on mobile since hero is centered */
+    .hero-section .last-updated {
+        display: flex;
+        justify-content: center;
+        max-width: fit-content;
+        margin: 1.2rem auto 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .last-updated::before {
+        animation: none;
+    }
+    .last-updated .stamp-dot {
+        animation: none;
+        opacity: 0.6;
     }
 }

@@ -138,92 +138,16 @@ function initializeFooterInteractions() {
  * Site-wide Interactive Elements
  */
 function initializeInteractiveElements() {
-    // Check if device supports hover (not touch-only)
-    const supportsHover = window.matchMedia('(hover: hover)').matches;
-    
-    // Add magnetic effect to buttons (only on non-touch devices)
-    if (supportsHover) {
-        const buttons = document.querySelectorAll('.btn, .social-icon, .card-style');
-        buttons.forEach(button => {
-            button.addEventListener('mousemove', (e) => {
-                const rect = button.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.02)`;
-            });
-            
-            button.addEventListener('mouseleave', () => {
-                button.style.transform = '';
-            });
-        });
-    }
-
-    // Add floating animation to cards (reduce on mobile)
-    const cards = document.querySelectorAll('.card-style');
-    cards.forEach((card, index) => {
-        // Reduce animation intensity on mobile
-        const isMobile = window.innerWidth <= 768;
-        if (!isMobile) {
-            card.style.animation = `cardFloat 4s ease-in-out infinite`;
-            card.style.animationDelay = `${index * 0.5}s`;
-        }
-        
-        // Add enhanced hover effect (touch-friendly)
-        card.addEventListener('mouseenter', () => {
-            if (supportsHover) {
-                card.style.transform = 'translateY(-10px) scale(1.02)';
-                card.style.boxShadow = '0 20px 40px rgba(74, 144, 226, 0.3)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-            card.style.boxShadow = '';
-        });
-
-        // No touch transforms on cards - they interfere with scrolling
-    });
-
-    // Add ripple effect to clickable elements
+    // Add ripple effect to clickable elements (click only, not touch)
     const clickableElements = document.querySelectorAll('.btn, .social-icon, .publication-links-home a, .btn-icon, .publication-links a');
     clickableElements.forEach(element => {
         element.addEventListener('click', (e) => {
             createRippleEffect(element, e);
         });
-        
-        // Touch support
-        element.addEventListener('touchstart', (e) => {
-            createRippleEffect(element, e.touches[0]);
-        });
     });
 
-    // Improve touch interactions for mobile
-    initializeTouchImprovements();
-    
     // Initialize viewport height fix for mobile browsers
     initializeViewportFix();
-}
-
-function initializeTouchImprovements() {
-    // Add touch feedback to interactive elements
-    const interactiveElements = document.querySelectorAll('button, .btn, .btn-icon, a, .social-icon');
-
-    interactiveElements.forEach(element => {
-        element.addEventListener('touchstart', () => {
-            element.classList.add('touch-active');
-        }, { passive: true });
-
-        element.addEventListener('touchend', () => {
-            setTimeout(() => {
-                element.classList.remove('touch-active');
-            }, 150);
-        }, { passive: true });
-
-        element.addEventListener('touchcancel', () => {
-            element.classList.remove('touch-active');
-        }, { passive: true });
-    });
 }
 
 function initializeViewportFix() {
@@ -268,7 +192,6 @@ function createRippleEffect(element, event = null) {
     ripple.className = 'ripple-effect';
     
     element.style.position = 'relative';
-    element.style.overflow = 'hidden';
     element.appendChild(ripple);
     
     setTimeout(() => {
@@ -486,19 +409,6 @@ function initializeAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in', 'visible');
-                
-                // Add staggered animation for child elements
-                const children = entry.target.querySelectorAll('h2, h3, p, li, .btn');
-                children.forEach((child, index) => {
-                    child.style.opacity = '0';
-                    child.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        child.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                        child.style.opacity = '1';
-                        child.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
-                
                 observer.unobserve(entry.target);
             }
         });
