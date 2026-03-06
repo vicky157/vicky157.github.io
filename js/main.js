@@ -25,58 +25,12 @@ function initializeMobileScrolling() {
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
-    
-    // Set initial value
+
     setViewportHeight();
-    
-    // Update on resize and orientation change
     window.addEventListener('resize', setViewportHeight);
     window.addEventListener('orientationchange', () => {
         setTimeout(setViewportHeight, 100);
     });
-    
-    // Prevent zoom on iOS when focusing inputs
-    if (navigator.platform.includes('iPhone') || navigator.platform.includes('iPad')) {
-        const inputs = document.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            if (parseFloat(getComputedStyle(input).fontSize) < 16) {
-                input.style.fontSize = '16px';
-            }
-        });
-    }
-    
-    // Improve touch scrolling behavior
-    if ('ontouchstart' in window) {
-        // Add momentum scrolling to all scrollable elements
-        const scrollableElements = document.querySelectorAll(
-            '.table-wrapper, pre, .mobile-menu, .card-style, .content-section'
-        );
-        
-        scrollableElements.forEach(element => {
-            element.style.webkitOverflowScrolling = 'touch';
-            element.style.overscrollBehavior = 'contain';
-            element.style.touchAction = 'pan-y pan-x';
-        });
-        
-        // Specifically ensure cards allow touch scrolling
-        const cards = document.querySelectorAll('.card-style, .content-section');
-        cards.forEach(card => {
-            card.style.touchAction = 'pan-y pan-x';
-            
-            // Remove any potential touch event blocking
-            card.addEventListener('touchstart', (e) => {
-                // Don't prevent default - allow scrolling
-            }, { passive: true });
-            
-            card.addEventListener('touchmove', (e) => {
-                // Don't prevent default - allow scrolling
-            }, { passive: true });
-        });
-        
-        // Prevent rubber band effect on body
-        document.body.style.overscrollBehavior = 'contain';
-        document.documentElement.style.overscrollBehavior = 'contain';
-    }
 }
 
 /**
@@ -228,23 +182,7 @@ function initializeInteractiveElements() {
             card.style.boxShadow = '';
         });
 
-        // Touch support for mobile
-        if (!supportsHover) {
-            let touchTimeout;
-            
-            card.addEventListener('touchstart', (e) => {
-                // DON'T prevent default - allow scrolling gestures
-                // Only apply visual feedback, not prevent touch events
-                card.style.transform = 'translateY(-5px) scale(1.01)';
-                card.style.boxShadow = '0 15px 30px rgba(74, 144, 226, 0.2)';
-                
-                clearTimeout(touchTimeout);
-                touchTimeout = setTimeout(() => {
-                    card.style.transform = '';
-                    card.style.boxShadow = '';
-                }, 150);
-            }, { passive: true }); // Make it passive to allow scrolling
-        }
+        // No touch transforms on cards - they interfere with scrolling
     });
 
     // Add ripple effect to clickable elements
@@ -270,34 +208,21 @@ function initializeInteractiveElements() {
 function initializeTouchImprovements() {
     // Add touch feedback to interactive elements
     const interactiveElements = document.querySelectorAll('button, .btn, .btn-icon, a, .social-icon');
-    
+
     interactiveElements.forEach(element => {
-        // Add active state for better touch feedback
         element.addEventListener('touchstart', () => {
             element.classList.add('touch-active');
-        });
-        
+        }, { passive: true });
+
         element.addEventListener('touchend', () => {
             setTimeout(() => {
                 element.classList.remove('touch-active');
             }, 150);
-        });
-        
+        }, { passive: true });
+
         element.addEventListener('touchcancel', () => {
             element.classList.remove('touch-active');
-        });
-    });
-    
-    // Prevent double-tap zoom on buttons
-    const buttons = document.querySelectorAll('button, .btn, .btn-icon');
-    buttons.forEach(button => {
-        button.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            // Trigger click manually to maintain functionality
-            setTimeout(() => {
-                button.click();
-            }, 0);
-        });
+        }, { passive: true });
     });
 }
 
@@ -590,59 +515,8 @@ function initializeAnimations() {
  * Publication page specific features
  */
 function initializePublicationFeatures() {
-    // Enhance BibTeX toggle buttons for better mobile experience
-    const bibtexButtons = document.querySelectorAll('[onclick*="toggleBibtex"]');
-    bibtexButtons.forEach(button => {
-        // Add better touch handling
-        button.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            button.style.transform = 'scale(0.95)';
-        });
-        
-        button.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            button.style.transform = '';
-            // Trigger the click after a short delay to ensure proper handling
-            setTimeout(() => {
-                button.click();
-            }, 50);
-        });
-        
-        button.addEventListener('touchcancel', () => {
-            button.style.transform = '';
-        });
-    });
-    
-    // Ensure publication links are touch-friendly
-    const publicationLinks = document.querySelectorAll('.publication-links a, .publication-links-home a');
-    publicationLinks.forEach(link => {
-        // Add visual feedback for touch
-        link.addEventListener('touchstart', () => {
-            link.style.opacity = '0.7';
-        });
-        
-        link.addEventListener('touchend', () => {
-            link.style.opacity = '';
-        });
-        
-        link.addEventListener('touchcancel', () => {
-            link.style.opacity = '';
-        });
-    });
-    
-    // Handle external links properly on mobile
-    const externalLinks = document.querySelectorAll('a[target="_blank"]');
-    externalLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            // Add a small delay on mobile to ensure the touch feedback is visible
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                setTimeout(() => {
-                    window.open(link.href, '_blank');
-                }, 100);
-            }
-        });
-    });
+    // Publication features handled natively via onclick attributes
+    // No additional touch handlers needed - they interfere with scrolling
 }
 
 /**

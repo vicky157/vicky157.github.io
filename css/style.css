@@ -66,7 +66,7 @@ body {
     padding-top: 20px;
     background-image: var(--current-bg-grid);
     background-size: 40px 40px;
-    background-attachment: fixed;
+    background-attachment: scroll;
 }
 
 /* ---=== Logical Intelligence Layout Pass ===--- */
@@ -218,6 +218,8 @@ main {
     border-bottom: 1px solid var(--grid-line);
     margin-bottom: 2rem;
     padding-bottom: 0.75rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .tab-button {
@@ -574,6 +576,7 @@ main {
     /* Prevent horizontal overflow */
     overflow-x: hidden;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .card-style, .content-section {
@@ -2092,12 +2095,8 @@ main {
     font-weight: 600;
 }
 
-/* Parallax scrolling effect */
+/* Hero section */
 .hero-section {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     position: relative;
 }
 
@@ -2229,8 +2228,8 @@ button:focus, a:focus, input:focus {
     border-radius: 4px;
 }
 
-/* Smooth transitions for theme switching */
-* {
+/* Smooth transitions for theme switching - scoped to key elements only */
+body, header, nav, .card-style, .content-section, .modern-footer, .footer-section {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -2320,6 +2319,8 @@ button:focus, a:focus, input:focus {
         padding-top: 10px;
         font-size: 16px;
         line-height: 1.6;
+        /* Fixed background breaks scrolling on iOS */
+        background-attachment: scroll !important;
         /* Enhanced mobile scrolling */
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-y: contain;
@@ -2338,9 +2339,6 @@ button:focus, a:focus, input:focus {
     main {
         /* Ensure smooth scrolling within main content */
         overscroll-behavior: contain;
-        /* Better touch performance */
-        transform: translateZ(0);
-        -webkit-transform: translateZ(0);
     }
 
     /* Header and Navigation */
@@ -2469,7 +2467,7 @@ button:focus, a:focus, input:focus {
     }
 
     .card-style:hover {
-        transform: translateY(-3px) scale(1.01);
+        transform: none;
     }
 
     /* Typography responsive adjustments */
@@ -2527,9 +2525,9 @@ button:focus, a:focus, input:focus {
         margin-top: 1.5em;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
+        gap: 10px;
         justify-content: center;
-        max-width: 320px;
+        max-width: 340px;
         margin: 1.5em auto 0;
     }
 
