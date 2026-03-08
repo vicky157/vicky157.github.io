@@ -131,7 +131,7 @@
         <!-- Spotify Now Playing Widget -->
         <section id="spotify-now-playing" class="card-style spotify-widget" aria-label="Currently playing on Spotify">
             <div class="spotify-widget-inner">
-                <div class="spotify-album-art-container">
+                <div class="spotify-album-art-container" id="spotify-album-art-container">
                     <img id="spotify-album-art" class="spotify-album-art" src="" alt="Album art" loading="lazy">
                 </div>
                 <div class="spotify-track-info">
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="spotify-actions">
-                        <button id="spotify-preview-btn" class="btn spotify-preview-btn" style="display: none;" aria-label="Play 30-second preview">
+                        <button id="spotify-preview-btn" class="btn spotify-preview-btn" style="display: none;" aria-label="Play preview">
                             <i class="fas fa-play"></i> Preview
                         </button>
                         <a id="spotify-open-link" class="btn spotify-open-btn" href="#" target="_blank" rel="noopener">
@@ -164,7 +164,16 @@
                     </div>
                 </div>
             </div>
-            <audio id="spotify-preview-audio" preload="none"></audio>
+            <!-- Spotify Embed Player (hidden by default, slides in on click) -->
+            <div id="spotify-embed-container" class="spotify-embed-container" style="display: none;">
+                <div class="spotify-embed-header">
+                    <span><i class="fas fa-headphones"></i> Preview Player</span>
+                    <button id="spotify-embed-close" class="spotify-embed-close" aria-label="Close preview player">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="spotify-embed-wrapper" class="spotify-embed-wrapper"></div>
+            </div>
         </section>
 
         <section id="key-facts" class="content-section card-style">

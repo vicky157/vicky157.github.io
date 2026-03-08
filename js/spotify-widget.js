@@ -1,17 +1,15 @@
 /**
  * Spotify Now Playing Widget
  * Polls a Vercel serverless endpoint and renders the current track.
+ * Uses Spotify Embed iframe for preview playback.
  */
 (function () {
   'use strict';
 
-  // ---- Configuration ----
-  // TODO: Replace with your deployed Vercel URL
   var API_URL = 'https://spotify-now-playing-api.vercel.app/api/now-playing';
   var POLL_INTERVAL_MS = 30000;
   var PROGRESS_TICK_MS = 1000;
 
-  // ---- DOM References ----
   var widget = document.getElementById('spotify-now-playing');
   if (!widget) return;
 
@@ -27,16 +25,16 @@
   var progressDuration = document.getElementById('spotify-progress-duration');
   var previewBtn = document.getElementById('spotify-preview-btn');
   var openLink = document.getElementById('spotify-open-link');
-  var previewAudio = document.getElementById('spotify-preview-audio');
+  var embedContainer = document.getElementById('spotify-embed-container');
+  var embedWrapper = document.getElementById('spotify-embed-wrapper');
+  var embedClose = document.getElementById('spotify-embed-close');
 
-  // ---- State ----
-  var currentPreviewUrl = null;
-  var isPreviewPlaying = false;
+  var currentTrackId = null;
+  var isEmbedOpen = false;
   var progressTimer = null;
   var currentProgress = 0;
   var currentDuration = 0;
 
-  // ---- Utilities ----
   function formatMs(ms) {
     if (!ms || ms < 0) return '0:00';
     var totalSeconds = Math.floor(ms / 1000);
@@ -45,7 +43,12 @@
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 
-  // ---- Progress Bar ----
+  function extractTrackId(url) {
+    if (!url) return null;
+    var match = url.match(/track\/([a-zA-Z0-9]+)/);
+    return match ? match[1] : null;
+  }
+
   function startProgressTimer() {
     stopProgressTimer();
     progressTimer = setInterval(function () {
@@ -71,7 +74,49 @@
     }
   }
 
-  // ---- Render ----
+  function openEmbed() {
+    if (!currentTrackId) return;
+
+    var isDark = document.body.classList.contains('dark-mode');
+    var theme = isDark ? '0' : '1';
+    var embedUrl = 'https://open.spotify.com/embed/track/' + currentTrackId +
+      '?utm_source=generator&theme=' + theme;
+
+    embedWrapper.innerHTML = '<iframe src="' + embedUrl + '" ' +
+      'width="100%" height="152" frameBorder="0" ' +
+      'allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" ' +
+      'loading="lazy" style="border-radius: 12px;"></iframe>';
+
+    embedContainer.style.display = 'block';
+    requestAnimationFrame(function () {
+      embedContainer.classList.add('open');
+    });
+
+    isEmbedOpen = true;
+    previewBtn.innerHTML = '<i class="fas fa-pause"></i> Preview';
+    previewBtn.classList.add('playing');
+  }
+
+  function closeEmbed() {
+    embedContainer.classList.remove('open');
+    setTimeout(function () {
+      embedContainer.style.display = 'none';
+      embedWrapper.innerHTML = '';
+    }, 300);
+
+    isEmbedOpen = false;
+    previewBtn.innerHTML = '<i class="fas fa-play"></i> Preview';
+    previewBtn.classList.remove('playing');
+  }
+
+  function toggleEmbed() {
+    if (isEmbedOpen) {
+      closeEmbed();
+    } else {
+      openEmbed();
+    }
+  }
+
   function render(data) {
     widget.classList.remove('loading');
 
@@ -89,6 +134,7 @@
       previewBtn.style.display = 'none';
       openLink.style.display = 'none';
       stopProgressTimer();
+      closeEmbed();
       return;
     }
 
@@ -137,10 +183,9 @@
       stopProgressTimer();
     }
 
-    // Preview button
-    currentPreviewUrl = data.previewUrl;
-    previewBtn.style.display = currentPreviewUrl ? 'inline-flex' : 'none';
-    if (!currentPreviewUrl) stopPreview();
+    // Preview via embed — always available if we have a track URL
+    currentTrackId = extractTrackId(data.songUrl);
+    previewBtn.style.display = currentTrackId ? 'inline-flex' : 'none';
 
     // Open in Spotify
     if (data.songUrl) {
@@ -151,37 +196,6 @@
     }
   }
 
-  // ---- Preview Playback ----
-  function startPreview() {
-    if (!currentPreviewUrl) return;
-    previewAudio.src = currentPreviewUrl;
-    previewAudio.volume = 0.5;
-    previewAudio.play().then(function () {
-      isPreviewPlaying = true;
-      previewBtn.innerHTML = '<i class="fas fa-pause"></i> Preview';
-      previewBtn.classList.add('playing');
-    }).catch(function (err) {
-      console.warn('Preview playback failed:', err);
-    });
-  }
-
-  function stopPreview() {
-    previewAudio.pause();
-    previewAudio.currentTime = 0;
-    isPreviewPlaying = false;
-    previewBtn.innerHTML = '<i class="fas fa-play"></i> Preview';
-    previewBtn.classList.remove('playing');
-  }
-
-  function togglePreview() {
-    if (isPreviewPlaying) {
-      stopPreview();
-    } else {
-      startPreview();
-    }
-  }
-
-  // ---- Fetch ----
   async function fetchNowPlaying() {
     try {
       var response = await fetch(API_URL);
@@ -193,17 +207,16 @@
     }
   }
 
-  // ---- Event Listeners ----
   previewBtn.addEventListener('click', function (e) {
     e.preventDefault();
-    togglePreview();
+    toggleEmbed();
   });
 
-  previewAudio.addEventListener('ended', function () {
-    stopPreview();
+  embedClose.addEventListener('click', function (e) {
+    e.preventDefault();
+    closeEmbed();
   });
 
-  // ---- Init ----
   widget.classList.add('loading');
   fetchNowPlaying();
   setInterval(fetchNowPlaying, POLL_INTERVAL_MS);
