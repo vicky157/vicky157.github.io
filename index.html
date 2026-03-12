@@ -6,9 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-        <link rel="alternate icon" href="assets/icons/favicon.ico" type="image/x-icon"> <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png"> <meta name="theme-color" content="#4169E1"> <meta name="description" content="Portfolio of Vikash Singh, AI & LLM Researcher.">
+    <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+        <link rel="alternate icon" href="/assets/icons/favicon.ico" type="image/x-icon"> <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png"> <meta name="theme-color" content="#4169E1"> <meta name="description" content="Portfolio of Vikash Singh, AI & LLM Researcher.">
             <title>Home - Vikash Singh</title>
         <!-- Structured Data: WebSite -->
             <script type="application/ld+json">
@@ -106,7 +105,7 @@
             <p class="location"><i class="fas fa-map-marker-alt"></i> Cleveland, OH, 44106</p>
 
             <div class="social-links">
-                <a href="assets/CV_Vikash_PhD.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> Resume</a>
+                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> Resume</a>
 
                 <a href="https://github.com/vicky157" target="_blank" class="btn"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
@@ -173,54 +172,6 @@
                     </button>
                 </div>
                 <div id="spotify-embed-wrapper" class="spotify-embed-wrapper"></div>
-            </div>
-        </section>
-
-        <section id="key-facts" class="content-section card-style">
-            <h2>Key Facts</h2>
-            <div class="about-facts-grid">
-                <div class="fact-item">
-                    <i class="fas fa-id-card"></i>
-                    <div>
-                        <div class="label">Name</div>
-                        <div class="value">Vikash Singh</div>
-                    </div>
-                </div>
-                <div class="fact-item">
-                    <i class="fas fa-briefcase"></i>
-                    <div>
-                        <div class="label">Occupation</div>
-                        <div class="value">PhD Student, Machine Learning & AI Researcher</div>
-                    </div>
-                </div>
-                <div class="fact-item">
-                    <i class="fas fa-cake-candles"></i>
-                    <div>
-                        <div class="label">Date of Birth</div>
-                        <div class="value">May 25</div>
-                    </div>
-                </div>
-                <div class="fact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <div class="label">Location(s)</div>
-                        <div class="value">Cleveland, OH 44106 • New York, USA (seasonal)</div>
-                    </div>
-                </div>
-                <div class="fact-item">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <div class="label">Contact</div>
-                        <div class="value"><a href="mailto:vikashjohn2505@gmail.com">vikashjohn2505@gmail.com</a></div>
-                    </div>
-                </div>
-                <div class="fact-item">
-                    <i class="fas fa-globe"></i>
-                    <div>
-                        <div class="label">Website</div>
-                        <div class="value"><a href="https://vikash-singh.me" target="_blank" rel="noopener">vikash-singh.me</a></div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -415,7 +366,7 @@
                     </a>
                 </div>
                 <div class="footer-download">
-                    <a href="assets/CV_Vikash_PhD.pdf" target="_blank" class="download-cv">
+                    <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" class="download-cv">
                         <i class="fas fa-file-pdf"></i>
                         <span>View CV</span>
                     </a>
@@ -434,47 +385,7 @@
         </div>
     </footer>
 
-    <script>
-        function toggleBibtex(event, bibtexId) {
-            if (event.target.tagName === 'A') {
-                event.preventDefault();
-            }
-            
-            const bibtexEntry = document.getElementById(bibtexId);
-            if (!bibtexEntry) {
-                console.warn('BibTeX entry not found:', bibtexId);
-                return;
-            }
-            
-            const isCurrentlyVisible = bibtexEntry.style.display === 'block';
-            
-            // Close all other BibTeX entries first
-            const allBibtexEntries = document.querySelectorAll('[id^="bibtex-entry-"]');
-            allBibtexEntries.forEach(entry => {
-                if (entry.id !== bibtexId) {
-                    entry.style.display = 'none';
-                }
-            });
-            
-            // Toggle the current entry
-            if (isCurrentlyVisible) {
-                bibtexEntry.style.display = 'none';
-            } else {
-                bibtexEntry.style.display = 'block';
-                
-                // Smooth scroll to the BibTeX entry on mobile
-                if (window.innerWidth <= 768) {
-                    setTimeout(() => {
-                        bibtexEntry.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'nearest' 
-                        });
-                    }, 100);
-                }
-            }
-        }
-    </script>
-    <script src="js/main.js"></script>
-    <script src="js/spotify-widget.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/spotify-widget.ts"></script>
 </body>
 </html>

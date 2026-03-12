@@ -11,10 +11,10 @@ const path = require('path');
 const mime = require('mime-types');
 
 // --- Configuration ---
-// Assumes your Markdown blog posts are in a '_blogs' folder at the project root
 const blogsSourceDir = path.join(__dirname, '..', '_blogs');
-// Output JSON file will be placed in the 'js' folder
-const outputJsonPath = path.join(__dirname, '..', 'js', 'blogs-data.json');
+// Output to public/data/ for Vite (served as static asset)
+const outputDir = path.join(__dirname, '..', 'public', 'data');
+const outputJsonPath = path.join(outputDir, 'blogs-data.json');
 // --- End Configuration ---
 
 function parseFrontmatter(text, filenameForWarning) {
@@ -120,6 +120,11 @@ function generateBlogData() {
             console.error(`Error: Blogs source directory not found at ${blogsSourceDir}`);
             console.log(`Please ensure you have a '_blogs' folder in the root of your project containing your Markdown files.`);
             return;
+        }
+
+        // Ensure output directory exists
+        if (!fs.existsSync(outputDir)) {
+            fs.mkdirSync(outputDir, { recursive: true });
         }
 
         const files = fs.readdirSync(blogsSourceDir);

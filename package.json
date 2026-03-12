@@ -1,13 +1,13 @@
 {
   "name": "vikash-singh-portfolio",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Personal portfolio website for Vikash Singh, AI & LLM Researcher",
+  "type": "module",
   "scripts": {
-    "build:blog": "node scripts/generate-blog-data.js",
-    "serve": "python3 -m http.server 8000",
-    "serve:php": "php -S localhost:8000",
-    "validate:html": "echo 'HTML validation can be done using online tools or w3c-html-validator'",
-    "optimize:images": "echo 'Image optimization can be done using imagemin or similar tools'"
+    "dev": "vite",
+    "build": "npm run build:blog && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "build:blog": "node scripts/generate-blog-data.cjs"
   },
   "keywords": [
     "portfolio",
@@ -26,9 +26,14 @@
   },
   "homepage": "https://vikash-singh.me",
   "devDependencies": {
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "marked": "^15.0.0",
     "mime-types": "^3.0.1"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   }
 }

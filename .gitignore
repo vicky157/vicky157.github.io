@@ -54,4 +54,7 @@ coverage/
 
 # Generated blog data (can be regenerated)
 js/blogs-data.json.backup
+public/data/blogs-data.json
+
+# Vercel serverless (separate project)
 spotify-now-playing-api/
