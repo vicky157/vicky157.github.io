@@ -5,10 +5,40 @@
 import './types';
 
 document.addEventListener('DOMContentLoaded', () => {
+  initializeTabs();
   initializeAbstractToggles();
   initializeBibtexCopyButtons();
   initializeMobileBibtexSupport();
 });
+
+/**
+ * Tab switching for Publications / Research Statement
+ */
+function initializeTabs(): void {
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>('.tab-button');
+  if (tabButtons.length === 0) return;
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-tab');
+      if (!targetId) return;
+
+      // Deactivate all tabs and panels
+      tabButtons.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll<HTMLElement>('.tab-panel').forEach((panel) => {
+        panel.classList.remove('active');
+      });
+
+      // Activate clicked tab and its panel
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById(targetId)?.classList.add('active');
+    });
+  });
+}
 
 /**
  * Abstract toggle (mirrors BibTeX pattern, independent states)
