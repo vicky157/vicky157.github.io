@@ -1,17 +1,36 @@
 /**
- * Enhanced Blog management system
- * Features: Math rendering, navigation, reading time, search, and more
+ * Blog page: renders blog container, initializes blog system
  */
 
 import { marked } from 'marked';
-import type { BlogPost, BlogElements } from './types';
-import './types';
+import type { BlogPost, BlogElements } from '../types';
+import { initAnimations } from '../components/animations';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const blogElements = getBlogElements();
-  if (!blogElements) return;
-  initializeBlogSystem(blogElements);
-});
+export function render(): string {
+  return `
+        <section id="blog-intro" class="content-section card-style">
+            <h2>Thoughts & Updates</h2>
+            <p>Welcome to my blog! Here I share insights on my research, projects, and occasional musings on technology and AI.</p>
+        </section>
+
+        <section id="blog-posts-container" class="content-section">
+            <div class="loading-blogs">Loading posts...</div>
+        </section>
+
+        <section id="full-blog-post-view" class="content-section card-style" style="display:none;">
+            <button id="back-to-list" class="btn"><i class="fas fa-arrow-left"></i> Back to Blog List</button>
+            <article id="blog-content-area">
+            </article>
+        </section>
+  `;
+}
+
+export function afterRender(): void {
+  initAnimations();
+  initBlogSystem();
+}
+
+// ========================= Blog System =========================
 
 function getBlogElements(): BlogElements | null {
   const blogPostsContainer = document.getElementById('blog-posts-container');
@@ -29,25 +48,22 @@ function getBlogElements(): BlogElements | null {
   };
 }
 
-function initializeBlogSystem(elements: BlogElements): void {
+function initBlogSystem(): void {
+  const elements = getBlogElements();
+  if (!elements) return;
+
   setupBackButtonListener(elements);
   addSearchFunctionality(elements);
   loadBlogData(elements);
   initializeAdvancedFeatures();
 }
 
-/**
- * Reading time calculation
- */
 function calculateReadingTime(content: string): number {
   const wordsPerMinute = 200;
   const words = content.trim().split(/\s+/).length;
   return Math.ceil(words / wordsPerMinute);
 }
 
-/**
- * Date formatting
- */
 function formatDate(dateString?: string): string {
   if (!dateString) return 'N/A';
   const date = new Date(dateString);
@@ -58,9 +74,6 @@ function formatDate(dateString?: string): string {
   });
 }
 
-/**
- * Keywords HTML generation
- */
 function generateKeywordsHTML(keywords?: string): string {
   if (!keywords) return '';
   const keywordsArray = keywords.split(',').map((k) => k.trim());
@@ -68,9 +81,6 @@ function generateKeywordsHTML(keywords?: string): string {
   return `<div class="blog-keywords"><i class="fas fa-tags"></i> ${keywordSpans}</div>`;
 }
 
-/**
- * Summary text extraction
- */
 function getSummaryText(post: BlogPost): string {
   if (post.frontmatter.summary) {
     return post.frontmatter.summary
@@ -93,9 +103,6 @@ function getSummaryText(post: BlogPost): string {
   return 'No summary available.';
 }
 
-/**
- * Blog data loading
- */
 async function loadBlogData(elements: BlogElements): Promise<void> {
   elements.blogPostsContainer.innerHTML =
     '<div class="loading-blogs"><i class="fas fa-spinner fa-spin"></i> Loading posts...</div>';
@@ -127,9 +134,6 @@ async function loadBlogData(elements: BlogElements): Promise<void> {
   }
 }
 
-/**
- * Blog list display
- */
 function displayBlogList(posts: BlogPost[], elements: BlogElements): void {
   const { blogPostsContainer, fullBlogPostView, blogIntroSection } = elements;
 
@@ -162,9 +166,6 @@ function displayBlogList(posts: BlogPost[], elements: BlogElements): void {
   });
 }
 
-/**
- * Post element creation
- */
 function createPostElement(
   post: BlogPost,
   elements: BlogElements,
@@ -220,9 +221,6 @@ function createPostElement(
   return postElement;
 }
 
-/**
- * Full post display
- */
 function displayFullPost(
   postData: BlogPost,
   elements: BlogElements,
@@ -233,6 +231,10 @@ function displayFullPost(
   blogPostsContainer.style.display = 'none';
   if (blogIntroSection) blogIntroSection.style.display = 'none';
   fullBlogPostView.style.display = 'block';
+
+  // Also hide the search controls
+  const blogControls = document.querySelector('.blog-controls') as HTMLElement | null;
+  if (blogControls) blogControls.style.display = 'none';
 
   const readingTime = calculateReadingTime(postData.content);
   const keywordsHTML = generateKeywordsHTML(postData.frontmatter.keywords);
@@ -281,29 +283,17 @@ function displayFullPost(
   window.currentBlogData = { postData, allPosts, elements };
 }
 
-/**
- * Content processing with heading IDs for navigation
- */
 function processContentWithIds(content: string): string {
   let cleaned = content;
 
-  // Remove citation references
   cleaned = cleaned.replace(/\s*\[cite:\s*[^\]]+\]/gi, '');
-
-  // Fix malformed code blocks (4+ backticks → 3)
   cleaned = cleaned.replace(/````+/g, '```');
-
-  // Clean double spaces
   cleaned = cleaned.replace(/[ \t]{2,}/g, ' ');
-
-  // Normalize line endings
   cleaned = cleaned.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-  // Protect math expressions before markdown parsing
   const mathExpressions: string[] = [];
   let mathIndex = 0;
 
-  // Display math ($$...$$)
   cleaned = cleaned.replace(/\$\$([^$]+)\$\$/g, (_match, expr: string) => {
     const placeholder = `__MATH_DISPLAY_${mathIndex}__`;
     mathExpressions[mathIndex] = `$$${expr}$$`;
@@ -311,7 +301,6 @@ function processContentWithIds(content: string): string {
     return placeholder;
   });
 
-  // Inline math ($...$)
   cleaned = cleaned.replace(/\$([^$\n]+)\$/g, (_match, expr: string) => {
     const placeholder = `__MATH_INLINE_${mathIndex}__`;
     mathExpressions[mathIndex] = `$${expr}$`;
@@ -319,28 +308,23 @@ function processContentWithIds(content: string): string {
     return placeholder;
   });
 
-  // Parse markdown to HTML
   let htmlContent = marked.parse(cleaned) as string;
 
-  // Restore math expressions
   for (let i = 0; i < mathExpressions.length; i++) {
     htmlContent = htmlContent
       .replace(new RegExp(`__MATH_DISPLAY_${i}__`, 'g'), mathExpressions[i])
       .replace(new RegExp(`__MATH_INLINE_${i}__`, 'g'), mathExpressions[i]);
   }
 
-  // Decode HTML entities
   const txt = document.createElement('textarea');
   txt.innerHTML = htmlContent;
   htmlContent = txt.value;
 
-  // Fix remaining encoding issues
   htmlContent = htmlContent
     .replace(/&amp;gt;/g, '>')
     .replace(/&amp;lt;/g, '<')
     .replace(/&amp;amp;/g, '&');
 
-  // Add IDs to headings for table of contents
   const headings = cleaned.match(/^#{2,4}\s+(.+)$/gm);
   if (headings) {
     headings.forEach((heading, index) => {
@@ -351,30 +335,23 @@ function processContentWithIds(content: string): string {
 
       const headingTag = `h${level}`;
       const headingRegex = new RegExp(`<${headingTag}>(.*?)</${headingTag}>`, 'g');
-      htmlContent = htmlContent.replace(headingRegex, (match, content: string) => {
-        if (content.trim() === cleanText.trim()) {
-          return `<${headingTag} id="${id}">${content}</${headingTag}>`;
+      htmlContent = htmlContent.replace(headingRegex, (match, innerContent: string) => {
+        if (innerContent.trim() === cleanText.trim()) {
+          return `<${headingTag} id="${id}">${innerContent}</${headingTag}>`;
         }
         return match;
       });
     });
   }
 
-  // Wrap tables in responsive containers
   htmlContent = htmlContent.replace(/<table[^>]*>/g, '<div class="table-wrapper">$&');
   htmlContent = htmlContent.replace(/<\/table>/g, '$&</div>');
 
   return htmlContent;
 }
 
-/**
- * Responsive tables
- */
 function initializeResponsiveTables(): void {
   document.querySelectorAll<HTMLElement>('.table-wrapper').forEach((wrapper) => {
-    const table = wrapper.querySelector('table');
-    if (!table) return;
-
     function updateScrollIndicators(): void {
       const isScrollable = wrapper.scrollWidth > wrapper.clientWidth;
       wrapper.classList.toggle('scrollable', isScrollable);
@@ -392,12 +369,10 @@ function initializeResponsiveTables(): void {
   });
 }
 
-/**
- * Reading progress bar
- */
 function initializeReadingProgress(): void {
-  const progressBar = document.querySelector<HTMLElement>('.reading-progress-bar')!;
-  if (!progressBar) return;
+  const progressBarEl = document.querySelector<HTMLElement>('.reading-progress-bar');
+  if (!progressBarEl) return;
+  const progressBar = progressBarEl;
 
   function updateProgress(): void {
     const article = document.querySelector<HTMLElement>('.blog-content-body');
@@ -419,9 +394,6 @@ function initializeReadingProgress(): void {
   updateProgress();
 }
 
-/**
- * Search and sort functionality
- */
 function addSearchFunctionality(elements: BlogElements): void {
   const { blogPostsContainer } = elements;
 
@@ -513,18 +485,16 @@ function sortPosts(criteria: string): void {
   posts.forEach((post) => container.appendChild(post));
 }
 
-/**
- * Back button
- */
 function setupBackButtonListener(elements: BlogElements): void {
   elements.backToListButton?.addEventListener('click', () => {
+    // Show search controls again
+    const blogControls = document.querySelector('.blog-controls') as HTMLElement | null;
+    if (blogControls) blogControls.style.display = '';
     loadBlogData(elements);
   });
 }
 
-/**
- * Global post loader
- */
+// Global post loader
 window.loadSpecificPost = function (postId: string): void {
   if (!window.currentBlogData) return;
   const { allPosts, elements } = window.currentBlogData;
@@ -532,7 +502,7 @@ window.loadSpecificPost = function (postId: string): void {
   if (post) displayFullPost(post, elements, allPosts);
 };
 
-// ─── Advanced Features ───────────────────────────────────────────────────────
+// ---- Advanced Features ----
 
 let speechSynthesisInstance = window.speechSynthesis;
 let currentUtterance: SpeechSynthesisUtterance | null = null;
@@ -547,7 +517,6 @@ function initializeAdvancedFeatures(): void {
 }
 
 function createFloatingActionButton(): void {
-  // Prevent duplicate FABs
   document.getElementById('fab')?.remove();
 
   const fabHTML = `
@@ -642,6 +611,8 @@ function initializeCodeBlockCopy(): void {
 }
 
 function initializeReadingEnhancements(): void {
+  if (document.querySelector('.reading-line')) return;
+
   const readingLine = document.createElement('div');
   readingLine.className = 'reading-line';
   document.body.appendChild(readingLine);
@@ -754,9 +725,6 @@ function showNotification(message: string): void {
   }, 3000);
 }
 
-/**
- * MathJax rendering with retries
- */
 function renderMathJax(element: HTMLElement): void {
   function attemptRender(): Promise<void> {
     if (window.MathJax?.typesetPromise) {

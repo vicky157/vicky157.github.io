@@ -35,6 +35,68 @@ export interface SpotifyTrackData {
   type?: string;
 }
 
+export interface Publication {
+  id: string;
+  title: string;
+  authors: string;
+  venue: string;
+  links: { label: string; url: string; icon: string; isInternal?: boolean }[];
+  abstract?: string;
+  bibtex: string;
+  featured: boolean;
+  equalContribution?: string;
+}
+
+export interface NewsItem {
+  date: string;
+  text: string;
+}
+
+export interface EducationEntry {
+  degree: string;
+  institution: string;
+  dates: string;
+  courses: { name: string; description: string }[];
+}
+
+export interface ExperienceEntry {
+  title: string;
+  institution: string;
+  dates: string;
+  items: string[];
+}
+
+export interface ResearchEntry {
+  title: string;
+  institution: string;
+  dates: string;
+  items: string[];
+}
+
+export interface ProjectEntry {
+  title: string;
+  techStack: string;
+  date: string;
+  items: string[];
+  link: { url: string; label: string; icon: string };
+}
+
+export interface ContactItem {
+  icon: string;
+  label: string;
+  value: string;
+  href?: string;
+  target?: string;
+}
+
+export interface Route {
+  path: string;
+  title: string;
+  page: string;
+  render: () => string;
+  afterRender?: () => void;
+}
+
 declare global {
   interface Window {
     currentBlogData?: {

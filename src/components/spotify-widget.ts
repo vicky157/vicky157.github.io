@@ -4,15 +4,33 @@
  * Uses Spotify Embed iframe for preview playback.
  */
 
-import type { SpotifyTrackData } from './types';
+import type { SpotifyTrackData } from '../types';
 
 const API_URL = 'https://spotify-now-playing-api.vercel.app/api/now-playing';
 const POLL_INTERVAL_MS = 30_000;
 const PROGRESS_TICK_MS = 1_000;
 
-function initSpotifyWidget(): void {
-  const widget = document.getElementById('spotify-now-playing')!;
-  if (!widget) return;
+let pollIntervalId: ReturnType<typeof setInterval> | null = null;
+let progressTimerId: ReturnType<typeof setInterval> | null = null;
+
+export function destroySpotifyWidget(): void {
+  if (pollIntervalId) {
+    clearInterval(pollIntervalId);
+    pollIntervalId = null;
+  }
+  if (progressTimerId) {
+    clearInterval(progressTimerId);
+    progressTimerId = null;
+  }
+}
+
+export function initSpotifyWidget(): void {
+  // Clean up any previous instance
+  destroySpotifyWidget();
+
+  const widgetEl = document.getElementById('spotify-now-playing');
+  if (!widgetEl) return;
+  const widget = widgetEl;
 
   const albumArt = document.getElementById('spotify-album-art') as HTMLImageElement;
   const statusText = document.getElementById('spotify-status-text')!;
@@ -30,9 +48,10 @@ function initSpotifyWidget(): void {
   const embedWrapper = document.getElementById('spotify-embed-wrapper')!;
   const embedClose = document.getElementById('spotify-embed-close')!;
 
+  if (!albumArt || !statusText || !equalizer || !trackName || !artistName || !albumNameEl) return;
+
   let currentTrackId: string | null = null;
   let isEmbedOpen = false;
-  let progressTimer: ReturnType<typeof setInterval> | null = null;
   let currentProgress = 0;
   let currentDuration = 0;
 
@@ -51,9 +70,9 @@ function initSpotifyWidget(): void {
   }
 
   function stopProgressTimer(): void {
-    if (progressTimer) {
-      clearInterval(progressTimer);
-      progressTimer = null;
+    if (progressTimerId) {
+      clearInterval(progressTimerId);
+      progressTimerId = null;
     }
   }
 
@@ -68,7 +87,7 @@ function initSpotifyWidget(): void {
 
   function startProgressTimer(): void {
     stopProgressTimer();
-    progressTimer = setInterval(() => {
+    progressTimerId = setInterval(() => {
       currentProgress += PROGRESS_TICK_MS;
       if (currentProgress > currentDuration) currentProgress = currentDuration;
       updateProgressUI();
@@ -218,8 +237,5 @@ function initSpotifyWidget(): void {
   // Initial load
   widget.classList.add('loading');
   fetchNowPlaying();
-  setInterval(fetchNowPlaying, POLL_INTERVAL_MS);
+  pollIntervalId = setInterval(fetchNowPlaying, POLL_INTERVAL_MS);
 }
-
-// Auto-initialize
-initSpotifyWidget();

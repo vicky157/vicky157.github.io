@@ -4,388 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
-        <link rel="alternate icon" href="/assets/icons/favicon.ico" type="image/x-icon"> <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png"> <meta name="theme-color" content="#4169E1"> <meta name="description" content="Portfolio of Vikash Singh, AI & LLM Researcher.">
-            <title>Home - Vikash Singh</title>
-        <!-- Structured Data: WebSite -->
-            <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "name": "Vikash Singh",
-                "url": "https://vikash-singh.me/"
+    <link rel="alternate icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <meta name="theme-color" content="#4169E1">
+    <meta name="description" content="Portfolio of Vikash Singh, AI & LLM Researcher.">
+    <title>Home - Vikash Singh</title>
+
+    <!-- Structured Data: WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Vikash Singh",
+        "url": "https://vikash-singh.me/"
+    }
+    </script>
+    <!-- Structured Data: Person -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Vikash Singh",
+        "url": "https://vikash-singh.me/",
+        "jobTitle": "AI & LLM Researcher; PhD Student",
+        "affiliation": {
+            "@type": "Organization",
+            "name": "Case Western Reserve University"
+        },
+        "alumniOf": [
+            {"@type": "CollegeOrUniversity", "name": "Case Western Reserve University", "sameAs": "https://case.edu"},
+            {"@type": "CollegeOrUniversity", "name": "Indian Institute of Technology Mandi", "sameAs": "https://iitmandi.ac.in"}
+        ],
+        "email": "mailto:vikashjohn2505@gmail.com",
+        "sameAs": [
+            "https://github.com/vicky157",
+            "https://www.linkedin.com/in/vikash-singh-john/",
+            "https://x.com/vikash_joh60795",
+            "https://scholar.google.com/citations?user=zt0c4WsAAAAJ",
+            "https://www.semanticscholar.org/author/Vikash-Singh/2363724234"
+        ],
+        "homeLocation": {
+            "@type": "Place",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Cleveland",
+                "addressRegion": "OH",
+                "postalCode": "44106",
+                "addressCountry": "US"
             }
-            </script>
-            <!-- Structured Data: Person (moved from About) -->
-            <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "Person",
-                "name": "Vikash Singh",
-                "url": "https://vikash-singh.me/",
-                "jobTitle": "AI & LLM Researcher; PhD Student",
-                "affiliation": {
-                    "@type": "Organization",
-                    "name": "Case Western Reserve University"
-                },
-                "alumniOf": [
-                    {"@type": "CollegeOrUniversity", "name": "Case Western Reserve University", "sameAs": "https://case.edu"},
-                    {"@type": "CollegeOrUniversity", "name": "Indian Institute of Technology Mandi", "sameAs": "https://iitmandi.ac.in"}
-                ],
-                "email": "mailto:vikashjohn2505@gmail.com",
-                "sameAs": [
-                    "https://github.com/vicky157",
-                    "https://www.linkedin.com/in/vikash-singh-john/",
-                    "https://x.com/vikash_joh60795",
-                    "https://scholar.google.com/citations?user=zt0c4WsAAAAJ"
-                ],
-                "homeLocation": {
-                    "@type": "Place",
-                    "address": {
-                        "@type": "PostalAddress",
-                        "addressLocality": "Cleveland",
-                        "addressRegion": "OH",
-                        "postalCode": "44106",
-                        "addressCountry": "US"
-                    }
-                },
-                "knowsAbout": [
-                    "Large Language Models",
-                    "AI Interpretability",
-                    "Uncertainty Quantification",
-                    "Explainable AI",
-                    "Model Optimization",
-                    "Formal Reasoning",
-                    "LLM Pruning"
-                ]
+        },
+        "knowsAbout": [
+            "Large Language Models",
+            "AI Interpretability",
+            "Uncertainty Quantification",
+            "Explainable AI",
+            "Model Optimization",
+            "Formal Reasoning",
+            "LLM Pruning"
+        ]
+    }
+    </script>
+
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                packages: {'[+]': ['ams', 'newcommand', 'configmacros']},
+                tags: 'ams',
+                tagSide: 'right',
+                tagIndent: '0.8em'
+            },
+            chtml: {
+                scale: 1.0,
+                minScale: 0.5,
+                matchFontHeight: false,
+                displayAlign: 'center',
+                displayIndent: '0em'
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                ignoreHtmlClass: 'no-mathjax',
+                processHtmlClass: 'mathjax'
+            },
+            startup: {
+                ready: function () {
+                    MathJax.startup.defaultReady();
+                    document.dispatchEvent(new Event('mathjax-ready'));
+                }
             }
-            </script>
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body class="light-mode">
-
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="/">
-                    <img src="/assets/icons/dog-logo.svg" alt="Vikash Singh logo - cute dog face" class="logo-icon" width="40" height="40">
-                    Vikash Singh
-                </a>
-            </div>
-            <ul>
-                <li><a href="/" class="active">Home</a></li>
-                <li><a href="/publications">Publications</a></li>
-                <li><a href="/education-experience">Education & Experience</a></li>
-                <li><a href="/blogs">Blog</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-            <button id="theme-toggle" aria-label="Toggle theme">
-                <i class="fas fa-sun"></i><i class="fas fa-moon" style="display:none;"></i>
-            </button>
-             <button id="mobile-menu-toggle" aria-label="Toggle menu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </nav>
-         <div id="mobile-menu">
-            <ul>
-                <li><a href="/" class="active">Home</a></li>
-                <li><a href="/publications">Publications</a></li>
-                <li><a href="/education-experience">Education & Experience</a></li>
-                <li><a href="/blogs">Blog</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <main>
-        <section id="hero" class="hero-section card-style">
-            <h1>Vikash Singh</h1>
-            <p class="subtitle">PhD Student at Case Western Reserve University | Machine Learning & AI Researcher</p>
-            <p class="location"><i class="fas fa-map-marker-alt"></i> Cleveland, OH, 44106</p>
-
-            <div class="social-links">
-                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> Resume</a>
-
-                <a href="https://github.com/vicky157" target="_blank" class="btn"><i class="fab fa-github"></i> GitHub</a>
-                <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="https://x.com/vikash_joh60795" target="_blank" class="btn"><i class="fab fa-x-twitter"></i> X</a>
-                <a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank" class="btn"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
-                <a href="mailto:vikashjohn2505@gmail.com" class="btn"><i class="fas fa-envelope"></i> Email</a>
-            </div>
-
-            <div class="last-updated">
-                <span class="stamp-dot"></span>
-                <span>Last updated — March 6, 2026</span>
-            </div>
-        </section>
-
-        <section id="about" class="card-style">
-            <h2>About</h2>
-            <p>
-                Vikash Singh is a researcher in Artificial Intelligence and a PhD student at Case Western Reserve University. His work advances the reliability of Large Language Models (LLMs) by studying their reasoning behavior, uncertainty, and fairness. He develops practical methods that bridge formal verification and data-driven modeling, including recent work on grammars of formal uncertainty and selective verification signals for automated reasoning tasks. Vikash enjoys tackling challenging problems end-to-end—from idea to robust implementation—and frequently explores adjacent topics like pruning, hyperparameter optimization, and explainable AI.
-            </p>
-        </section>
-
-        <!-- Spotify Now Playing Widget -->
-        <section id="spotify-now-playing" class="card-style spotify-widget" aria-label="Currently playing on Spotify">
-            <div class="spotify-widget-inner">
-                <div class="spotify-album-art-container" id="spotify-album-art-container">
-                    <img id="spotify-album-art" class="spotify-album-art" src="" alt="Album art" loading="lazy">
-                </div>
-                <div class="spotify-track-info">
-                    <div class="spotify-header">
-                        <i class="fab fa-spotify"></i>
-                        <span id="spotify-status-text" class="spotify-status-text">Loading...</span>
-                        <div id="spotify-equalizer" class="spotify-equalizer" style="display: none;">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <a id="spotify-track-name" class="spotify-track-name" href="#" target="_blank" rel="noopener">---</a>
-                    <p id="spotify-artist-name" class="spotify-artist-name">---</p>
-                    <p id="spotify-album-name" class="spotify-album-name">---</p>
-                    <div class="spotify-progress-container" id="spotify-progress-container" style="display: none;">
-                        <div class="spotify-progress-bar">
-                            <div id="spotify-progress-fill" class="spotify-progress-fill"></div>
-                        </div>
-                        <div class="spotify-progress-times">
-                            <span id="spotify-progress-current">0:00</span>
-                            <span id="spotify-progress-duration">0:00</span>
-                        </div>
-                    </div>
-                    <div class="spotify-actions">
-                        <button id="spotify-preview-btn" class="btn spotify-preview-btn" style="display: none;" aria-label="Play preview">
-                            <i class="fas fa-play"></i> Preview
-                        </button>
-                        <a id="spotify-open-link" class="btn spotify-open-btn" href="#" target="_blank" rel="noopener">
-                            <i class="fab fa-spotify"></i> Open in Spotify
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Spotify Embed Player (hidden by default, slides in on click) -->
-            <div id="spotify-embed-container" class="spotify-embed-container" style="display: none;">
-                <div class="spotify-embed-header">
-                    <span><i class="fas fa-headphones"></i> Preview Player</span>
-                    <button id="spotify-embed-close" class="spotify-embed-close" aria-label="Close preview player">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div id="spotify-embed-wrapper" class="spotify-embed-wrapper"></div>
-            </div>
-        </section>
-
-        <section id="latest-publications" class="card-style">
-            <h2>Latest Publications</h2>
-            
-            <div class="publication-item-home">
-                <h3 class="publication-title-home">VERGE: Formal Refinement and Guidance Engine for Verifiable LLM Reasoning</h3>
-                <p class="publication-authors-home"><strong>Vikash Singh</strong>, Darion Cassel, Nathaniel Weir, Sam Bayless</p>
-                <p class="publication-venue-home"><em>arXiv</em>, Jan 2026.</p>
-                <div class="publication-links-home">
-                    <a href="https://arxiv.org/abs/2601.20055" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
-                    <a href="#" onclick="toggleBibtex(event, 'bibtex-entry-singh2026verge')" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
-                </div>
-                <div id="bibtex-entry-singh2026verge" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-border-color);">
-                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>@misc{singh2026vergeformalrefinementguidance,
-  title={VERGE: Formal Refinement and Guidance Engine for Verifiable LLM Reasoning},
-  author={Vikash Singh and Darion Cassel and Nathaniel Weir and Sam Bayless},
-  year={2026},
-  eprint={2601.20055},
-  archivePrefix={arXiv},
-  primaryClass={cs.CL},
-  url={https://arxiv.org/abs/2601.20055}
-}</code></pre>
-                </div>
-            </div>
-
-            <div class="publication-item-home">
-                <h3 class="publication-title-home">Trust The Typical</h3>
-                <p class="publication-authors-home">Debargha Ganguly, Sreehari Sankar, Biyao Zhang, <strong>Vikash Singh</strong>, Kanan Gupta, Harshini Kavuru, Alan Luo, Weicong Chen, Warren Richard Morningstar, Raghu Machiraju, Vipin Chaudhary</p>
-                <p class="publication-venue-home"><em>ICLR 2026</em></p>
-                <div class="publication-links-home">
-                    <a href="https://openreview.net/pdf?id=vfbeleLBWv" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> OpenReview</a>
-                    <a href="#" onclick="toggleBibtex(event, 'bibtex-entry-ganguly2026trust-home')" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
-                </div>
-                <div id="bibtex-entry-ganguly2026trust-home" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-border-color);">
-                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>@inproceedings{ganguly2026trustthetypical,
-  title={Trust The Typical},
-  author={Debargha Ganguly and Sreehari Sankar and Biyao Zhang and Vikash Singh and Kanan Gupta and Harshini Kavuru and Alan Luo and Weicong Chen and Warren Richard Morningstar and Raghu Machiraju and Vipin Chaudhary},
-  booktitle={International Conference on Learning Representations (ICLR)},
-  year={2026},
-  url={https://openreview.net/pdf?id=vfbeleLBWv}
-}</code></pre>
-                </div>
-            </div>
-
-            <div class="publication-item-home">
-                <h3 class="publication-title-home">Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks</h3>
-                <p class="publication-authors-home">Ganguly, D., <strong>Singh, V.</strong>, Sankar, S., Zhang, B., Zhang, X., Iyengar, S., Han, X., Sharma, A., Kalyanaraman, S., Chaudhary, V.</p>
-                <p class="publication-venue-home"><em>NeurIPS 2025</em>, May 2025.</p>
-                <div class="publication-links-home">
-                    <a href="https://arxiv.org/abs/2505.20047" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
-                    <a href="#" onclick="toggleBibtex(event, 'bibtex-entry-ganguly2025')" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
-                </div>
-                <div id="bibtex-entry-ganguly2025" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-border-color);">
-                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>@misc{ganguly2025grammarsformaluncertaintytrust,
-      title={Grammars of Formal Uncertainty: When to Trust LLMs in Automated Reasoning Tasks}, 
-      author={Debargha Ganguly and Vikash Singh and Sreehari Sankar and Biyao Zhang and Xuecen Zhang and Srinivasan Iyengar and Xiaotian Han and Amit Sharma and Shivkumar Kalyanaraman and Vipin Chaudhary},
-      year={2025},
-      eprint={2505.20047},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2505.20047}, 
-}</code></pre>
-                </div>
-            </div>
-
-            <div class="publication-item-home">
-                <h3 class="publication-title-home">Mid-Think: Training-Free Intermediate-Budget Reasoning via Token-Level Triggers</h3>
-                <p class="publication-authors-home">Yang Wang, Debargha Ganguly, Xinpeng Li, Chaoda Song, Shouren Wang, <strong>Vikash Singh</strong>, Vipin Chaudhary, Xiaotian Han</p>
-                <p class="publication-venue-home"><em>arXiv</em>, Jan 2026.</p>
-                <div class="publication-links-home">
-                    <a href="https://arxiv.org/abs/2601.07036" target="_blank" class="btn-icon"><i class="fas fa-file-pdf"></i> arXiv</a>
-                    <a href="#" onclick="toggleBibtex(event, 'bibtex-entry-wang2026midthink')" class="btn-icon"><i class="fas fa-quote-right"></i> BibTeX</a>
-                </div>
-                <div id="bibtex-entry-wang2026midthink" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-border-color);">
-                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>@misc{wang2026midthink,
-  title={Mid-Think: Training-Free Intermediate-Budget Reasoning via Token-Level Triggers},
-  author={Yang Wang and Debargha Ganguly and Xinpeng Li and Chaoda Song and Shouren Wang and Vikash Singh and Vipin Chaudhary and Xiaotian Han},
-  year={2026},
-  eprint={2601.07036},
-  archivePrefix={arXiv},
-  url={https://arxiv.org/abs/2601.07036}
-}</code></pre>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="/publications" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem;">
-                    <i class="fas fa-list"></i> View All Publications
-                </a>
-            </div>
-        </section>
-
-        <section id="news" class="card-style">
-            <h2>News & Updates</h2>
-            <ul class="news-list">
-                <li><span class="date">January 2026</span> Paper accepted to ICLR 2026 (Trust The Typical).</li>
-                <li><span class="date">September 2025</span> Paper accepted to NeurIPS'25 (Grammars of Formal Uncertainty: When to Trust LLMs).</li>
-                <li><span class="date">September 2025</span> Two papers accepted to HiPC'25.</li>
-                <li><span class="date">July 2025</span> Got accepted to Amazon Applied Science Internship at New York.</li>
-                <li><span class="date">May 2025</span> Research Assistant At CWRU CSDS Department</li>
-                <li><span class="date">Jan 2025-May 2025</span> Teaching Assistant for Data Mining Course.</li>
-                <li><span class="date">Aug 2024-December 2024</span> Teaching Assistant for Computer Security Course at CWRU.</li>
-                <li><span class="date">Aug 2024-Present</span> Started PhD in Computer Science at Case Western Reserve University.</li>
-                <li><span class="date">May 2024</span> Summer Internship at MGenio Inc.</li>
-                <li><span class="date">Jan 2024 - May 2024</span> Teaching Assistant for Computational Perception and Compiler Design Courses at CWRU.</li>
-                <li><span class="date">Aug 2023 - Dec 2023</span> Started Masters in Computer Science at Case Western Reserve University.</li>
-                <li><span class="date">May 2023</span> Completed B.Tech in Civil Engineering at Indian Institute of Technology, Mandi </li>
-                <li><span class="date">Jan 2022-Sep 2022</span>Internship at DRDO  </li>
-                <li><span class="date">May 2021 - Aug 2021</span> Internship at Indian Institute of Technology, Mandi</li>
-                <li><span class="date">Aug 2019- May 2023</span> B.Tech in Civil Engineering at Indian Institute of Technology, Mandi</li>
-            </ul>
-        </section>
-
-         <section id="research-interests-home" class="card-style">
-            <h2>Research Interests</h2>
-            <ul>
-                <li>Formal Reasoning and Verification of LLMs</li>
-                <li>Fine-Tuning LLMs and Vision Models (LoRA)</li>
-                <li>Redundancy Mitigation in LLMs</li>
-                <li>Model Optimization (Pruning, Hyperparameter Tuning)</li>
-                <li>Explainable AI (XAI)</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer class="modern-footer">
-        <div class="footer-particles" id="footer-particles"></div>
-        <div class="footer-wave"></div>
-        <div class="footer-content">
-            <div class="footer-section footer-brand">
-                <div class="footer-logo">
-                    <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50,5 C25.147,5 5,25.147 5,50 C5,74.853 25.147,95 50,95 C62.037,95 72.934,90.373 80.711,82.799 L75,95 L75,75 C86.393,69.996 95,59.151 95,50 C95,25.147 74.853,5 50,5 Z" fill="var(--current-theme-accent)"/>
-                        <circle cx="50" cy="50" r="15" fill="var(--current-glass-bg-navbar)"/>
-                        <circle cx="50" cy="50" r="10" fill="var(--current-link-color)"/>
-                        <circle cx="30" cy="35" r="5" fill="rgba(255,255,255,0.5)"/>
-                        <circle cx="70" cy="35" r="5" fill="rgba(255,255,255,0.5)"/>
-                    </svg>
-                    <h3>Vikash Singh</h3>
-                </div>
-                <p class="footer-tagline">AI Researcher & PhD Student</p>
-                <p class="footer-description">Advancing the frontiers of Large Language Models through innovative research in interpretability, fairness, and uncertainty quantification.</p>
-            </div>
-            
-            <div class="footer-section footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="/#about"><i class="fas fa-user"></i> About</a></li>
-                    <li><a href="/publications"><i class="fas fa-graduation-cap"></i> Publications</a></li>
-                    <li><a href="/education-experience"><i class="fas fa-user-graduate"></i> Experience</a></li>
-                    <li><a href="/blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                    <li><a href="/contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section footer-research">
-                <h4>Research Focus</h4>
-                <ul class="research-tags">
-                    <li>Large Language Models</li>
-                    <li>AI Interpretability</li>
-                    <li>Uncertainty Quantification</li>
-                    <li>Bias Mitigation</li>
-                    <li>Explainable AI</li>
-                </ul>
-            </div>
-            
-            <div class="footer-section footer-connect">
-                <h4>Connect & Follow</h4>
-                <div class="footer-social-links">
-                    <a href="https://github.com/vicky157" target="_blank" aria-label="GitHub" class="social-icon">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank" aria-label="LinkedIn" class="social-icon">
-                        <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://x.com/vikash_joh60795" target="_blank" aria-label="X" class="social-icon">
-                        <i class="fab fa-x-twitter"></i>
-                        <span>X</span>
-                    </a>
-                    <a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank" aria-label="Google Scholar" class="social-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>Scholar</span>
-                    </a>
-                    <a href="mailto:vikashjohn2505@gmail.com" aria-label="Email" class="social-icon">
-                        <i class="fas fa-envelope"></i>
-                        <span>Email</span>
-                    </a>
-                </div>
-                <div class="footer-download">
-                    <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" class="download-cv">
-                        <i class="fas fa-file-pdf"></i>
-                        <span>View CV</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-decoration">
-            <div class="decoration-dots">
-                <span></span><span></span><span></span><span></span><span></span>
-            </div>
-        </div>
-        
-        <div class="footer-copyright">
-            <p>&copy; <span id="current-year"></span> Vikash Singh. All rights reserved.</p>
-        </div>
-    </footer>
-
+<body data-page="home">
+    <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
-    <script type="module" src="/src/spotify-widget.ts"></script>
 </body>
 </html>

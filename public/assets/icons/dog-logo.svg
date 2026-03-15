@@ -1,47 +1,30 @@
 <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background circle -->
-  <circle cx="50" cy="50" r="48" fill="#FFE5CC" stroke="#4169E1" stroke-width="2"/>
+  <!-- Clean circle background -->
+  <circle cx="50" cy="50" r="48" fill="#000" />
 
   <!-- Left ear -->
-  <ellipse cx="25" cy="35" rx="12" ry="20" fill="#D4A574" transform="rotate(-20 25 35)"/>
-  <ellipse cx="25" cy="35" rx="8" ry="15" fill="#FFC9A3" transform="rotate(-20 25 35)"/>
-
+  <path d="M22 42 Q18 18 32 28 L36 40 Z" fill="#fff"/>
   <!-- Right ear -->
-  <ellipse cx="75" cy="35" rx="12" ry="20" fill="#D4A574" transform="rotate(20 75 35)"/>
-  <ellipse cx="75" cy="35" rx="8" ry="15" fill="#FFC9A3" transform="rotate(20 75 35)"/>
+  <path d="M78 42 Q82 18 68 28 L64 40 Z" fill="#fff"/>
 
-  <!-- Head -->
-  <circle cx="50" cy="50" r="28" fill="#F5D4B0"/>
+  <!-- Head shape -->
+  <ellipse cx="50" cy="52" rx="24" ry="22" fill="#fff"/>
 
-  <!-- Left eye white -->
-  <ellipse cx="40" cy="45" rx="7" ry="9" fill="white"/>
-  <!-- Left eye pupil -->
-  <circle cx="41" cy="46" r="5" fill="#2C2C2C"/>
-  <!-- Left eye shine -->
-  <circle cx="39" cy="44" r="2" fill="white"/>
+  <!-- Left eye -->
+  <circle cx="41" cy="48" r="4.5" fill="#000"/>
+  <circle cx="39.5" cy="46.5" r="1.5" fill="#fff"/>
 
-  <!-- Right eye white -->
-  <ellipse cx="60" cy="45" rx="7" ry="9" fill="white"/>
-  <!-- Right eye pupil -->
-  <circle cx="59" cy="46" r="5" fill="#2C2C2C"/>
-  <!-- Right eye shine -->
-  <circle cx="57" cy="44" r="2" fill="white"/>
+  <!-- Right eye -->
+  <circle cx="59" cy="48" r="4.5" fill="#000"/>
+  <circle cx="57.5" cy="46.5" r="1.5" fill="#fff"/>
 
   <!-- Nose -->
-  <ellipse cx="50" cy="58" rx="6" ry="5" fill="#2C2C2C"/>
+  <ellipse cx="50" cy="58" rx="5" ry="3.5" fill="#000"/>
 
   <!-- Mouth -->
-  <path d="M 50 58 Q 45 63 40 60" stroke="#2C2C2C" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M 50 58 Q 55 63 60 60" stroke="#2C2C2C" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M50 61.5 Q44 67 40 63" stroke="#000" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M50 61.5 Q56 67 60 63" stroke="#000" stroke-width="1.8" fill="none" stroke-linecap="round"/>
 
   <!-- Tongue -->
-  <ellipse cx="50" cy="65" rx="4" ry="3" fill="#FF6B9D"/>
-
-  <!-- Spots for cuteness -->
-  <circle cx="30" cy="52" r="3" fill="#D4A574" opacity="0.6"/>
-  <circle cx="70" cy="52" r="3" fill="#D4A574" opacity="0.6"/>
-
-  <!-- Blush -->
-  <ellipse cx="32" cy="53" rx="6" ry="4" fill="#FFB6C1" opacity="0.4"/>
-  <ellipse cx="68" cy="53" rx="6" ry="4" fill="#FFB6C1" opacity="0.4"/>
+  <ellipse cx="50" cy="66" rx="3" ry="3.5" fill="#E53E3E"/>
 </svg>
