@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "npm run build:blog && tsc --noEmit && vite build",
     "preview": "vite preview",
-    "build:blog": "node scripts/generate-blog-data.cjs",
-    "sync:pubs": "node scripts/sync-publications.cjs"
+    "build:blog": "node scripts/generate-blog-data.cjs"
   },
   "keywords": [
     "portfolio",
