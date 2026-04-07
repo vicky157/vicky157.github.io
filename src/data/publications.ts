@@ -65,7 +65,7 @@ export const publications: Publication[] = [
     id: 'singh2026verge',
     title: 'VERGE: Formal Refinement and Guidance Engine for Verifiable LLM Reasoning',
     authors: '<strong>Vikash Singh</strong>, Darion Cassel, Nathaniel Weir, Nick Feng, Sam Bayless',
-    venue: '<em>Under Review at ACL 2026</em>',
+    venue: '<em>ACL 2026</em>',
     links: [
       { label: 'Preprint', url: 'https://arxiv.org/abs/2601.20055', icon: 'fas fa-file-pdf' },
     ],
@@ -85,7 +85,7 @@ export const publications: Publication[] = [
     id: 'wang2026midthink',
     title: 'Mid-Think: Training-Free Intermediate-Budget Reasoning via Token-Level Triggers',
     authors: 'Wang Yang, Debargha Ganguly, Xinpeng Li, Chaoda Song, Shouren Wang, <strong>Vikash Singh</strong>, Vipin Chaudhary, Xiaotian Han',
-    venue: '<em>Under Review at ACL 2026</em>',
+    venue: '<em>Findings of ACL 2026</em>',
     links: [
       { label: 'Preprint', url: 'https://arxiv.org/abs/2601.07036', icon: 'fas fa-file-pdf' },
     ],

@@ -1,6 +1,7 @@
 import type { NewsItem } from '../types';
 
 export const newsItems: NewsItem[] = [
+  { date: 'April 2026', text: 'Two papers accepted at ACL 2026 — VERGE / FORGE at the main conference and Mid-Think as Findings.' },
   { date: 'January 2026', text: 'Paper accepted to ICLR 2026 (Trust The Typical).' },
   { date: 'September 2025', text: 'Paper accepted to NeurIPS\'25 (Grammars of Formal Uncertainty: When to Trust LLMs).' },
   { date: 'September 2025', text: 'Two papers accepted to HiPC\'25.' },
