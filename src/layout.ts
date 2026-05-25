@@ -18,7 +18,7 @@ export function renderLayout(): string {
                 <li><a href="/">Home</a></li>
                 <li><a href="/publications">Publications</a></li>
                 <li><a href="/education-experience">Education &amp; Experience</a></li>
-                <li><a href="/blogs">Blog</a></li>
+                <li><a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
             <button id="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -35,7 +35,7 @@ export function renderLayout(): string {
                 <a href="/">Home</a>
                 <a href="/publications">Publications</a>
                 <a href="/education-experience">Education &amp; Experience</a>
-                <a href="/blogs">Blog</a>
+                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a>
                 <a href="/contact">Contact</a>
             </div>
             <div class="mobile-menu-footer">
@@ -59,7 +59,7 @@ export function renderLayout(): string {
                 <a href="/">Home</a>
                 <a href="/publications">Publications</a>
                 <a href="/education-experience">Experience</a>
-                <a href="/blogs">Blog</a>
+                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a>
                 <a href="/contact">Contact</a>
             </div>
             <div class="footer-social">

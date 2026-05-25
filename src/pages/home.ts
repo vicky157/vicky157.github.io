@@ -50,6 +50,7 @@ export function render(): string {
             <h1>Vikash Singh</h1>
             <p class="subtitle">PhD Student at Case Western Reserve University | Machine Learning & AI Researcher</p>
             <p class="location"><i class="fas fa-map-marker-alt"></i> Cleveland, OH, 44106</p>
+            <p class="last-updated" style="font-family: var(--font-mono); font-size: 0.78rem; opacity: 0.75; margin-top: 0.4rem;"><i class="fas fa-clock"></i> Last updated on 2026-05-25</p>
 
             <div class="social-links">
                 <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> Resume</a>

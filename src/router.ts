@@ -6,7 +6,6 @@ import type { Route } from './types';
 import * as homePage from './pages/home';
 import * as publicationsPage from './pages/publications';
 import * as educationExperiencePage from './pages/education-experience';
-import * as blogPage from './pages/blog';
 import * as contactPage from './pages/contact';
 import { destroySpotifyWidget } from './components/spotify-widget';
 
@@ -31,13 +30,6 @@ const routes: Route[] = [
     page: 'education-experience',
     render: educationExperiencePage.render,
     afterRender: educationExperiencePage.afterRender,
-  },
-  {
-    path: '/blogs',
-    title: 'Blog - Vikash Singh',
-    page: 'blogs',
-    render: blogPage.render,
-    afterRender: blogPage.afterRender,
   },
   {
     path: '/contact',
@@ -70,14 +62,6 @@ function navigateTo(path: string, pushState = true): void {
   // Run cleanup for leaving page
   if (currentPage === 'home') {
     destroySpotifyWidget();
-  }
-
-  // Clean up any FABs from blog page
-  if (currentPage === 'blogs' && route.page !== 'blogs') {
-    document.getElementById('fab')?.remove();
-    document.querySelector('.reading-line')?.remove();
-    // Also clean up any blog controls that were inserted outside app-main
-    document.querySelectorAll('.blog-controls').forEach((el) => el.remove());
   }
 
   // Update state

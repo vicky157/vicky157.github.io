@@ -46,12 +46,20 @@ export const educationEntries: EducationEntry[] = [
 
 export const experienceEntries: ExperienceEntry[] = [
   {
-    title: 'Internship',
-    institution: 'Amazon (LLMs, Automated Reasoning Checks), New York, USA',
-    dates: 'Aug 2025 \u2013 Present',
+    title: 'Applied Scientist Internship',
+    institution: 'Amazon, New York, USA',
+    dates: 'May 2026 \u2013 Present',
     items: [
-      'Working on the Socrates team focused on automated reasoning checks.',
-      'Improving reasoning capabilities of Large Language Models (LLMs) specifically for legal tasks.',
+      '<em>Details will be updated after the internship concludes.</em>',
+    ],
+  },
+  {
+    title: 'Applied Scientist Internship',
+    institution: 'Amazon (LLMs, Automated Reasoning Checks), New York, USA',
+    dates: 'Aug 2025 \u2013 Jan 2026',
+    items: [
+      'Worked on the Socrates team on automated reasoning checks for Large Language Models.',
+      'Developed methods to improve LLM reasoning capabilities for legal and compliance tasks.',
     ],
   },
   {
