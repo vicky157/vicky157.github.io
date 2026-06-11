@@ -38,21 +38,23 @@ export function renderLayout(): string {
         <div id="mobile-overlay"></div>
         <div id="mobile-menu" aria-hidden="true">
             <div class="mobile-menu-header">
-                <span class="mobile-menu-title">Menu</span>
+                <span class="mobile-menu-title"><span class="terminal-prompt">$</span> ls nav/</span>
                 <button id="mobile-menu-close" aria-label="Close menu">&times;</button>
             </div>
             <div class="mobile-menu-links">
-                <a href="/">Home</a>
-                <a href="/publications">Publications</a>
-                <a href="/education-experience">Education &amp; Experience</a>
-                <a href="/contact">Contact</a>
-                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a>
+                <a href="/"><span class="mm-mode">drwx</span><span class="mm-name">home/</span><span class="mm-arrow">&#10095;</span></a>
+                <a href="/publications"><span class="mm-mode">drwx</span><span class="mm-name">publications/</span><span class="mm-arrow">&#10095;</span></a>
+                <a href="/education-experience"><span class="mm-mode">drwx</span><span class="mm-name">experience/</span><span class="mm-arrow">&#10095;</span></a>
+                <a href="/contact"><span class="mm-mode">drwx</span><span class="mm-name">contact/</span><span class="mm-arrow">&#10095;</span></a>
+                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener"><span class="mm-mode mm-file">-r-x</span><span class="mm-name">cv.pdf</span><span class="mm-arrow">&#10095;</span></a>
             </div>
+            <p class="mm-status">4 dirs &middot; 1 file &middot; tap to cd</p>
             <div class="mobile-menu-footer">
-                <a href="https://github.com/vicky157" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank">LinkedIn</a>
-                <a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank">Scholar</a>
-                <a href="mailto:vikashjohn2505@gmail.com">Email</a>
+                <span class="mm-mode">lrwx</span>
+                <a href="https://github.com/vicky157" target="_blank">github</a>
+                <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank">linkedin</a>
+                <a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank">scholar</a>
+                <a href="mailto:vikashjohn2505@gmail.com">email</a>
             </div>
         </div>
     </header>
