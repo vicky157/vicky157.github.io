@@ -97,7 +97,7 @@ export function initSpotifyWidget(): void {
   function openEmbed(): void {
     if (!currentTrackId) return;
 
-    const isDark = document.body.classList.contains('dark-mode');
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const theme = isDark ? '0' : '1';
     const embedUrl = `https://open.spotify.com/embed/track/${currentTrackId}?utm_source=generator&theme=${theme}`;
 
@@ -136,24 +136,17 @@ export function initSpotifyWidget(): void {
   function render(data: SpotifyTrackData | null): void {
     widget.classList.remove('loading');
 
+    // No track to show: keep the whole widget hidden instead of an empty "Offline" card
     if (!data || (!data.title && !data.isPlaying)) {
+      widget.hidden = true;
       widget.classList.add('not-playing');
       widget.classList.remove('is-playing');
-      statusText.textContent = 'Offline';
-      equalizer.style.display = 'none';
-      trackName.textContent = 'Nothing playing';
-      trackName.removeAttribute('href');
-      artistName.textContent = '';
-      albumNameEl.textContent = '';
-      albumArt.style.display = 'none';
-      progressContainer.style.display = 'none';
-      previewBtn.style.display = 'none';
-      openLink.style.display = 'none';
       stopProgressTimer();
       closeEmbed();
       return;
     }
 
+    widget.hidden = false;
     albumArt.style.display = 'block';
 
     if (data.isPlaying) {

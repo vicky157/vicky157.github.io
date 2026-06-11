@@ -36,11 +36,6 @@ export const contactItems: ContactItem[] = [
     target: '_blank',
   },
   {
-    icon: 'fas fa-phone',
-    label: 'Phone',
-    value: '+1 (216) 463-0000',
-  },
-  {
     icon: 'fas fa-map-marker-alt',
     label: 'Location',
     value: 'Cleveland, OH 44106, USA',

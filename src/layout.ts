@@ -18,12 +18,22 @@ export function renderLayout(): string {
                 <li><a href="/">Home</a></li>
                 <li><a href="/publications">Publications</a></li>
                 <li><a href="/education-experience">Education &amp; Experience</a></li>
-                <li><a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a></li>
                 <li><a href="/contact">Contact</a></li>
+                <li><a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a></li>
             </ul>
-            <button id="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                <span class="hamburger"></span>
-            </button>
+            <div class="nav-controls">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle theme">
+                    <span class="toggle-track-icon sun"><i class="fas fa-sun"></i></span>
+                    <span class="toggle-track-icon moon"><i class="fas fa-moon"></i></span>
+                    <span class="toggle-thumb">
+                        <i class="fas fa-sun thumb-sun"></i>
+                        <i class="fas fa-moon thumb-moon"></i>
+                    </span>
+                </button>
+                <button id="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
         </nav>
         <div id="mobile-overlay"></div>
         <div id="mobile-menu" aria-hidden="true">
@@ -35,8 +45,8 @@ export function renderLayout(): string {
                 <a href="/">Home</a>
                 <a href="/publications">Publications</a>
                 <a href="/education-experience">Education &amp; Experience</a>
-                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a>
                 <a href="/contact">Contact</a>
+                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a>
             </div>
             <div class="mobile-menu-footer">
                 <a href="https://github.com/vicky157" target="_blank">GitHub</a>
@@ -50,29 +60,40 @@ export function renderLayout(): string {
     <main id="app-main"></main>
 
     <footer class="modern-footer">
+        <div class="footer-terminal-window" aria-hidden="true">
+            <div class="terminal-titlebar">
+                <span class="terminal-dot dot-accent"></span>
+                <span class="terminal-dot"></span>
+                <span class="terminal-dot"></span>
+                <span class="terminal-title">vikash@research &mdash; zsh</span>
+            </div>
+            <div id="terminal-body" class="terminal-body"></div>
+        </div>
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Vikash Singh</h3>
                 <p class="footer-tagline">AI Researcher &amp; PhD Student</p>
             </div>
-            <div class="footer-nav">
-                <a href="/">Home</a>
-                <a href="/publications">Publications</a>
-                <a href="/education-experience">Experience</a>
-                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a>
-                <a href="/contact">Contact</a>
-            </div>
-            <div class="footer-social">
-                <a href="https://github.com/vicky157" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank">LinkedIn</a>
-                <a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank">Scholar</a>
-                <a href="mailto:vikashjohn2505@gmail.com">Email</a>
-                <a href="https://www.semanticscholar.org/author/Vikash-Singh/2363724234" target="_blank">Semantic Scholar</a>
-                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank">CV</a>
+            <div class="footer-links">
+                <div class="footer-row footer-nav">
+                    <a href="/">Home</a>
+                    <a href="/publications">Publications</a>
+                    <a href="/education-experience">Experience</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a>
+                </div>
+                <div class="footer-row footer-social">
+                    <a href="https://github.com/vicky157" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank">LinkedIn</a>
+                    <a href="https://x.com/vikash_joh60795" target="_blank">X</a>
+                    <a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank">Scholar</a>
+                    <a href="https://www.semanticscholar.org/author/Vikash-Singh/2363724234" target="_blank">Semantic Scholar</a>
+                    <a href="mailto:vikashjohn2505@gmail.com">Email</a>
+                </div>
             </div>
         </div>
         <div class="footer-copyright">
-            <p>&copy; <span id="current-year"></span> Vikash Singh</p>
+            <p>&copy; <span id="current-year"></span> Vikash Singh <span class="footer-updated">&middot; Last updated 2026-06-10</span></p>
         </div>
     </footer>
   `;

@@ -2,21 +2,22 @@
  * Publications page: all publications, research interests, research statement
  */
 
-import { publications, researchInterests, researchStatement } from '../data/publications';
+import { publications, researchInterests, researchStatement, venueBadge, venueDate, venueYear } from '../data/publications';
 import { initToggles } from '../components/bibtex-toggle';
 import { initAnimations, initInteractiveElements } from '../components/animations';
 import type { Publication } from '../types';
 
 function renderPublication(pub: Publication): string {
+  const badge = venueBadge(pub);
+  const date = venueDate(pub);
+
   const linksHtml = pub.links.map((link) => {
-    if (link.isInternal) {
-      return `<a href="${link.url}" class="btn-icon"><i class="${link.icon}"></i> ${link.label}</a>`;
-    }
-    return `<a href="${link.url}" target="_blank" class="btn-icon"><i class="${link.icon}"></i> ${link.label}</a>`;
+    const targetAttr = link.isInternal ? '' : ' target="_blank"';
+    return `<a href="${link.url}"${targetAttr} class="pub-link"><i class="${link.icon}"></i> ${link.label}</a>`;
   }).join('\n                        ');
 
   const abstractBtn = pub.abstract
-    ? `\n                        <a class="btn-icon" data-toggle-abstract="abs-${pub.id}" role="button"><i class="fas fa-align-left"></i> Abstract</a>`
+    ? `\n                        <a class="pub-link" data-toggle-abstract="abs-${pub.id}" role="button" aria-expanded="false"><i class="fas fa-align-left"></i> Abstract</a>`
     : '';
 
   const abstractDiv = pub.abstract
@@ -30,12 +31,15 @@ function renderPublication(pub: Publication): string {
     : '';
 
   return `                <li class="publication-item" style="padding:0 0 1.2em; margin:0 0 1.8em; border-bottom:1px dashed var(--current-glass-border);">
+                    <div class="pub-meta-row">
+                        <span class="venue-badge${badge.muted ? ' muted' : ''}">${badge.label}</span>
+                        ${date ? `<span class="pub-date">${date}</span>` : ''}
+                    </div>
                     <h3 class="publication-title" style="margin-top:0;">${pub.title}</h3>
                     <p class="publication-authors">${pub.authors}</p>${equalContrib}
-                    <p class="publication-venue">${pub.venue}</p>
-                    <div class="publication-actions" style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <div class="pub-links">
                         ${linksHtml}${abstractBtn}
-                        <a class="btn-icon" data-toggle-bibtex="bibtex-entry-${pub.id}" role="button"><i class="fas fa-quote-right"></i> BibTeX</a>
+                        <a class="pub-link" data-toggle-bibtex="bibtex-entry-${pub.id}" role="button" aria-expanded="false"><i class="fas fa-quote-right"></i> BibTeX</a>
                     </div>${abstractDiv}
                     <div id="bibtex-entry-${pub.id}" style="display:none; margin-top:1em; background:var(--current-glass-bg); padding:1em; border-radius:8px; border:1px solid var(--current-glass-border);">
                         <pre style="white-space:pre-wrap; word-wrap:break-word; font-family:monospace; font-size:0.9em;"><code>${pub.bibtex}</code></pre>
@@ -44,7 +48,15 @@ function renderPublication(pub: Publication): string {
 }
 
 export function render(): string {
-  const pubsHtml = publications.map(renderPublication).join('\n');
+  // Group by year, newest first; original array order is preserved within a year
+  const years = [...new Set(publications.map(venueYear))].sort((a, b) => b - a);
+  const pubsHtml = years.map((year) => {
+    const yearPubs = publications.filter((p) => venueYear(p) === year);
+    return `            <h3 class="year-heading">${year}</h3>
+            <ul style="list-style:none; margin:0; padding:0;">
+${yearPubs.map(renderPublication).join('\n')}
+            </ul>`;
+  }).join('\n');
 
   const interestsHtml = researchInterests
     .map((i) => `                <li><strong>${i.title}:</strong> ${i.description}</li>`)
@@ -73,10 +85,7 @@ ${paragraphs}
         <div>
         <section id="publications-list" class="content-section card-style">
             <h2>Publications</h2>
-            <p style="margin-bottom: 2rem; color: var(--current-text-secondary);">Select a paper and use the Abstract or BibTeX buttons to reveal details.</p>
-            <ul style="list-style:none; margin:0; padding:0;">
 ${pubsHtml}
-            </ul>
         </section>
 
         <section id="research-interests" class="content-section card-style">

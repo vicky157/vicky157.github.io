@@ -59,8 +59,8 @@ function navigateTo(path: string, pushState = true): void {
   const appMain = document.getElementById('app-main');
   if (!appMain) return;
 
-  // Run cleanup for leaving page
-  if (currentPage === 'home') {
+  // Run cleanup for leaving page (spotify widget lives on the contact page)
+  if (currentPage === 'contact') {
     destroySpotifyWidget();
   }
 

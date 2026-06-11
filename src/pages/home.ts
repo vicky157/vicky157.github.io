@@ -1,35 +1,44 @@
 /**
- * Home page: hero, about, featured publications, news, spotify widget
+ * Home page: hero, about (research pillars), featured publications, news
  */
 
-import { publications } from '../data/publications';
+import { publications, venueBadge, venueDate } from '../data/publications';
 import { newsItems } from '../data/news';
-import { semanticScholarSvg } from '../layout';
-import { initSpotifyWidget, destroySpotifyWidget } from '../components/spotify-widget';
 import { initToggles } from '../components/bibtex-toggle';
+import { renderLinkFs, initLinkFs } from '../components/link-fs';
 import { initAnimations, initInteractiveElements } from '../components/animations';
 
+const NEWS_VISIBLE_COUNT = 5;
+
 function renderPublicationHome(pub: typeof publications[0]): string {
+  const badge = venueBadge(pub);
+  const date = venueDate(pub);
+
   const linksHtml = pub.links.map((link) => {
-    if (link.isInternal) {
-      return `<a href="${link.url}" class="btn-icon"><i class="${link.icon}"></i> ${link.label}</a>`;
-    }
-    return `<a href="${link.url}" target="_blank" class="btn-icon"><i class="${link.icon}"></i> ${link.label}</a>`;
+    const targetAttr = link.isInternal ? '' : ' target="_blank"';
+    return `<a href="${link.url}"${targetAttr} class="pub-link"><i class="${link.icon}"></i> ${link.label}</a>`;
   }).join('\n                    ');
 
   return `
             <div class="publication-item-home">
+                <div class="pub-meta-row">
+                    <span class="venue-badge${badge.muted ? ' muted' : ''}">${badge.label}</span>
+                    ${date ? `<span class="pub-date">${date}</span>` : ''}
+                </div>
                 <h3 class="publication-title-home">${pub.title}</h3>
                 <p class="publication-authors-home">${pub.authors}</p>
-                <p class="publication-venue-home">${pub.venue}</p>
-                <div class="publication-links-home">
+                <div class="pub-links">
                     ${linksHtml}
-                    <a data-toggle-bibtex="bibtex-entry-${pub.id}" class="btn-icon" role="button"><i class="fas fa-quote-right"></i> BibTeX</a>
+                    <a data-toggle-bibtex="bibtex-entry-${pub.id}" class="pub-link" role="button" aria-expanded="false"><i class="fas fa-quote-right"></i> BibTeX</a>
                 </div>
                 <div id="bibtex-entry-${pub.id}" style="display: none; margin-top: 1em; background-color: var(--current-glass-bg); padding: 1em; border-radius: 8px; border: 1px solid var(--current-glass-border);">
                     <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 0.9em;"><code>${pub.bibtex}</code></pre>
                 </div>
             </div>`;
+}
+
+function renderNewsItem(item: typeof newsItems[0], hidden: boolean): string {
+  return `                <li${hidden ? ' class="news-extra" hidden' : ''}><span class="date">${item.date}</span> ${item.text}</li>`;
 }
 
 export function render(): string {
@@ -42,35 +51,61 @@ export function render(): string {
   const publicationsHtml = featuredPubs.map(renderPublicationHome).join('\n');
 
   const newsHtml = newsItems
-    .map((item) => `                <li><span class="date">${item.date}</span> ${item.text}</li>`)
+    .map((item, i) => renderNewsItem(item, i >= NEWS_VISIBLE_COUNT))
     .join('\n');
+
+  const newsToggleHtml = newsItems.length > NEWS_VISIBLE_COUNT
+    ? `
+            <div class="news-toggle-wrap">
+                <button id="news-toggle" class="btn" aria-expanded="false">
+                    <i class="fas fa-chevron-down"></i> Show all ${newsItems.length} updates
+                </button>
+            </div>`
+    : '';
 
   return `
         <section id="hero" class="hero-section card-style">
-            <h1>Vikash Singh</h1>
-            <p class="subtitle">PhD Student at Case Western Reserve University | Machine Learning & AI Researcher</p>
-            <p class="location"><i class="fas fa-map-marker-alt"></i> Cleveland, OH, 44106</p>
-            <p class="last-updated" style="font-family: var(--font-mono); font-size: 0.78rem; opacity: 0.75; margin-top: 0.4rem;"><i class="fas fa-clock"></i> Last updated on 2026-05-25</p>
-
-            <div class="social-links">
-                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> Resume</a>
-                <a href="https://github.com/vicky157" target="_blank" class="btn"><i class="fab fa-github"></i> GitHub</a>
-                <a href="https://www.linkedin.com/in/vikash-singh-john/" target="_blank" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="https://x.com/vikash_joh60795" target="_blank" class="btn"><i class="fab fa-x-twitter"></i> X</a>
-                <a href="https://scholar.google.com/citations?user=zt0c4WsAAAAJ" target="_blank" class="btn"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
-                <a href="https://www.semanticscholar.org/author/Vikash-Singh/2363724234" target="_blank" class="btn">${semanticScholarSvg} Semantic Scholar</a>
-                <a href="mailto:vikashjohn2505@gmail.com" class="btn"><i class="fas fa-envelope"></i> Email</a>
+            <div class="hero-top">
+                <div class="hero-heading">
+                    <p class="hero-kicker">PhD Student &middot; Case Western Reserve University &middot; Cleveland, OH</p>
+                    <h1>Vikash Singh</h1>
+                    <p class="hero-tagline">
+                        I make LLM reasoning <strong>formally verifiable</strong> by pairing language
+                        models with SMT solvers and theorem provers, so their outputs can be mathematically
+                        checked before anyone has to trust them.
+                    </p>
+                </div>
+                <img src="/assets/icons/dog-logo.svg" alt="Vikash Singh logo" class="hero-avatar" width="116" height="116">
             </div>
+
+${renderLinkFs()}
         </section>
 
         <section id="about" class="card-style">
             <h2>About</h2>
             <p>
-                Vikash Singh is a PhD student at Case Western Reserve University working on making Large Language Models safe, reliable, and formally verifiable. He builds neurosymbolic systems that pair LLMs with SMT solvers and theorem provers so that model outputs can be mathematically checked for logical consistency before they reach users in safety-critical settings like healthcare, law, and automated reasoning.
+                Vikash Singh is a PhD student at Case Western Reserve University working on making Large
+                Language Models safe, reliable, and formally verifiable, so they can be deployed in
+                settings like healthcare, law, and automated reasoning where a plausible-but-wrong answer
+                is not acceptable. His research runs along three threads:
             </p>
-            <p>
-                Beyond formal verification, his research covers uncertainty quantification for LLM reasoning, retrieval-augmented generation with structured knowledge graphs, training-free methods for controlling inference-time compute budgets, and systems-level work on GPU performance modeling for distributed training. He is also interested in unsupervised anomaly detection, explainable AI, and model compression through pruning.
-            </p>
+            <div class="pillars-grid">
+                <div class="pillar">
+                    <span class="pillar-num">01</span>
+                    <h3 class="pillar-title">Formal Verification</h3>
+                    <p>Neurosymbolic systems that pair LLMs with SMT solvers and theorem provers, so model outputs are mathematically checked for logical consistency before they reach users.</p>
+                </div>
+                <div class="pillar">
+                    <span class="pillar-num">02</span>
+                    <h3 class="pillar-title">Uncertainty Quantification</h3>
+                    <p>Knowing when to trust LLM reasoning: grammar-based uncertainty signals and selective verification that catch errors token probabilities miss.</p>
+                </div>
+                <div class="pillar">
+                    <span class="pillar-num">03</span>
+                    <h3 class="pillar-title">Efficient Inference &amp; Systems</h3>
+                    <p>Training-free control of inference-time compute budgets, retrieval over structured knowledge graphs, and GPU performance modeling for distributed training.</p>
+                </div>
+            </div>
         </section>
 
         <section id="latest-publications" class="card-style">
@@ -85,68 +120,33 @@ ${publicationsHtml}
         </section>
 
         <section id="news" class="card-style">
-            <h2>News & Updates</h2>
+            <h2>News &amp; Updates</h2>
             <ul class="news-list">
 ${newsHtml}
-            </ul>
-        </section>
-
-        <!-- Spotify Now Playing Widget -->
-        <section id="spotify-now-playing" class="card-style spotify-widget" aria-label="Currently playing on Spotify">
-            <div class="spotify-widget-inner">
-                <div class="spotify-album-art-container" id="spotify-album-art-container">
-                    <img id="spotify-album-art" class="spotify-album-art" src="" alt="Album art" loading="lazy">
-                </div>
-                <div class="spotify-track-info">
-                    <div class="spotify-header">
-                        <i class="fab fa-spotify"></i>
-                        <span id="spotify-status-text" class="spotify-status-text">Loading...</span>
-                        <div id="spotify-equalizer" class="spotify-equalizer" style="display: none;">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <a id="spotify-track-name" class="spotify-track-name" href="#" target="_blank" rel="noopener">---</a>
-                    <p id="spotify-artist-name" class="spotify-artist-name">---</p>
-                    <p id="spotify-album-name" class="spotify-album-name">---</p>
-                    <div class="spotify-progress-container" id="spotify-progress-container" style="display: none;">
-                        <div class="spotify-progress-bar">
-                            <div id="spotify-progress-fill" class="spotify-progress-fill"></div>
-                        </div>
-                        <div class="spotify-progress-times">
-                            <span id="spotify-progress-current">0:00</span>
-                            <span id="spotify-progress-duration">0:00</span>
-                        </div>
-                    </div>
-                    <div class="spotify-actions">
-                        <button id="spotify-preview-btn" class="btn spotify-preview-btn" style="display: none;" aria-label="Play preview">
-                            <i class="fas fa-play"></i> Preview
-                        </button>
-                        <a id="spotify-open-link" class="btn spotify-open-btn" href="#" target="_blank" rel="noopener">
-                            <i class="fab fa-spotify"></i> Open in Spotify
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div id="spotify-embed-container" class="spotify-embed-container" style="display: none;">
-                <div class="spotify-embed-header">
-                    <span><i class="fas fa-headphones"></i> Preview Player</span>
-                    <button id="spotify-embed-close" class="spotify-embed-close" aria-label="Close preview player">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div id="spotify-embed-wrapper" class="spotify-embed-wrapper"></div>
-            </div>
+            </ul>${newsToggleHtml}
         </section>
   `;
 }
 
+function initNewsToggle(): void {
+  const toggle = document.getElementById('news-toggle');
+  if (!toggle) return;
+
+  toggle.addEventListener('click', () => {
+    const extras = document.querySelectorAll<HTMLElement>('.news-list .news-extra');
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    extras.forEach((li) => { li.hidden = expanded; });
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    toggle.innerHTML = expanded
+      ? `<i class="fas fa-chevron-down"></i> Show all ${extras.length + NEWS_VISIBLE_COUNT} updates`
+      : '<i class="fas fa-chevron-up"></i> Show fewer';
+  });
+}
+
 export function afterRender(): void {
-  initSpotifyWidget();
   initToggles();
   initAnimations();
   initInteractiveElements();
-}
-
-export function onLeave(): void {
-  destroySpotifyWidget();
+  initNewsToggle();
+  initLinkFs();
 }

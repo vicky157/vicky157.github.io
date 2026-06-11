@@ -1,5 +1,24 @@
 import type { Publication } from '../types';
 
+/** Venue chip text, e.g. "ACL 2026" from '<em>ACL 2026</em> &bull; May 2026'. Preprints render muted. */
+export function venueBadge(pub: Publication): { label: string; muted: boolean } {
+  const [head] = pub.venue.split('&bull;');
+  const label = head.replace(/<[^>]+>/g, '').trim();
+  return { label, muted: /preprint|under review/i.test(label) };
+}
+
+/** Date portion of the venue string, if any (the part after the bullet). */
+export function venueDate(pub: Publication): string {
+  const parts = pub.venue.split('&bull;');
+  return parts.length > 1 ? parts[1].replace(/<[^>]+>/g, '').trim() : '';
+}
+
+/** Year for grouping, taken from the last 4-digit year in the venue string. */
+export function venueYear(pub: Publication): number {
+  const matches = pub.venue.match(/(?:19|20)\d{2}/g);
+  return matches ? parseInt(matches[matches.length - 1], 10) : 0;
+}
+
 export const publications: Publication[] = [
   {
     id: 'singh2026causalguard',
@@ -29,7 +48,7 @@ export const publications: Publication[] = [
     links: [
       { label: 'arXiv', url: 'https://arxiv.org/abs/2605.17034', icon: 'fas fa-file-pdf' },
     ],
-    abstract: 'Retrieval-Augmented Generation (RAG) over sensitive corpora suffers from contextual data leakage that ordinary PII filters miss — combinations of attributes that, taken together, are re-identifying even when no single field is. We propose a Privacy Policy Enforcement (PPE) framework built on dual one-class density estimators trained on synthetic data spanning medicine, finance, and law. Our T3+OCSVM detector achieves strong leakage-detection performance with low latency and substantially fewer false positives than supervised baselines, enabling policy-aware guardrails for production RAG systems.',
+    abstract: 'Retrieval-Augmented Generation (RAG) over sensitive corpora suffers from contextual data leakage that ordinary PII filters miss: combinations of attributes that, taken together, are re-identifying even when no single field is. We propose a Privacy Policy Enforcement (PPE) framework built on dual one-class density estimators trained on synthetic data spanning medicine, finance, and law. Our T3+OCSVM detector achieves strong leakage-detection performance with low latency and substantially fewer false positives than supervised baselines, enabling policy-aware guardrails for production RAG systems.',
     bibtex: `@misc{zafar2026privacypolicyenforcementguardrails,
   title={Privacy Policy Enforcement Guardrails for Data-Sensitive Retrieval-Augmented Generation},
   author={Osama Zafar and Alexander Nemecek and Yiqian Zhang and Wenbiao Li and Debargha Ganguly and Vikash Singh and Vipin Chaudhary and Erman Ayday},
@@ -69,7 +88,7 @@ export const publications: Publication[] = [
     links: [
       { label: 'arXiv', url: 'https://arxiv.org/abs/2605.11459', icon: 'fas fa-file-pdf' },
     ],
-    abstract: 'Vision-Language-Action (VLA) models trained on single-frame observations are fundamentally "dynamics-blind": they cannot perceive temporal dynamics of the scene, leading to catastrophic failures when objects move during execution. We propose a training-free, inference-time correction that decomposes the corrective signal into two orthogonal components — a pace term that modulates execution speed along the planned trajectory and a path term that provides spatial adjustments orthogonal to the path. On our MoveBench diagnostic, the method delivers up to 28.8% improvement in dynamic-only scenarios and 25.9% in mixed settings over strong VLA baselines, with zero additional training.',
+    abstract: 'Vision-Language-Action (VLA) models trained on single-frame observations are fundamentally "dynamics-blind": they cannot perceive temporal dynamics of the scene, leading to catastrophic failures when objects move during execution. We propose a training-free, inference-time correction that decomposes the corrective signal into two orthogonal components: a pace term that modulates execution speed along the planned trajectory and a path term that provides spatial adjustments orthogonal to the path. On our MoveBench diagnostic, the method delivers up to 28.8% improvement in dynamic-only scenarios and 25.9% in mixed settings over strong VLA baselines, with zero additional training.',
     bibtex: `@misc{zhang2026overcomingdynamicsblindnesstrainingfreepaceandpath,
   title={Overcoming Dynamics-Blindness: Training-Free Pace-and-Path Correction for VLA Models},
   author={Yanyan Zhang and Chaoda Song and Vikash Singh and Xinpeng Li and Kai Ye and Zhe Hu and Zhongzhu Pu and Yu Yin and Vipin Chaudhary},
@@ -109,7 +128,7 @@ export const publications: Publication[] = [
     links: [
       { label: 'arXiv', url: 'https://arxiv.org/abs/2604.27201', icon: 'fas fa-file-pdf' },
     ],
-    abstract: 'Hybrid-thinking language models use a single set of parameters to serve both an explicit "think" mode and a fast "no-think" mode, which causes reasoning behaviour to leak into responses that are meant to be direct. We propose Path-Lock Expert (PLE), an architectural fix that splits the feed-forward networks into per-mode experts while leaving the rest of the model shared. PLE preserves strong performance on the thinking path and yields a markedly stronger no-think path — more accurate, more concise, and far less prone to spurious reflection. On Qwen3-4B, PLE substantially reduces reflective tokens while improving accuracy across math and science benchmarks.',
+    abstract: 'Hybrid-thinking language models use a single set of parameters to serve both an explicit "think" mode and a fast "no-think" mode, which causes reasoning behaviour to leak into responses that are meant to be direct. We propose Path-Lock Expert (PLE), an architectural fix that splits the feed-forward networks into per-mode experts while leaving the rest of the model shared. PLE preserves strong performance on the thinking path and yields a markedly stronger no-think path: more accurate, more concise, and far less prone to spurious reflection. On Qwen3-4B, PLE substantially reduces reflective tokens while improving accuracy across math and science benchmarks.',
     bibtex: `@misc{wang2026pathlockexpertseparatingreasoning,
   title={Path-Lock Expert: Separating Reasoning Mode in Hybrid Thinking via Architecture-Level Separation},
   author={Shouren Wang and Wang Yang and Chuang Ma and Debargha Ganguly and Vikash Singh and Chaoda Song and Xinpeng Li and Xianxuan Long and Vipin Chaudhary and Xiaotian Han},
@@ -316,7 +335,7 @@ export const researchStatement = {
       icon: 'fas fa-atom',
       label: 'Future Directions: Diffusion & Energy-Based Reasoning',
       paragraphs: [
-        'I am currently pivoting towards Reasoning Diffusion Language Models and Energy-Based Models (EBMs) to overcome the limitations of standard auto-regressive generation. My hypothesis is that "reasoning" should not be a linear, left-to-right process, but an iterative refinement\u2014similar to how diffusion models denoise an image.',
+        'I am currently pivoting towards Reasoning Diffusion Language Models and Energy-Based Models (EBMs) to overcome the limitations of standard auto-regressive generation. My hypothesis is that "reasoning" should not be a linear, left-to-right process, but an iterative refinement, similar to how diffusion models denoise an image.',
         '<strong>Diffusion for Logic:</strong> I am exploring how diffusion processes can allow models to "revise" their logic in continuous latent space, enabling self-correction before generating a final answer.',
         '<strong>Energy-Based Verification:</strong> I am investigating EBMs to model the "global consistency" of a reasoning chain. Instead of predicting the next token, these models assess the "energy" (or compatibility) of an entire proof or plan, guiding the generator toward formally correct states.',
       ],
@@ -325,7 +344,7 @@ export const researchStatement = {
       icon: 'fas fa-shield-halved',
       label: 'Impact & Vision',
       paragraphs: [
-        'Drawing on my experience as an Applied Scientist Intern at AWS and my background in formal methods (Lean/Coq), my goal is to build AI systems that are safe enough for critical infrastructure. I aim to create models that don\'t just "guess" the answer, but construct a verifiable path to it\u2014combining the flexibility of deep learning with the rigor of mathematical proof.',
+        'Drawing on my experience as an Applied Scientist Intern at AWS and my background in formal methods (Lean/Coq), my goal is to build AI systems that are safe enough for critical infrastructure. I aim to create models that don\'t just "guess" the answer, but construct a verifiable path to it, combining the flexibility of deep learning with the rigor of mathematical proof.',
       ],
     },
   ],

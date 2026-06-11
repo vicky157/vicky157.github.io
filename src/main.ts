@@ -7,7 +7,9 @@ import './types';
 import { renderLayout } from './layout';
 import { initRouter } from './router';
 import { initMobileMenu } from './components/mobile-menu';
-import { initDynamicFooter, initViewportFix } from './components/animations';
+import { initThemeToggle } from './components/theme-toggle';
+import { initFooterTerminal } from './components/footer-terminal';
+import { initViewportFix } from './components/animations';
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.getElementById('app');
@@ -22,8 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize mobile menu (header elements now exist)
   initMobileMenu();
 
-  // Initialize footer effects
-  initDynamicFooter();
+  // Initialize theme toggle (light by default, persisted choice)
+  initThemeToggle();
+
+  // Initialize footer terminal
+  initFooterTerminal();
 
   // Initialize viewport fix
   initViewportFix();
