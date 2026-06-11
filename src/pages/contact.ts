@@ -1,43 +1,20 @@
 /**
- * Contact page: contact details, skills, ongoing work, spotify widget
+ * Contact page: uplink console, skills, ongoing work, spotify widget
  */
 
-import { contactItems, skills, ongoingWork } from '../data/contact';
+import { skills, ongoingWork } from '../data/contact';
 import { initAnimations, initInteractiveElements } from '../components/animations';
 import { initSpotifyWidget, destroySpotifyWidget } from '../components/spotify-widget';
+import { renderUplink, initUplink } from '../components/uplink';
 
 export function render(): string {
-  // Cards with an href are rendered as one fully-clickable link
-  const contactItemsHtml = contactItems.map((item) => {
-    const inner = `
-                    <i class="${item.icon}"></i>
-                    <div>
-                        <div class="label">${item.label}</div>
-                        <div class="value">${item.value}</div>
-                    </div>`;
-
-    if (item.href) {
-      const targetAttr = item.target ? ` target="${item.target}" rel="noopener"` : '';
-      return `                <a class="contact-detail-item" href="${item.href}"${targetAttr}>${inner}
-                </a>`;
-    }
-    return `                <div class="contact-detail-item">${inner}
-                </div>`;
-  }).join('\n');
 
   const ongoingHtml = ongoingWork
     .map((item) => `                    <li>${item}</li>`)
     .join('\n');
 
   return `
-        <section id="contact-info" class="content-section card-style">
-            <h2>Get In Touch</h2>
-            <p>Feel free to reach out to me through any of the following platforms. I'm always open to discussing research, projects, or potential collaborations.</p>
-
-            <div class="contact-details-grid">
-${contactItemsHtml}
-            </div>
-        </section>
+${renderUplink()}
 
         <section id="other-info" class="content-section card-style">
             <h2>Additional Information</h2>
@@ -108,6 +85,7 @@ ${ongoingHtml}
 }
 
 export function afterRender(): void {
+  initUplink();
   initSpotifyWidget();
   initAnimations();
   initInteractiveElements();
