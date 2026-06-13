@@ -10,6 +10,7 @@ import { initMobileMenu } from './components/mobile-menu';
 import { initThemeToggle } from './components/theme-toggle';
 import { initFooterTerminal } from './components/footer-terminal';
 import { initViewportFix } from './components/animations';
+import { initCompanion } from './components/companion';
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.getElementById('app');
@@ -32,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize viewport fix
   initViewportFix();
+
+  // Initialize the on-page puppy companion (lives on <body>, survives nav)
+  initCompanion();
 
   // Update copyright year
   updateCurrentYear();

@@ -3,9 +3,12 @@
  * mini-shell. Mouse: rows are plain anchors with a TUI selection cursor and
  * a `stat` preview pane. Keyboard: arrows / j / k move, Enter opens. And the
  * prompt below the listing is REAL: type `help`, `open github`, `theme`,
- * `cd publications`, with ghost autosuggestions and Tab-complete.
+ * `cd publications`, with ghost autosuggestions and Tab-complete. It also
+ * accepts dog commands (`pet`, `feed`, `play`, `sit`, …) that drive Lemma.
  * Selection prefetches same-origin files and preconnects external origins.
  */
+
+import { dogCommand } from './companion';
 
 interface FsLink {
   name: string;
@@ -376,6 +379,7 @@ function initShell(rows: HTMLAnchorElement[], replay: () => void): void {
   const names = FS_LINKS.map((l) => l.name);
   const SUGGESTIONS = [
     'help', 'ls', 'clear', 'whoami', 'theme',
+    'dog', 'pet', 'feed', 'play', 'sit', 'roll', 'speak', 'come', 'stats',
     ...Object.keys(PAGES).filter((p) => p !== '~').map((p) => `cd ${p}`),
     ...names.map((n) => `open ${n}`),
   ];
@@ -404,6 +408,7 @@ function initShell(rows: HTMLAnchorElement[], replay: () => void): void {
 
     if (head === 'help') {
       print('commands: help · ls · whoami · theme · clear · cd <page> · open <link>');
+      print('puppy: dog · pet · feed · play · sit · roll · speak · come · stats \u{1f43e}');
     } else if (head === 'ls') {
       rows.forEach((r) => r.classList.add('fs-hidden'));
       replay();
@@ -427,10 +432,15 @@ function initShell(rows: HTMLAnchorElement[], replay: () => void): void {
       }
     } else if (head === 'open' && arg) {
       if (!openLink(arg)) print(`open: not found: ${arg} · try open github`);
-    } else if (openLink(head)) {
-      // bare link name works too
     } else {
-      print(`zsh: command not found: ${head} · try help`);
+      const dog = dogCommand(raw);
+      if (dog) {
+        dog.forEach(print);
+      } else if (openLink(head)) {
+        // bare link name works too
+      } else {
+        print(`zsh: command not found: ${head} · try help`);
+      }
     }
   };
 

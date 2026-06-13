@@ -5491,3 +5491,360 @@ body[data-page="cv"] main {
     }
 }
 
+/* =========================================================================
+   LEMMA — a front-facing pet puppy (matches /assets/icons/dog-logo.svg)
+   ========================================================================= */
+.cmp-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.cmp-dog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 84px;
+    height: 84px;
+    transform-origin: 50% 92%;
+    will-change: transform;
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+.cmp-tilt {
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 90%;
+    transition: transform 0.35s ease;
+}
+.cmp-fx {
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 100%;
+    animation: cmp-breathe 3.6s ease-in-out infinite;
+}
+.cmp-dog-svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.cmp-shadow {
+    position: absolute;
+    left: 50%;
+    bottom: 3px;
+    width: 56%;
+    height: 8px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0) 70%);
+    z-index: -1;
+    transition: width 0.3s ease, opacity 0.3s ease;
+}
+.cmp-dog.is-hopping .cmp-shadow,
+.cmp-dog.is-excited .cmp-shadow { width: 46%; opacity: 0.5; }
+
+/* ---- Gentle idle breathing (a soft belly rise) ---- */
+@keyframes cmp-breathe {
+    0%, 100% { transform: translateY(0) scale(1, 1); }
+    50% { transform: translateY(-0.5%) scale(0.992, 1.02); }
+}
+
+/* ---- Hop while moving: anticipate, leap with squash & stretch, land ---- */
+.cmp-dog { --hop: 0.5s; }
+.cmp-dog.is-excited { --hop: 0.36s; }
+.cmp-dog.is-hopping .cmp-fx { animation: cmp-hopmove var(--hop) cubic-bezier(0.4, 0, 0.5, 1) infinite; }
+.cmp-dog.is-happy:not(.is-hopping):not(.is-wagging) .cmp-fx { animation: cmp-hopmove 0.5s cubic-bezier(0.4, 0, 0.5, 1) infinite; }
+@keyframes cmp-hopmove {
+    0%   { transform: translateY(0) scale(1, 1); }
+    12%  { transform: translateY(1%) scale(1.07, 0.88); }   /* crouch / load */
+    30%  { transform: translateY(-18%) scale(0.92, 1.12); } /* push off, stretch up */
+    48%  { transform: translateY(-27%) scale(0.96, 1.06); } /* apex */
+    72%  { transform: translateY(-4%) scale(1.0, 1.0); }
+    86%  { transform: translateY(0) scale(1.1, 0.86); }     /* land squash */
+    100% { transform: translateY(0) scale(1, 1); }
+}
+
+/* ---- Curious head-tilt (either side), nose-bobbing sniff, proud beg ---- */
+.cmp-dog.is-looking .cmp-tilt { animation: cmp-look 2.4s ease-in-out infinite; }
+@keyframes cmp-look {
+    0%   { transform: rotate(0deg); }
+    18%  { transform: rotate(calc(11deg * var(--look, 1))); }  /* tilt + hold */
+    60%  { transform: rotate(calc(9deg * var(--look, 1))); }
+    82%  { transform: rotate(calc(11deg * var(--look, 1))); }
+    100% { transform: rotate(0deg); }
+}
+.cmp-dog.is-sniffing .cmp-tilt { animation: cmp-sniff 0.85s ease-in-out infinite; }
+@keyframes cmp-sniff {
+    0%, 100% { transform: translateY(8%) rotate(-3deg) scaleY(0.95); }
+    50% { transform: translateY(11%) rotate(2deg) scaleY(0.93); }  /* nose dips in */
+}
+.cmp-dog.is-begging .cmp-tilt { animation: cmp-beg 1.6s ease-in-out infinite; }
+@keyframes cmp-beg {
+    0%, 100% { transform: translateY(-7%) scaleY(1.02); }
+    50% { transform: translateY(-9%) rotate(-2deg) scaleY(1.04); }  /* hopeful sway */
+}
+/* ---- Whole-body happy wiggle (the butt-wiggle) when wagging ---- */
+.cmp-dog.is-wagging:not(.is-happy) .cmp-fx { animation: cmp-wiggle 0.34s ease-in-out infinite; }
+@keyframes cmp-wiggle {
+    0%, 100% { transform: rotate(-3deg) scaleX(1.01); }
+    50% { transform: rotate(3deg) scaleX(1.01); }
+}
+
+/* ---- Floppy ears: flap on the up-beat of every hop / bark ---- */
+.cmp-ear { transform-box: fill-box; transition: transform 0.3s ease; }
+.cmp-ear-l { transform-origin: 92% 8%; }
+.cmp-ear-r { transform-origin: 8% 8%; }
+.cmp-dog.is-hopping .cmp-ear-l,
+.cmp-dog.is-happy .cmp-ear-l,
+.cmp-dog.is-barking .cmp-ear-l { animation: cmp-flap-l var(--hop, 0.5s) ease-in-out infinite; }
+.cmp-dog.is-hopping .cmp-ear-r,
+.cmp-dog.is-happy .cmp-ear-r,
+.cmp-dog.is-barking .cmp-ear-r { animation: cmp-flap-r var(--hop, 0.5s) ease-in-out infinite; }
+.cmp-dog.is-sleeping .cmp-ear-l { transform: rotate(7deg) translateY(3%); }
+.cmp-dog.is-sleeping .cmp-ear-r { transform: rotate(-7deg) translateY(3%); }
+@keyframes cmp-flap-l { 0%, 100% { transform: rotate(0deg); } 45% { transform: rotate(-19deg); } }
+@keyframes cmp-flap-r { 0%, 100% { transform: rotate(0deg); } 45% { transform: rotate(19deg); } }
+
+/* ---- Tail wag (calm sway at rest, fast happy wag) ---- */
+.cmp-tail {
+    transform-box: fill-box;
+    transform-origin: 12% 92%;
+    animation: cmp-wag 1.6s ease-in-out infinite;
+}
+.cmp-dog.is-hopping .cmp-tail,
+.cmp-dog.is-wagging .cmp-tail,
+.cmp-dog.is-happy .cmp-tail,
+.cmp-dog.is-excited .cmp-tail,
+.cmp-dog.is-barking .cmp-tail { animation-duration: 0.3s; }
+.cmp-dog.is-sleeping .cmp-tail { animation-duration: 3s; }
+@keyframes cmp-wag {
+    0%, 100% { transform: rotate(-12deg); }
+    50% { transform: rotate(16deg); }
+}
+
+/* ---- Eyes: round (JS sets look + blink), closed when asleep, ^^ when happy ---- */
+.cmp-eyes { transform-box: fill-box; transform-origin: center; }
+.cmp-eye-closed, .cmp-eye-happy { opacity: 0; }
+.cmp-dog.is-sleeping .cmp-eyes { opacity: 0; }
+.cmp-dog.is-sleeping .cmp-eye-closed { opacity: 1; }
+.cmp-dog.is-happy .cmp-eyes { opacity: 0; }
+.cmp-dog.is-happy .cmp-eye-happy { opacity: 1; }
+
+/* ---- Tongue: lolls when excited / happy, mouth closed when asleep ---- */
+.cmp-tongue { transform-box: fill-box; transform-origin: 50% 0; }
+.cmp-dog.is-sleeping .cmp-tongue { opacity: 0; }
+.cmp-dog.is-hopping .cmp-tongue,
+.cmp-dog.is-wagging .cmp-tongue,
+.cmp-dog.is-excited .cmp-tongue,
+.cmp-dog.is-happy .cmp-tongue { animation: cmp-loll 0.4s ease-in-out infinite; }
+@keyframes cmp-loll {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.35) translateY(0.5px); }
+}
+
+/* ---- fx overrides: roll/tail-chase spin, scratch shake, chomp, bark lunge ---- */
+.cmp-fx.cmp-spin { animation: cmp-spin 1s cubic-bezier(0.5, 0, 0.3, 1); }
+@keyframes cmp-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.cmp-dog.is-scratching .cmp-tilt { transform: rotate(-7deg); }
+.cmp-dog.is-scratching .cmp-fx { animation: cmp-shake 0.14s linear infinite; }
+@keyframes cmp-shake {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(0.6px, -1.5px) rotate(1.8deg); }
+}
+.cmp-dog.is-eating .cmp-tilt { animation: cmp-chomp 0.26s ease-in-out infinite; }
+@keyframes cmp-chomp {
+    0%, 100% { transform: translateY(9%) scaleY(0.96); }
+    50% { transform: translateY(12%) scaleY(0.9); }  /* head-down nom nom */
+}
+.cmp-dog.is-barking .cmp-fx { animation: cmp-bark 0.3s ease-out infinite; }
+@keyframes cmp-bark {
+    0%   { transform: translateY(0) scale(1, 1); }
+    30%  { transform: translateY(-9%) scale(0.95, 1.08); }  /* lunge up with the woof */
+    55%  { transform: translateY(-2%) scale(1.04, 0.96); }
+    100% { transform: translateY(0) scale(1, 1); }
+}
+
+/* ---- Zzz while sleeping ---- */
+.cmp-zzz {
+    position: absolute;
+    top: -6px;
+    right: 6px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--accent-blue);
+    font-size: 0.72rem;
+    line-height: 1;
+    opacity: 0;
+    z-index: 2;
+}
+.cmp-dog.is-sleeping .cmp-zzz { opacity: 1; animation: cmp-zzz 3s ease-in-out infinite; }
+.cmp-zzz span { font-size: 0.85em; opacity: 0.85; }
+.cmp-zzz span + span { font-size: 1.05em; }
+@keyframes cmp-zzz {
+    0% { transform: translateY(2px); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translateY(-13px); opacity: 0; }
+}
+
+/* ---- Speech bubble ---- */
+.cmp-bubble {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.7);
+    transform-origin: bottom center;
+    background: var(--current-text, #111);
+    color: var(--current-bg, #fff);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0.28rem 0.55rem;
+    border-radius: 11px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cmp-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--current-text, #111);
+}
+.cmp-bubble.show { opacity: 1; transform: translateX(-50%) scale(1); }
+
+/* ---- Floating hearts ---- */
+.cmp-heart {
+    position: absolute;
+    font-size: 0.95rem;
+    color: #ff4d6d;
+    pointer-events: none;
+    transform: translate(-50%, 0);
+    animation: cmp-heart 1.1s ease-out forwards;
+    z-index: 2;
+}
+@keyframes cmp-heart {
+    0% { opacity: 0; transform: translate(-50%, 0) scale(0.4); }
+    25% { opacity: 1; }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--drift, 0px)), -54px) scale(1.1); }
+}
+
+/* ---- Ball + treat ---- */
+.cmp-ball, .cmp-treat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: auto;
+    opacity: 0;
+    will-change: transform;
+    transition: opacity 0.2s ease;
+}
+.cmp-ball { width: 22px; height: 22px; cursor: grab; touch-action: none; }
+.cmp-treat { width: 28px; height: 28px; pointer-events: none; }
+.cmp-ball.show, .cmp-treat.show { opacity: 1; }
+.cmp-ball.grabbing { cursor: grabbing; }
+.cmp-ball svg, .cmp-treat svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25)); }
+
+/* ---- Control FAB ---- */
+.cmp-fab {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--nav-border, rgba(0, 0, 0, 0.55));
+    background: var(--current-glass-bg, #fff);
+    box-shadow: 3px 3px 0 0 var(--accent-blue);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 4;
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+.cmp-fab:hover { transform: translate(-1px, -1px) rotate(-8deg); box-shadow: 4px 4px 0 0 var(--accent-blue); }
+.cmp-fab.active { transform: rotate(8deg); }
+.cmp-fab.is-off { box-shadow: 3px 3px 0 0 var(--text-muted); }
+
+/* ---- Care panel ---- */
+.cmp-panel {
+    position: fixed;
+    left: 1rem;
+    bottom: 3.9rem;
+    width: min(238px, calc(100vw - 2rem));
+    padding: 0.75rem 0.8rem;
+    background: var(--current-glass-bg, #fff);
+    border: 1.5px solid var(--nav-border, rgba(0, 0, 0, 0.55));
+    box-shadow: 5px 5px 0 0 var(--accent-blue);
+    font-family: var(--font-mono);
+    pointer-events: auto;
+    z-index: 4;
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+    transform-origin: bottom left;
+    visibility: hidden;
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
+}
+.cmp-panel.open { opacity: 1; transform: translateY(0) scale(1); visibility: visible; }
+.cmp-panel-head { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 0.55rem; }
+.cmp-name { font-weight: 700; color: var(--current-text); font-size: 0.95rem; }
+.cmp-mood { font-size: 0.95rem; }
+.cmp-tagline { font-size: 0.62rem; color: var(--text-muted); margin-left: auto; }
+
+.cmp-stats { display: flex; flex-direction: column; gap: 0.28rem; margin-bottom: 0.6rem; }
+.cmp-stat { display: flex; align-items: center; gap: 0.45rem; font-size: 0.72rem; }
+.cmp-stat > span { width: 1.1em; text-align: center; }
+.cmp-bar { flex: 1; height: 7px; background: var(--glass-border, rgba(0, 0, 0, 0.12)); border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.18)); overflow: hidden; }
+.cmp-bar i { display: block; height: 100%; width: 70%; background: var(--accent-blue); transition: width 0.4s ease; }
+
+.cmp-care { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.35rem; margin-bottom: 0.55rem; }
+.cmp-care button {
+    display: flex; flex-direction: column; align-items: center; gap: 0.12rem;
+    font-family: var(--font-mono); font-size: 0.68rem; text-transform: lowercase;
+    padding: 0.4rem 0;
+    border: 1.5px solid var(--nav-border, rgba(0, 0, 0, 0.4));
+    background: var(--bg-primary, #fff); color: var(--current-text);
+    cursor: pointer; transition: background 0.13s ease, color 0.13s ease, transform 0.1s ease;
+}
+.cmp-care button span { font-size: 1.05rem; line-height: 1; }
+.cmp-care button:hover { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); transform: translateY(-1px); }
+
+.cmp-tricks { display: flex; flex-wrap: wrap; align-items: center; gap: 0.28rem; margin-bottom: 0.55rem; }
+.cmp-tricks-label { font-size: 0.62rem; color: var(--text-muted); margin-right: 0.1rem; }
+.cmp-tricks button {
+    font-family: var(--font-mono); font-size: 0.66rem; text-transform: lowercase;
+    padding: 0.22rem 0.5rem;
+    border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.2));
+    background: transparent; color: var(--current-text);
+    cursor: pointer; transition: background 0.13s ease, color 0.13s ease, border-color 0.13s ease;
+}
+.cmp-tricks button:hover { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+
+.cmp-hide {
+    width: 100%; font-family: var(--font-mono); font-size: 0.66rem;
+    text-transform: lowercase; letter-spacing: 0.03em; color: var(--text-muted);
+    background: none; border: none; cursor: pointer; padding: 0.15rem;
+}
+.cmp-hide:hover { color: var(--accent-blue); }
+
+/* ---- Mobile ---- */
+@media (max-width: 560px) {
+    .cmp-fab { width: 40px; height: 40px; font-size: 1rem; left: 0.75rem; bottom: 0.75rem; }
+    .cmp-panel { left: 0.75rem; bottom: 3.3rem; }
+    .cmp-bubble { font-size: 0.62rem; bottom: 54px; }
+    .cmp-zzz { font-size: 0.62rem; }
+}
+
+/* ---- Reduced motion: calm puppy, no roaming animations ---- */
+@media (prefers-reduced-motion: reduce) {
+    .cmp-tail, .cmp-zzz, .cmp-fx, .cmp-ear, .cmp-tongue, .cmp-tilt { animation: none !important; }
+    .cmp-fx.cmp-spin, .cmp-dog.is-scratching .cmp-fx { animation: none !important; }
+    .cmp-tilt { transition: none; }
+}
+
+/* ---- Never print the companion ---- */
+@media print { .cmp-layer { display: none !important; } }
