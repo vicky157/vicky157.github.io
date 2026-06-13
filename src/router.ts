@@ -7,7 +7,7 @@ import * as homePage from './pages/home';
 import * as publicationsPage from './pages/publications';
 import * as educationExperiencePage from './pages/education-experience';
 import * as contactPage from './pages/contact';
-import { destroySpotifyWidget } from './components/spotify-widget';
+import * as cvPage from './pages/cv';
 
 const routes: Route[] = [
   {
@@ -37,10 +37,20 @@ const routes: Route[] = [
     page: 'contact',
     render: contactPage.render,
     afterRender: contactPage.afterRender,
+    onLeave: contactPage.onLeave,
+  },
+  {
+    path: '/cv',
+    title: 'CV - Vikash Singh',
+    page: 'cv',
+    render: cvPage.render,
+    afterRender: cvPage.afterRender,
+    onLeave: cvPage.onLeave,
   },
 ];
 
 let currentPage: string | null = null;
+let currentRoute: Route | null = null;
 
 function findRoute(path: string): Route | undefined {
   // Normalize: strip trailing slash (except for root)
@@ -59,9 +69,9 @@ function navigateTo(path: string, pushState = true): void {
   const appMain = document.getElementById('app-main');
   if (!appMain) return;
 
-  // Run cleanup for leaving page (spotify widget lives on the contact page)
-  if (currentPage === 'contact') {
-    destroySpotifyWidget();
+  // Run cleanup for the page we are leaving.
+  if (currentRoute?.onLeave) {
+    currentRoute.onLeave();
   }
 
   // Update state
@@ -72,6 +82,7 @@ function navigateTo(path: string, pushState = true): void {
   document.title = route.title;
   document.body.setAttribute('data-page', route.page);
   currentPage = route.page;
+  currentRoute = route;
 
   // Render page content
   appMain.innerHTML = route.render();

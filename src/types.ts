@@ -95,6 +95,7 @@ export interface Route {
   page: string;
   render: () => string;
   afterRender?: () => void;
+  onLeave?: () => void;
 }
 
 declare global {

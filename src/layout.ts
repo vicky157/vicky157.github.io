@@ -19,7 +19,7 @@ export function renderLayout(): string {
                 <li><a href="/publications">Publications</a></li>
                 <li><a href="/education-experience">Education &amp; Experience</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a></li>
+                <li><a href="/cv">CV</a></li>
             </ul>
             <div class="nav-controls">
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle theme">
@@ -46,7 +46,7 @@ export function renderLayout(): string {
                 <a href="/publications"><span class="mm-mode">drwx</span><span class="mm-name">publications/</span><span class="mm-arrow">&#10095;</span></a>
                 <a href="/education-experience"><span class="mm-mode">drwx</span><span class="mm-name">experience/</span><span class="mm-arrow">&#10095;</span></a>
                 <a href="/contact"><span class="mm-mode">drwx</span><span class="mm-name">contact/</span><span class="mm-arrow">&#10095;</span></a>
-                <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener"><span class="mm-mode mm-file">-r-x</span><span class="mm-name">cv.pdf</span><span class="mm-arrow">&#10095;</span></a>
+                <a href="/cv"><span class="mm-mode mm-file">-r-x</span><span class="mm-name">cv/</span><span class="mm-arrow">&#10095;</span></a>
             </div>
             <p class="mm-status">4 dirs &middot; 1 file &middot; tap to cd</p>
             <div class="mobile-menu-footer">
@@ -82,7 +82,7 @@ export function renderLayout(): string {
                     <a href="/publications">Publications</a>
                     <a href="/education-experience">Experience</a>
                     <a href="/contact">Contact</a>
-                    <a href="/assets/CV_Vikash_PhD.pdf" target="_blank" rel="noopener">CV</a>
+                    <a href="/cv">CV</a>
                 </div>
                 <div class="footer-row footer-social">
                     <a href="https://github.com/vicky157" target="_blank">GitHub</a>

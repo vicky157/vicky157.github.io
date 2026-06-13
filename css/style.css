@@ -5013,3 +5013,481 @@ a.contact-detail-item:hover .value {
         width: 8ch;
     }
 }
+
+/* =========================================================================
+   DIGITAL CV  —  a faithful HTML rendering of CV_Vikash_PhD.pdf that prints
+   back to an identical PDF (US Letter, Computer Modern). All sizing inside
+   the sheet uses physical units (pt / in) so screen and print match.
+   ========================================================================= */
+
+/* Computer Modern (CMU Serif) — the LaTeX body font, self-hosted. */
+@font-face {
+    font-family: 'CMU Serif';
+    src: url('/assets/fonts/cmu-serif-500-roman.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'CMU Serif';
+    src: url('/assets/fonts/cmu-serif-500-italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'CMU Serif';
+    src: url('/assets/fonts/cmu-serif-700-roman.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'CMU Serif';
+    src: url('/assets/fonts/cmu-serif-700-italic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Give the CV page the full content column with no side padding so the
+   8.5in sheet sits at native size on desktop. overflow:visible is required
+   so the sticky toolbar actually sticks (an overflow ancestor disables it). */
+body[data-page="cv"] main {
+    max-width: 1040px;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: visible;
+}
+
+/* Light "paper" by default; dark sheet in dark mode (export is always light). */
+.cv-page {
+    --cv-paper: #ffffff;
+    --cv-ink: #111111;
+    --cv-rule: rgba(0, 0, 0, 0.85);
+}
+:root[data-theme="dark"] .cv-page {
+    --cv-paper: #16181d;
+    --cv-ink: #e9e9ea;
+    --cv-rule: rgba(255, 255, 255, 0.75);
+}
+
+/* ---- Intro strip above the sheet (scrolls away) ---- */
+.cv-intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin: 0 0 1.1rem;
+    font-family: var(--font-mono);
+}
+.cv-intro-tag {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+}
+.cv-tb-prompt {
+    color: var(--accent-blue);
+    margin-right: 0.25rem;
+    font-weight: 700;
+}
+
+.cv-find {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    border: 1.5px solid var(--nav-border, rgba(0, 0, 0, 0.4));
+    background: var(--bg-primary, #fff);
+}
+.cv-find i {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+}
+.cv-find input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--current-text);
+    width: 13ch;
+}
+.cv-find input::placeholder {
+    color: var(--text-muted);
+}
+.cv-find-count {
+    font-size: 0.72rem;
+    color: var(--accent-blue);
+    min-width: 3ch;
+}
+
+/* ---- Inline action buttons (Original / Export PDF) ---- */
+.cv-intro-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+.cv-act-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.34rem 0.7rem;
+    border: 1.5px solid var(--nav-border, rgba(0, 0, 0, 0.55));
+    color: var(--current-text);
+    background: var(--bg-primary, #fff);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
+}
+.cv-act-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 2px 2px 0 0 var(--current-text);
+}
+.cv-act-primary {
+    background: var(--accent-blue);
+    color: #fff;
+    border-color: var(--accent-blue);
+}
+.cv-act-primary:hover {
+    box-shadow: 2px 2px 0 0 var(--current-text);
+}
+
+/* ---- The sheet ---- */
+.cv-stage {
+    display: flex;
+    justify-content: center;
+}
+.cv-scale-wrap {
+    transform-origin: top left;
+}
+
+.cv-doc {
+    width: 8.5in;
+    box-sizing: border-box;
+    padding: 0.42in 0.5in 0.5in;
+    background: var(--cv-paper);
+    color: var(--cv-ink);
+    font-family: 'CMU Serif', 'Latin Modern Roman', Georgia, serif;
+    font-size: 10.4pt;
+    line-height: 1.12;
+    text-align: left;
+    transform-origin: top left;
+    box-shadow: 0 3px 24px rgba(0, 0, 0, 0.16);
+    border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.12));
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.cv-doc * {
+    box-sizing: border-box;
+}
+
+/* Header */
+.cv-doc-head {
+    text-align: center;
+    margin-bottom: 5pt;
+}
+.cv-name {
+    font-family: 'CMU Serif', serif;
+    font-size: 23pt;
+    font-weight: 400;
+    line-height: 1.04;
+    margin: 0 0 2pt;
+    letter-spacing: 0.2pt;
+    text-transform: none;
+    text-align: center;
+    color: var(--cv-ink);
+}
+.cv-loc-line {
+    margin: 0 0 1.5pt;
+    font-size: 9.6pt;
+}
+.cv-contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5pt 9pt;
+    margin: 1pt 0;
+    font-size: 9.6pt;
+}
+.cv-contact-sep {
+    display: none;
+}
+.cv-contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 3pt;
+    color: var(--cv-ink);
+    text-decoration: none;
+}
+.cv-contact-item span {
+    text-decoration: underline;
+    text-underline-offset: 1.5pt;
+}
+.cv-contact-item i {
+    font-size: 8.8pt;
+}
+
+/* Section heading with full-width rule */
+.cv-h2 {
+    font-family: 'CMU Serif', serif;
+    font-size: 13pt;
+    font-weight: 700;
+    margin: 6pt 0 2pt;
+    padding-bottom: 1.5pt;
+    border-bottom: 0.8pt solid var(--cv-rule);
+    letter-spacing: 0.1pt;
+    line-height: 1.1;
+    text-transform: none;
+    color: var(--cv-ink);
+}
+/* Neutralise the site-wide h2 accent underline bar inside the document. */
+.cv-h2::after {
+    display: none;
+}
+.cv-sec:first-of-type .cv-h2 {
+    margin-top: 2pt;
+}
+
+/* Shared two-column entries (experience / education / research) */
+.cv-entry {
+    margin: 4pt 0 0;
+}
+.cv-entry-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.2em;
+}
+.cv-org {
+    font-weight: 700;
+}
+.cv-date {
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: right;
+}
+.cv-entry-sub {
+    margin-top: 0.5pt;
+}
+.cv-role {
+    font-style: italic;
+}
+.cv-loc {
+    font-style: italic;
+    white-space: nowrap;
+    text-align: right;
+}
+
+/* Bulleted lists */
+.cv-bullets {
+    margin: 1.5pt 0 0;
+    padding-left: 1.6em;
+    list-style: disc;
+}
+.cv-bullets li {
+    margin: 1pt 0;
+    padding-left: 0.15em;
+}
+
+/* Publications */
+.cv-pub {
+    position: relative;
+    padding-left: 2.1em;
+    margin: 4pt 0 0;
+}
+.cv-pub-n {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.cv-pub-head {
+    line-height: 1.2;
+}
+.cv-pub-title {
+    font-weight: 700;
+}
+.cv-pub-venue {
+    font-style: italic;
+    margin-top: 0.5pt;
+}
+.cv-pub .cv-bullets {
+    margin-top: 1pt;
+    padding-left: 1.5em;
+}
+.cv-pub-links a {
+    color: var(--cv-ink);
+    text-decoration: underline;
+    text-underline-offset: 1.5pt;
+}
+
+/* Projects */
+.cv-proj-title strong {
+    font-weight: 700;
+}
+.cv-proj-bar {
+    font-weight: 400;
+    margin: 0 1pt;
+}
+
+/* Technical skills (no bullets, bold labels) */
+.cv-skills {
+    list-style: none;
+    margin: 2pt 0 0;
+    padding-left: 0.05in;
+}
+.cv-skills li {
+    margin: 1pt 0;
+}
+
+/* Relevant coursework — 4-column multicol grid (column-major) */
+.cv-courses {
+    column-count: 4;
+    column-gap: 0.5em;
+    list-style: none;
+    margin: 2.5pt 0 0;
+    padding-left: 0.05in;
+}
+.cv-courses li {
+    break-inside: avoid;
+    padding-left: 1em;
+    text-indent: -1em;
+    margin: 1pt 0;
+}
+.cv-courses li::before {
+    content: "\2022\00a0\00a0";
+}
+
+/* Achievements */
+.cv-achievements {
+    margin-top: 2.5pt;
+}
+
+/* Document links: ink + underline like the PDF, accent on hover (screen). */
+.cv-doc a {
+    color: var(--cv-ink);
+}
+.cv-doc a:hover,
+.cv-doc a:hover span {
+    color: var(--accent-blue);
+}
+
+/* Subtle hover affordance on entries (screen only, no layout shift) */
+.cv-doc:not(.is-filtering) .cv-pub,
+.cv-entry {
+    border-radius: 2px;
+    transition: background 0.15s ease;
+}
+.cv-pub:hover,
+.cv-entry:hover {
+    background: rgba(65, 105, 225, 0.06);
+}
+
+/* Filtered-out publications (live grep) */
+.cv-pub.cv-hide {
+    display: none;
+}
+
+/* Dark mode: keep the sheet itself light (it is a document/paper). */
+:root[data-theme="dark"] .cv-doc {
+    box-shadow: 0 2px 22px rgba(0, 0, 0, 0.6);
+    border-color: #2a2a2a;
+}
+
+/* ---- Responsive ---- */
+@media screen and (max-width: 720px) {
+    .cv-intro {
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .cv-intro-tag {
+        width: 100%;
+        text-align: center;
+        font-size: 0.72rem;
+    }
+    .cv-intro-actions {
+        justify-content: center;
+    }
+}
+
+/* =====================  PRINT / EXPORT  =====================
+   Scoped to the CV page so "Print to PDF" reproduces the document exactly,
+   regardless of theme, filter state, or scaling. */
+@media print {
+    @page {
+        size: Letter;
+        margin: 0;
+    }
+
+    body[data-page="cv"] {
+        background: #fff !important;
+    }
+    /* Hide every piece of site + interactive chrome. */
+    body[data-page="cv"] header,
+    body[data-page="cv"] footer,
+    body[data-page="cv"] .cv-intro {
+        display: none !important;
+    }
+    body[data-page="cv"] main {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+    body[data-page="cv"] .cv-stage {
+        display: block !important;
+    }
+    /* Reset on-screen scaling so the sheet prints at true size. */
+    body[data-page="cv"] .cv-scale-wrap {
+        width: auto !important;
+        height: auto !important;
+        transform: none !important;
+    }
+    body[data-page="cv"] .cv-doc {
+        width: 8.5in !important;
+        transform: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0.42in 0.5in 0.5in !important;
+        /* Always export the real CV: white paper, black ink, even in dark mode. */
+        background: #fff !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    body[data-page="cv"] .cv-doc *,
+    body[data-page="cv"] .cv-doc a,
+    body[data-page="cv"] .cv-name,
+    body[data-page="cv"] .cv-h2 {
+        color: #000 !important;
+        background: transparent !important;
+    }
+    body[data-page="cv"] .cv-h2 {
+        border-bottom-color: #000 !important;
+    }
+    /* Force the full document: filters and hover states must not affect print. */
+    body[data-page="cv"] .cv-pub.cv-hide {
+        display: block !important;
+    }
+    body[data-page="cv"] .cv-pub:hover,
+    body[data-page="cv"] .cv-entry:hover {
+        background: transparent !important;
+    }
+    /* Avoid awkward splits across page breaks. */
+    body[data-page="cv"] .cv-pub,
+    body[data-page="cv"] .cv-entry,
+    body[data-page="cv"] .cv-h2 {
+        break-inside: avoid;
+    }
+    body[data-page="cv"] .cv-h2 {
+        break-after: avoid;
+    }
+}
+
